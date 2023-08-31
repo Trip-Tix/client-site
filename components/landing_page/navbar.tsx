@@ -22,6 +22,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 // custom imports
 import TripTixLogo from "@public/TripTixLogo.svg";
+import { Stack } from "@mui/material";
 
 export default function Navbar() {
   const pages = [
@@ -34,56 +35,44 @@ export default function Navbar() {
     "Log Out",
   ];
 
+  // Appbar should be transparent
+
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#000000" }}>
-      <Toolbar>
-        <svg width="35" height="60">
-          <image href="/TripTixLogo.svg" width="30" height="60" />
-        </svg>
-        <Typography variant="h4" component="div">
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      color={"white"}
+      sx={{
+        pl: 2,
+        pr: 2,
+        p: 1,
+        boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.2)",
+        borderBottomLeftRadius: 2,
+        borderBottomRightRadius: 2,
+        backgroundColor: "rgba(255, 255, 255, 0.1)",
+      }}
+    >
+      <Stack direction="row" alignItems="center">
+        <img src={TripTixLogo.src} alt="logo" width={40} height={40} />
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1, ml: 2 }}
+          fontWeight={600}
+          fontSize={20}
+        >
           TripTix
         </Typography>
-        <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: { xs: "none", md: "flex" } }}>
-          {pages.map((page, index) => (
-            <Tooltip title={page} key={index}>
-              <Button
-                sx={{
-                  color: "#ffffff",
-                  textTransform: "none",
-                  fontSize: "1rem",
-                }}
-                variant="text"
-                size="large"
-                key={index}
-              >
-                {page}
-              </Button>
-            </Tooltip>
-          ))}
-          <Tooltip title="Profile">
-            <FormControl>
-              <TextField
-                id="outlined-basic"
-                label="Search"
-                variant="outlined"
-                sx={{ backgroundColor: "#f7f7f7", borderRadius: "5px",  height: "30", width: "200" }}
-                InputProps={{
-                  endAdornment: (
-                    <IconButton
-                      type="submit"
-                      aria-label="search"
-                      sx={{ color: "#ffffff" }}
-                    >
-                      <AiOutlineSearch />
-                    </IconButton>
-                  ),
-                }}
-              />
-            </FormControl>
-          </Tooltip>
-        </Box>
-      </Toolbar>
-    </AppBar>
+      </Stack>
+      <Stack direction="row" spacing={3} alignItems="center">
+        {pages.map((page) => (
+          <Typography key={page} variant="body1" component="div" sx={{ flexGrow: 1 }}>
+            {page}
+          </Typography>
+        ))}
+        <Avatar alt="Remy Sharp" />
+      </Stack>
+    </Stack>
   );
 }
