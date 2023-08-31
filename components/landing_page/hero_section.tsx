@@ -51,7 +51,7 @@ export default function HeroSection() {
         <Typography
           variant="h6"
           component="div"
-          sx={{ fontWeight: "bold", color: "white", width: "100%" }}
+          sx={{ fontWeight: "light", color: "white", width: "100%" }}
         >
           {SubTitle}
         </Typography>
