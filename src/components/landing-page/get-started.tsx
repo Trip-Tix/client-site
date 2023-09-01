@@ -1,48 +1,65 @@
 import { useSpring, animated } from "@react-spring/web";
 import { Box, Typography } from "@mui/material";
 import { use, useEffect, useState } from "react";
+import styles from "@styles/landing-page/get-started.module.css";
+import useMeasure from "react-use-measure";
+import { useRouter } from "next/router";
 
 export default function GetStarted() {
-  const [hovered, setHovered] = useState(false);
-  const [clicked, setClicked] = useState(false);
-  
-  const buttonSpring = useSpring({
-    backgroundColor: hovered ? "rgba(0, 0, 0, 0.2)" : "rgba(255, 255, 255, 0.5)",
-    borderRadius: "0.5rem",
-    padding: clicked ? "0.4rem 0.6rem" : "0.5rem",
-    config: { tension: 300, friction: 10 },
+  const [ref, { width }] = useMeasure();
+  const [pressed, setPressed] = useState(false);
+  const props = useSpring({width: pressed ? width : 0});
+  const router = useRouter();
+
+  const initalAnimation = useSpring({
+    from: { 
+      opacity: 0,
+      x: -100,
+    },
+    to: { 
+      opacity: 1,
+      x: 0,
+    },
+    delay: 500,
   });
 
+  useEffect(() => {
+    
+    if (pressed) {
+      setTimeout(() => {
+        router.push("/auth");
+      }, 500);
+    }
+  }, [pressed, router]);
 
 
   return (
-    <animated.div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => {
-        setHovered(false);
-        setClicked(false);
+    <animated.div style={initalAnimation}>
+    <Box
+      sx={{
+        borderRadius: "0.5rem",
+        padding: "0.5rem",
       }}
-      onMouseDown={() => setClicked(true)}
-      onMouseUp={() => setClicked(false)}
-      style={buttonSpring}
+      className={styles.main}
+      onClick={() => setPressed(!pressed)}
+      ref={ref}
     >
-      <Box
+      <animated.div
+        className={styles.fill}
+        style={props}
+      />
+      <Typography
+        variant={"body1"}
         sx={{
-          borderRadius: "0.5rem",
-          padding: "0.5rem",
+          color: "black",
+          fontWeight: "bold",
+          fontSize: "1.5rem",
         }}
+        className={styles.text}
       >
-        <Typography
-          variant={"body1"}
-          sx={{
-            color: "black",
-            fontWeight: "bold",
-            fontSize: "1.5rem",
-          }}
-        >
-          Get Started
-        </Typography>
-      </Box>
+        Get Started
+      </Typography>
+    </Box>
     </animated.div>
   );
 }

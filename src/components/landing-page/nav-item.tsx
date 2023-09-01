@@ -48,7 +48,9 @@ export default function NavItem({ name, href }: NavItemProps) {
 
   return (
     <animated.div onMouseEnter={trigger} style={props}>
-      <Typography variant="body1">{name}</Typography>
+      <Typography variant="body1" sx={{
+        cursor: "pointer",
+      }}>{name}</Typography>
     </animated.div>
   );
 }

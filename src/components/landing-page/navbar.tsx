@@ -1,5 +1,7 @@
 import { AppBar, Container, Stack, Typography } from "@mui/material";
 import NavItem from "@components/landing-page/nav-item";
+import Image from "next/image";
+import TripTixLogo from "@public/TripTixLogo.svg";
 
 const pages = [
   {
@@ -52,10 +54,8 @@ export default function Navbar() {
         alignItems={"center"}
       >
         {/* Logo and Title */}
-        <Stack direction="row" spacing={2}>
-          <Typography variant="h6">
-            Logo
-          </Typography>
+        <Stack direction="row" spacing={1} alignItems={"center"}>
+          <Image src={TripTixLogo} alt="TripTix Logo"  width={'30'}/>
           <Typography variant="h5" sx ={{fontWeight : "bold"}}>
             TripTix
           </Typography>

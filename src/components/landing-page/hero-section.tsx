@@ -27,17 +27,18 @@ export default function HeroSection() {
           alignItems={"flex-start"}
           width={"50%"}
         >
-          <Typography variant={"h1"}>{HeadLine1}</Typography>
-          <Typography variant={"h1"} sx={{
+          <Typography variant={"h2"} >{HeadLine1}</Typography>
+          <Typography variant={"h2"} sx={{
             color: "black",
             backgroundColor: "rgba(255,255,255,0.5)",
             borderRadius: "0.5rem",
             margin: "-0.5rem",
             padding: "0.5rem",
+            fontSize: "5.5rem",
           }}>{HeadLine2}</Typography>
           <Typography variant={"body1"} sx ={{
             marginTop: "1rem",
-            maxWidth: "40rem",
+            maxWidth: "50rem",
             marginBottom: "1rem",
           }}>{subHeadLine}</Typography>
           <GetStarted/>
