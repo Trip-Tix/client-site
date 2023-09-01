@@ -1,9 +1,17 @@
-import { useSpring, animated } from "@react-spring/web";
-import { Box, Typography } from "@mui/material";
+// essential reacts
 import { use, useEffect, useState } from "react";
-import styles from "@styles/landing-page/get-started.module.css";
-import useMeasure from "react-use-measure";
 import { useRouter } from "next/router";
+
+// pre-made component
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+
+// animation
+import { useSpring, animated } from "@react-spring/web";
+import useMeasure from "react-use-measure";
+
+// customs
+import styles from "@styles/landing-page/get-started.module.css";
 
 export default function GetStarted() {
   const [ref, { width }] = useMeasure();

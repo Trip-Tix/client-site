@@ -1,6 +1,11 @@
-import { AppBar, Container, Stack, Typography } from "@mui/material";
-import NavItem from "@components/landing-page/nav-item";
+// pre-made component
+import AppBar from "@mui/material/AppBar";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import Image from "next/image";
+
+// custom
+import NavItem from "@components/landing-page/nav-item";
 import TripTixLogo from "@public/TripTixLogo.svg";
 
 const pages = [

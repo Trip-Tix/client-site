@@ -1,6 +1,11 @@
+// essential reacts
 import Link from "next/link";
-import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
+
+// pre-made component
+import Typography from "@mui/material/Typography";
+
+// animation
 import { useSpring, animated } from "@react-spring/web";
 
 interface NavItemProps {

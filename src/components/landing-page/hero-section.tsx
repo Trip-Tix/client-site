@@ -1,4 +1,8 @@
-import { Container, Stack, Typography, Box, Button } from "@mui/material";
+// pre-made component
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+
+// custom
 import image from "@public/travel.png";
 import GetStarted from "@components/landing-page/get-started"
 
