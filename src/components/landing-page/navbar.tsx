@@ -42,7 +42,7 @@ export default function Navbar() {
         paddingRight: "1rem",
         borderRadiusBottomLeft: "1rem",
         borderRadiusBottomRight: "1rem",
-        boxShadow: "0 0 0 1rem rgba(0,0,0,0.1)",
+        boxShadow: "0 0 0 0.1rem rgba(0,0,0,0.05)",
       }}
     >
       <Stack
