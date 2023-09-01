@@ -1,4 +1,5 @@
 import { AppBar, Container, Stack, Typography } from "@mui/material";
+import NavItem from "@components/landing-page/nav-item";
 
 const pages = [
   {
@@ -39,6 +40,9 @@ export default function Navbar() {
         backgroundColor: "transparent",
         paddingLeft: "1rem",
         paddingRight: "1rem",
+        borderRadiusBottomLeft: "1rem",
+        borderRadiusBottomRight: "1rem",
+        boxShadow: "0 0 0 1rem rgba(0,0,0,0.1)",
       }}
     >
       <Stack
@@ -49,21 +53,17 @@ export default function Navbar() {
       >
         {/* Logo and Title */}
         <Stack direction="row" spacing={2}>
-          <Typography variant="h6" component="div">
+          <Typography variant="h6">
             Logo
           </Typography>
-          <Typography variant="h6" component="div">
+          <Typography variant="h5" sx ={{fontWeight : "bold"}}>
             TripTix
           </Typography>
         </Stack>
         {/* Menu Options */}
         <Stack direction={"row"} spacing={2} alignContent={"center"}>
           {pages.map((page) => (
-            <Stack direction={"row"} spacing={2} alignContent={"center"}>
-                <Typography variant="body1" component="div">
-                  {page.name}
-                </Typography>
-            </Stack>
+            <NavItem key={page.name} name={page.name} href={page.href} />
           ))}
         </Stack>
       </Stack>
