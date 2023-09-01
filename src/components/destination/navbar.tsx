@@ -5,8 +5,8 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 
 // custom
-import NavItem from "@components/landing-page/nav-item";
-import TripTixLogo from "@public/TripTixLogo.svg";
+import NavItem from "@components/destination/nav-item";
+import TripTixLogoBlack from "@public/TripTixLogoBlack.svg";
 
 const pages = [
   {
@@ -44,12 +44,13 @@ export default function Navbar() {
     <AppBar
       position="relative"
       sx={{
-        backgroundColor: "transparent",
+        backgroundColor: "white",
         paddingLeft: "1rem",
         paddingRight: "1rem",
         borderRadiusBottomLeft: "1rem",
         borderRadiusBottomRight: "1rem",
         boxShadow: "0 0 0 0.1rem rgba(0,0,0,0.05)",
+        color: "black",
         paddingTop: "0.5rem",
         paddingBottom: "0.5rem",
       }}
@@ -62,7 +63,7 @@ export default function Navbar() {
       >
         {/* Logo and Title */}
         <Stack direction="row" spacing={1} alignItems={"center"}>
-          <Image src={TripTixLogo} alt="TripTix Logo"  width={'30'}/>
+          <Image src={TripTixLogoBlack} alt="TripTix Logo"  width={'30'}/>
           <Typography variant="h5" sx ={{fontWeight : "bold"}}>
             TripTix
           </Typography>

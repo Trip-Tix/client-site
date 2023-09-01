@@ -1,4 +1,4 @@
-import Navbar from "@/components/landing-page/navbar";
+import Navbar from "@/components/destination/navbar";
 import Form from "@/components/destination/form";
 import Footer from "@/components/destination/footer";
 import { Button } from "@mui/material";

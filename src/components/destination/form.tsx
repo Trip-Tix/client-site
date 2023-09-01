@@ -4,16 +4,23 @@ import Destination from "@components/destination/destination"
 import TravelDate from "@components/destination/travel-date"
 import ReturnDate from "@components/destination/return-date"
 import Submit from "@components/destination/submit"
+import Stack from "@mui/material/Stack"
+import Transportation from "@components/destination/transportation"
+
 
 export default function Form() {
   return (
-    <>
+    <Stack spacing={2} sx={{ 
+      width: "100%",
+      backgroundColor: "#E4E4E4",
+      }}>
+      <Transportation />
       <Source />
       <CustomAnimation />
       <Destination />
       <TravelDate />
       <ReturnDate />
       <Submit />
-    </>
+    </Stack>
   );
 }
