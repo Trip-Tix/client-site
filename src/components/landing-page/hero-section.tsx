@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 // custom
 import image from "@public/travel.png";
 import GetStarted from "@components/landing-page/get-started"
+import Image from "next/image";
 
 const HeadLine1 = "Unlock Your";
 const HeadLine2 = "Journey";
@@ -53,7 +54,7 @@ export default function HeroSection() {
           alignItems={"center"}
           width={"50%"}
         >
-          <img src={image.src} alt="hero-section" />
+          <Image src={image} alt="hero-section" />
           <Typography variant={"caption"}>{"image will be changed, Don't worry"}</Typography>
         </Stack>
       </Stack>
