@@ -1,13 +1,12 @@
+import { Paper } from "@mui/material";
+
 export default function Stats() {
     return (
-        <div>
-            <h1
-                style={{
-                    color: "#000000",
-                }}
-            >
-                Stats
-            </h1>
-        </div>
+        <Paper
+            elevation={3}
+            sx={{ width: "50%", height: "20vh", padding: "2rem" }}
+        >
+            Stats
+        </Paper>
     );
 }

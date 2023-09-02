@@ -9,10 +9,10 @@ import { useContext } from "react";
 import { useSpring, animated } from "@react-spring/web";
 
 export default function Form() {
-    const { destination } = useContext(DestinationContext);
+    const { destination, source } = useContext(DestinationContext);
 
     const dateAnimation = useSpring({
-        opacity: destination === "" ? 0 : 1,
+        opacity: destination === "" || source === "" ? 0 : 1,
         delay: 500,
     });
 
@@ -21,15 +21,14 @@ export default function Form() {
             <Stack
                 sx={{
                     padding: "2rem",
-                    height: "70vh",
                 }}
-                spacing={10}
+                spacing={2}
                 justifyContent={"center"}
                 justifyItems={"center"}
             >
                 <Location />
                 <animated.div style={dateAnimation}>
-                    <Stack spacing={2} direction={"row"} alignItems={"center"}>
+                    <Stack spacing={2} direction={"row"} alignItems={"flex-start"}>
                         <DateSelection />
                         <Stats />
                     </Stack>

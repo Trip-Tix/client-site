@@ -1,4 +1,11 @@
 import React from 'react';
-import { createTheme } from '@mui/material/styles';
 
-export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+interface ColorContextType {
+    mode: 'light' | 'dark';
+    setMode: (mode: 'light' | 'dark') => void;
+}
+
+export const ColorContext = React.createContext<ColorContextType>({
+    mode: 'light',
+    setMode: () => {},
+});

@@ -6,7 +6,7 @@ import "@fontsource/ubuntu/500.css";
 import "@fontsource/ubuntu/700.css";
 import { ThemeProvider, createTheme } from "@mui/material";
 import React from "react";
-import { ColorModeContext } from "@public/context/global";
+import { ColorContext } from "@public/context/global";
 
 const theme = createTheme({
     typography: {
@@ -16,30 +16,28 @@ const theme = createTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
     const [mode, setMode] = React.useState<"light" | "dark">("light");
-    const colorMode = React.useMemo(
-        () => ({
-            toggleColorMode: () => {
-                setMode((prevMode) =>
-                    prevMode === "light" ? "dark" : "light"
-                );
-            },
-        }),
-        []
-    );
     const theme = React.useMemo(
         () =>
             createTheme({
+                typography: {
+                    fontFamily: ["Ubuntu", "sans-serif"].join(","),
+                },
                 palette: {
-                    mode,
+                    mode: mode,
                 },
             }),
         [mode]
     );
     return (
-        <ColorModeContext.Provider value={colorMode}>
-            <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+            <ColorContext.Provider
+                value={{
+                    mode,
+                    setMode,
+                }}
+            >
                 <Component {...pageProps} />
-            </ThemeProvider>
-        </ColorModeContext.Provider>
+            </ColorContext.Provider>
+        </ThemeProvider>
     );
 }

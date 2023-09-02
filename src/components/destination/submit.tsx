@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DestinationContext } from "@public/context/destination";
 import { Button } from "@mui/material";
 import { useSpring, animated } from "@react-spring/web";
+import { useState } from "react";
 
 export default function Submit() {
     const { source, destination, date, returnDate, hasReturn, transport } =
@@ -19,6 +20,36 @@ export default function Submit() {
                 : 1,
         delay: 500,
     });
+
+    const [togglePageChange, setTogglePageChange] = useState(false);
+    const router = useRouter();
+    useEffect(() => {
+        if (!togglePageChange) return;
+
+        window.setTimeout(() => {
+            router.push("#");
+        }, 1000);
+    }, [togglePageChange, router]);
+
+    const handleClick = () => {
+        sessionStorage.setItem("source", source);
+        sessionStorage.setItem("destination", destination);
+        sessionStorage.setItem("date", date);
+        sessionStorage.setItem("returnDate", returnDate);
+        sessionStorage.setItem("hasReturn", hasReturn.toString());
+        sessionStorage.setItem("transport", transport.toString());
+        
+        setTogglePageChange(true);
+
+        console.log({
+            source,
+            destination,
+            date,
+            returnDate,
+            hasReturn,
+            transport,
+        })
+    }
 
     return (
         <animated.div style={submitAnimation}>
@@ -43,9 +74,7 @@ export default function Submit() {
                         textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                     },
                 }}
-                onClick={() => {
-                    console.log("Search Ticket");
-                }}
+                onClick={handleClick}
             >
                 Search Ticket
             </Button>
