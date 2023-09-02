@@ -21,8 +21,8 @@ export interface FilteringData {
     minFare: number;
     maxSeats: number;
     minSeats: number;
-    company: string;
-    coachType: string;
+    companies: string[];
+    coaches: string[];
     wantOffer: boolean;
     wantRefundable: boolean;
     searchField: string;
@@ -31,6 +31,7 @@ export interface FilteringData {
 }
 
 interface ListTransportContextType {
+    selectedTransportType: TransportType;
     transportList: TransportEntry[];
     setTransportList: React.Dispatch<React.SetStateAction<TransportEntry[]>>;
     filteringData: FilteringData;
@@ -38,6 +39,7 @@ interface ListTransportContextType {
 }
 
 export const ListTransportContext = createContext<ListTransportContextType>({
+    selectedTransportType: TransportType.Bus,
     transportList: [],
     setTransportList: () => {},
     filteringData: {
@@ -45,8 +47,8 @@ export const ListTransportContext = createContext<ListTransportContextType>({
         minFare: 0,
         maxSeats: 0,
         minSeats: 0,
-        company: '',
-        coachType: '',
+        companies: [],
+        coaches: [],
         wantOffer: false,
         wantRefundable: false,
         searchField: '',

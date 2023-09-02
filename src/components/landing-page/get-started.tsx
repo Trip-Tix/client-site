@@ -12,6 +12,7 @@ import useMeasure from "react-use-measure";
 
 // customs
 import styles from "@styles/landing-page/get-started.module.css";
+import { select_destination_url } from "@public/pagelinks";
 
 export default function GetStarted() {
     const [ref, { width }] = useMeasure();
@@ -34,7 +35,7 @@ export default function GetStarted() {
     useEffect(() => {
         if (pressed) {
             setTimeout(() => {
-                router.push("/auth");
+                router.push(select_destination_url);
             }, 500);
         }
     }, [pressed, router]);

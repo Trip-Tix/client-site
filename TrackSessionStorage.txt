@@ -1,5 +1,4 @@
 // components/destination/submit.tsx
-// function handleClick
 
 sessionStorage.setItem("source", source);
 sessionStorage.setItem("destination", destination);
@@ -8,3 +7,23 @@ sessionStorage.setItem("returnDate", returnDate);
 sessionStorage.setItem("hasReturn", hasReturn.toString());
 sessionStorage.setItem("transport", transport.toString());
 
+// pages/list-transports.tsx
+
+sessionStorage.getItem("transport") as TransportType
+
+// components/list-transports/info-bar.tsx
+
+sessionStorage.getItem("destination") as string
+sessionStorage.getItem("source") as string
+sessionStorage.getItem("date") as string
+sessionStorage.getItem("returnDate") as string
+sessionStorage.getItem("hasReturn") === "true"
+
+// public/api-call/list-transport.ts
+
+transportType: sessionStorage.getItem("transportType") as TransportType,
+source: sessionStorage.getItem("source") as string,
+destination: sessionStorage.getItem("destination") as string,
+date: sessionStorage.getItem("date") as string,
+hasReturn: sessionStorage.getItem("hasReturn") === "true",
+returnDate: sessionStorage.getItem("returnDate") as string,

@@ -1,0 +1,20 @@
+.main{
+    position: relative;
+}
+
+.circle{
+    position: absolute;
+    top: calc(50% - 2.5rem);
+    left: calc(50% - 2.5rem);
+    width: 5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 1px solid #00000036;
+}
+
+.icon{
+    position: absolute;
+    top: calc(50% - 1.25rem);
+    left: calc(50% - 1.25rem);
+}

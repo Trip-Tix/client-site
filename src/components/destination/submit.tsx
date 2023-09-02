@@ -4,6 +4,8 @@ import { DestinationContext } from "@public/context/destination";
 import { Button } from "@mui/material";
 import { useSpring, animated } from "@react-spring/web";
 import { useState } from "react";
+import { transport_list_url } from "@public/pagelinks";
+
 
 export default function Submit() {
     const { source, destination, date, returnDate, hasReturn, transport } =
@@ -27,7 +29,7 @@ export default function Submit() {
         if (!togglePageChange) return;
 
         window.setTimeout(() => {
-            router.push("#");
+            router.push(transport_list_url);
         }, 1000);
     }, [togglePageChange, router]);
 
