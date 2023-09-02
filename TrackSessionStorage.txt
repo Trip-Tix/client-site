@@ -1,0 +1,10 @@
+// components/destination/submit.tsx
+// function handleClick
+
+sessionStorage.setItem("source", source);
+sessionStorage.setItem("destination", destination);
+sessionStorage.setItem("date", date);
+sessionStorage.setItem("returnDate", returnDate);
+sessionStorage.setItem("hasReturn", hasReturn.toString());
+sessionStorage.setItem("transport", transport.toString());
+
