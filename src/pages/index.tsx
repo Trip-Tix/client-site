@@ -14,23 +14,23 @@ import NoisyBackground from "@/components/landing-page/noisy-background";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  return (
-    <>
-      <NoisyBackground>
+    return (
         <>
-          <Navbar />
-          <HeroSection />
+            <NoisyBackground>
+                <>
+                    <Navbar />
+                    <HeroSection />
+                </>
+            </NoisyBackground>
+            <ServiceDescription />
+            <CurrentStat />
+            <NoisyBackground>
+                <CustomerReview />
+            </NoisyBackground>
+            <Blog />
+            <NoisyBackground>
+                <Footer />
+            </NoisyBackground>
         </>
-      </NoisyBackground>
-      <ServiceDescription />
-      <CurrentStat />
-      <NoisyBackground>
-        <CustomerReview />
-      </NoisyBackground>
-      <Blog />
-      <NoisyBackground>
-        <Footer />
-      </NoisyBackground>
-    </>
-  );
+    );
 }

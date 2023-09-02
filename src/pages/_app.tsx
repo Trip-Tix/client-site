@@ -9,35 +9,37 @@ import React from "react";
 import { ColorModeContext } from "@public/context/global";
 
 const theme = createTheme({
-  typography: {
-    fontFamily: ["Ubuntu", "sans-serif"].join(","),
-  },
+    typography: {
+        fontFamily: ["Ubuntu", "sans-serif"].join(","),
+    },
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [mode, setMode] = React.useState<"light" | "dark">("light");
-  const colorMode = React.useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-      },
-    }),
-    []
-  );
-  const theme = React.useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-        },
-      }),
-    [mode]
-  );
-  return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </ColorModeContext.Provider>
-  );
+    const [mode, setMode] = React.useState<"light" | "dark">("light");
+    const colorMode = React.useMemo(
+        () => ({
+            toggleColorMode: () => {
+                setMode((prevMode) =>
+                    prevMode === "light" ? "dark" : "light"
+                );
+            },
+        }),
+        []
+    );
+    const theme = React.useMemo(
+        () =>
+            createTheme({
+                palette: {
+                    mode,
+                },
+            }),
+        [mode]
+    );
+    return (
+        <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+                <Component {...pageProps} />
+            </ThemeProvider>
+        </ColorModeContext.Provider>
+    );
 }

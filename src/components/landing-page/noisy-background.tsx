@@ -1,11 +1,11 @@
 import React from "react";
 
 interface NoisyBackgroundProps {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }
 
 const canvasStyles: React.CSSProperties = {
-  background: `linear-gradient(45deg,hsl(60deg 92% 71%) 0%,
+    background: `linear-gradient(45deg,hsl(60deg 92% 71%) 0%,
     hsl(160deg 48% 46%) 38%,
     hsl(180deg 100% 17%) 62%,
     hsl(0deg 0% 0%) 100%)`,
@@ -16,5 +16,5 @@ const canvasStyles: React.CSSProperties = {
 };
 
 export default function NoisyBackground({ children }: NoisyBackgroundProps) {
-  return <div style={canvasStyles}>{children}</div>;
+    return <div style={canvasStyles}>{children}</div>;
 }

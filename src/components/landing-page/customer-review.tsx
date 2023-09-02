@@ -1,7 +1,3 @@
-export  default function CustomerReview() {
-    return (
-        <div>
-            Customer Review
-        </div>
-    );
+export default function CustomerReview() {
+    return <div>Customer Review</div>;
 }

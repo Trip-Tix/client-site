@@ -1,7 +1,3 @@
 export default function ServiceDescription() {
-    return (
-        <div>
-            Service Description
-        </div>
-    );
+    return <div>Service Description</div>;
 }

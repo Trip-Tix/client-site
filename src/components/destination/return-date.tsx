@@ -1,5 +1,3 @@
 export default function ReturnDate() {
-    return (
-        <div>ReturnDate</div>
-    )
+    return <div>ReturnDate</div>;
 }

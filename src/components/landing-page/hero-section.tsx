@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 
 // custom
 import image from "@public/travel.png";
-import GetStarted from "@components/landing-page/get-started"
+import GetStarted from "@components/landing-page/get-started";
 import Image from "next/image";
 
 const HeadLine1 = "Unlock Your";
@@ -17,47 +17,64 @@ for flights, trains, buses, and more.`;
 const buttonLabel = "Get Started";
 
 export default function HeroSection() {
-  return (
-    <Stack
-      sx={{ height: "80vh"}}
-      alignContent={"center"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      padding={"10rem"}
-    >
-      <Stack direction="row" justifyContent={"center"} alignItems={"center"} spacing={'10vw'}>
+    return (
         <Stack
-          direction={"column"}
-          justifyContent={"center"}
-          alignItems={"flex-start"}
-          width={"50%"}
+            sx={{ height: "80vh" }}
+            alignContent={"center"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            padding={"10rem"}
         >
-          <Typography variant={"h2"} >{HeadLine1}</Typography>
-          <Typography variant={"h2"} sx={{
-            color: "black",
-            backgroundColor: "rgba(255,255,255,0.5)",
-            borderRadius: "0.5rem",
-            margin: "-0.5rem",
-            padding: "0.5rem",
-            fontSize: "5.5rem",
-          }}>{HeadLine2}</Typography>
-          <Typography variant={"body1"} sx ={{
-            marginTop: "1rem",
-            maxWidth: "50rem",
-            marginBottom: "1rem",
-          }}>{subHeadLine}</Typography>
-          <GetStarted/>
+            <Stack
+                direction="row"
+                justifyContent={"center"}
+                alignItems={"center"}
+                spacing={"10vw"}
+            >
+                <Stack
+                    direction={"column"}
+                    justifyContent={"center"}
+                    alignItems={"flex-start"}
+                    width={"50%"}
+                >
+                    <Typography variant={"h2"}>{HeadLine1}</Typography>
+                    <Typography
+                        variant={"h2"}
+                        sx={{
+                            color: "black",
+                            backgroundColor: "rgba(255,255,255,0.5)",
+                            borderRadius: "0.5rem",
+                            margin: "-0.5rem",
+                            padding: "0.5rem",
+                            fontSize: "5.5rem",
+                        }}
+                    >
+                        {HeadLine2}
+                    </Typography>
+                    <Typography
+                        variant={"body1"}
+                        sx={{
+                            marginTop: "1rem",
+                            maxWidth: "50rem",
+                            marginBottom: "1rem",
+                        }}
+                    >
+                        {subHeadLine}
+                    </Typography>
+                    <GetStarted />
+                </Stack>
+                <Stack
+                    direction={"column"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    width={"50%"}
+                >
+                    <Image src={image} alt="hero-section" />
+                    <Typography variant={"caption"}>
+                        {"image will be changed, Don't worry"}
+                    </Typography>
+                </Stack>
+            </Stack>
         </Stack>
-        <Stack
-          direction={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          width={"50%"}
-        >
-          <Image src={image} alt="hero-section" />
-          <Typography variant={"caption"}>{"image will be changed, Don't worry"}</Typography>
-        </Stack>
-      </Stack>
-    </Stack>
-  );
+    );
 }

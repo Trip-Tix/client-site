@@ -1,7 +1,3 @@
 export default function TripMap() {
-    return (
-        <div>
-            Trip Map
-        </div>
-    );
+    return <div>Trip Map</div>;
 }

@@ -1,5 +1,5 @@
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 interface locationData {
     label: string;
@@ -16,7 +16,6 @@ const locations: locationData[] = [
     { label: "Rangpur", id: 7 },
     { label: "Mymensingh", id: 8 },
 ];
-    
 
 export default function Source() {
     return (
@@ -24,7 +23,7 @@ export default function Source() {
             id="combo-box-demo"
             options={locations}
             sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} name='Location' />}
+            renderInput={(params) => <TextField {...params} name="Location" />}
         />
-    )
+    );
 }

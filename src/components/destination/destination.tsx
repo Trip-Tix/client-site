@@ -1,5 +1,3 @@
 export default function Destination() {
-    return (
-        <div>Destination</div>
-    )
+    return <div>Destination</div>;
 }
