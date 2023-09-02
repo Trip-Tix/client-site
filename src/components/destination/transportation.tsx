@@ -3,9 +3,14 @@ import { transports } from "@public/interface/transport";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import TrainIcon from "@mui/icons-material/Train";
 import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
+import { TransportType } from "@public/interface/transport";
+import { useContext, useState } from "react";
+import { DestinationContext } from "@public/context/destination";
+import { TransportEntry } from "@public/interface/transport";
 
 export default function Transportation() {
-    const selectedTransport = transports[0];
+    const [ selectedTransport, setSelectedTransport ] = useState<TransportEntry>(transports[0]);
+    const { setTransport } = useContext(DestinationContext);
     return (
         <>
             <Stack
@@ -50,6 +55,10 @@ export default function Transportation() {
                                         ? "default"
                                         : "pointer",
                             },
+                        }}
+                        onClick={() => {
+                            setSelectedTransport(transport);
+                            setTransport(transport.transportType);
                         }}
                     >
                         <Icon

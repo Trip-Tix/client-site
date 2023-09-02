@@ -1,12 +1,13 @@
 import { useSpring, animated } from "@react-spring/web";
 import useMeasure from "react-use-measure";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Style from "@styles/destination/location.module.css";
 import { Typography } from "@mui/material";
+import { DestinationContext } from "@public/context/destination";
 
 interface LocationData {
     label: string;
@@ -33,8 +34,8 @@ export default function Location() {
         delay: animationStartTime,
     });
 
-    const [source, setSource] = useState("");
-    const [destination, setDestination] = useState("");
+    const { source, setSource, destination, setDestination } =
+        useContext(DestinationContext);
 
     const [ref, { width }] = useMeasure();
     const boxSlide = useSpring({

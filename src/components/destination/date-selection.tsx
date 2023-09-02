@@ -1,8 +1,27 @@
 import { Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import { useContext, useEffect } from "react";
+import { DestinationContext } from "@public/context/destination";
 
 export default function DateSelection() {
+    const {
+        date,
+        setDate,
+        returnDate,
+        setReturnDate,
+        hasReturn,
+        setHasReturn,
+    } = useContext(DestinationContext);
+
+    useEffect(() => {
+        if (returnDate !== "") {
+            setHasReturn(true);
+        } else {
+            setHasReturn(false);
+        }
+    }, [returnDate, setHasReturn]);
+
     return (
         <Stack
             spacing={2}
@@ -39,6 +58,8 @@ export default function DateSelection() {
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
                 />
             </Stack>
 
@@ -70,6 +91,8 @@ export default function DateSelection() {
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    value={returnDate}
+                    onChange={(e) => setReturnDate(e.target.value)}
                 />
             </Stack>
         </Stack>
