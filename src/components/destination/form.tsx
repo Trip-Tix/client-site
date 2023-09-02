@@ -6,21 +6,22 @@ import ReturnDate from "@components/destination/return-date"
 import Submit from "@components/destination/submit"
 import Stack from "@mui/material/Stack"
 import Transportation from "@components/destination/transportation"
-
+import Location from "@components/destination/location"
 
 export default function Form() {
   return (
+    <>
+    
     <Stack spacing={2} sx={{ 
       width: "100%",
       backgroundColor: "#E4E4E4",
       }}>
       <Transportation />
-      <Source />
-      <CustomAnimation />
-      <Destination />
+      <Location />
       <TravelDate />
       <ReturnDate />
       <Submit />
     </Stack>
+    </>
   );
 }
