@@ -25,7 +25,7 @@ export default function ListTransport() {
 
     return (
         <>
-            <Stack spacing={2}>
+            <Stack spacing={2} sx={{width: "100%"}}>
                 {filteredTransportList.map((transport) => (
                     <TransportCard key={transport.unique_id} transport={transport} />
                 ))}

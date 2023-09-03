@@ -6,7 +6,6 @@ import {
 } from "@public/context/list-transport";
 import { TransportType } from "@public/interface/transport";
 import Stack from "@mui/material/Stack";
-import Style from "@/styles/list-transport/list-transport.module.css";
 import { getTransportList } from "@public/api-call/list-transport";
 import AutoComplete from "@mui/material/Autocomplete";
 import Divider from "@mui/material/Divider";
@@ -54,8 +53,18 @@ export default function Filter() {
             ),
         ]);
 
-        setCompanies(Array.from(new Set(transportList.map((transport) => transport.company_name))));
-        setCoachTypes(Array.from(new Set(transportList.map((transport) => transport.coach_type))));
+        setCompanies(
+            Array.from(
+                new Set(
+                    transportList.map((transport) => transport.company_name)
+                )
+            )
+        );
+        setCoachTypes(
+            Array.from(
+                new Set(transportList.map((transport) => transport.coach_type))
+            )
+        );
 
         setSelectedFareRange([
             Math.min(...transportList.map((transport) => transport.fare)),
@@ -119,10 +128,13 @@ export default function Filter() {
     };
 
     return (
+        <Stack direction="column" spacing={2} sx={{width: "50%"}}>
         <Paper
-            elevation={2}
-            className={Style.filter}
-            sx={{ padding: 5, width: "30%" }}
+            elevation={3}
+            sx={{ 
+                padding: 5, 
+                borderRadius: 5,
+             }}
         >
             <Stack spacing={2}>
                 <Typography variant="h5">Filter</Typography>
@@ -228,5 +240,6 @@ export default function Filter() {
                 </Stack>
             </Stack>
         </Paper>
+        </Stack>
     );
 }
