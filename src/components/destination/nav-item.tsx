@@ -1,12 +1,15 @@
 // essential reacts
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 // pre-made component
 import Typography from "@mui/material/Typography";
 
 // animation
 import { useSpring, animated } from "@react-spring/web";
+
+// custom components
+import { ColorContext } from "@public/context/global";
 
 interface NavItemProps {
     name: string;
@@ -17,6 +20,7 @@ export default function NavItem({ name, href }: NavItemProps) {
     const [hovered, setHovered] = useState(false);
     const animationEnd = 1000;
     const animationDuration = 50;
+    const { mode } = useContext(ColorContext);
 
     const [props, set] = useSpring(() => ({
         textShadow: "0 0 0 rgba(0,0,0,0)",
@@ -30,10 +34,10 @@ export default function NavItem({ name, href }: NavItemProps) {
     useEffect(() => {
         set({
             textShadow: hovered
-                ? "0 0 0.5rem rgba(0,0,0,0.8)"
+                ? mode === "light" ? "0 0 0.5rem rgba(0,0,0,0.8)" : "0 0 0.5rem rgba(255,255,255,0.8)"
                 : "0 0 0 rgba(0,0,0,0)",
         });
-    }, [hovered, set]);
+    }, [hovered, set, mode]);
 
     const trigger = () => {
         setHovered(true);

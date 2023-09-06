@@ -5,14 +5,19 @@ import Grid from "@mui/material/Grid";
 import EmojiTransportationIcon from "@mui/icons-material/EmojiTransportation";
 import { useSpring, animated } from "@react-spring/web";
 import { useState } from "react";
-import Details from "./details";
+import useMeasure from "react-use-measure";
 
 interface TransportCardProps {
     transport: TransportEntry;
 }
 
 export default function TransportCard({ transport }: TransportCardProps) {
+    const [ref, { height }] = useMeasure();
     const [showDetails, setShowDetails] = useState(false);
+    const props = useSpring({
+        height: showDetails ? "auto" : 0,
+        duration: 500,
+    });
     const coachToColor = new Map([
         ["AC", "#0000FF"],
         ["Non AC", "#FF0000"],
@@ -213,18 +218,24 @@ export default function TransportCard({ transport }: TransportCardProps) {
                         ))}
                     </Stack>
 
-                    <Stack
-                        direction={"row"}
-                        spacing={1}
-                        sx={{
-                            background: "#00000010",
-                            padding: 2,
-                            display: showDetails ? "flex" : "none",
-                        }}
-                        
-                    >
-                        Hello
-                    </Stack>
+                    <animated.div style={props}>
+                        <Stack
+                            direction={"column"}
+                            spacing={1}
+                            sx={{
+                                background: "#00000010",
+                                padding: 2,
+                            }}
+                        >
+                            <Typography variant="h6">Hello</Typography>
+                            <Typography variant="body1">
+                                I am details
+                            </Typography>
+                            <Typography variant="body1">
+                                I will show you the way
+                            </Typography>
+                        </Stack>
+                    </animated.div>
                 </Stack>
             </Stack>
         </Paper>

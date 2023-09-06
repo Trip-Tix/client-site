@@ -128,7 +128,7 @@ export default function Filter() {
     };
 
     return (
-        <Stack direction="column" spacing={2} sx={{width: "50%"}}>
+        <Stack direction="column" spacing={2} sx={{width: "30%"}}>
         <Paper
             elevation={3}
             sx={{ 

@@ -5,7 +5,10 @@ import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Styles from "@styles/list-transport/info-bar.module.css";
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useState, useContext } from "react";
+import Paper from "@mui/material/Paper";
+import { ColorContext } from "@public/context/global";
+
 
 export default function InfoBar() {
     const [destination, setDestination] = useState<string>("");
@@ -22,15 +25,13 @@ export default function InfoBar() {
         setHasReturn(sessionStorage.getItem("hasReturn") === "true");
     }, []);
 
+    const { mode } = useContext(ColorContext);
+
     return (
+        <Paper elevation={3}>
         <Grid
             container
             spacing={0}
-            sx={{
-                backgroundColor: "#FFFFFF",
-                color: "#000000",
-                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-            }}
         >
             <Grid xs={4.8} className={Styles.main}>
                 <Stack
@@ -47,13 +48,11 @@ export default function InfoBar() {
                         sx={{
                             padding: "0.5rem",
                             width: "50%",
-                            borderRight: "1px solid rgba(0,0,0,0.1)",
                         }}
                     >
                         <Stack direction="column" alignItems="center">
                             <Typography
                                 variant="body2"
-                                sx={{ color: "#00000077" }}
                             >
                                 From
                             </Typography>
@@ -84,7 +83,6 @@ export default function InfoBar() {
                         <Stack direction="column" alignItems="center">
                             <Typography
                                 variant="body2"
-                                sx={{ color: "#00000077" }}
                             >
                                 To
                             </Typography>
@@ -102,7 +100,7 @@ export default function InfoBar() {
                         </Typography>
                     </Stack>
                 </Stack>
-                <div className={Styles.circle} />
+                <div className={mode === "dark" ? Styles.circle_dark : Styles.circle_dark}></div>
                 <Icon
                     sx={{ width: "auto", height: "auto" }}
                     className={Styles.icon}
@@ -146,7 +144,6 @@ export default function InfoBar() {
                         <Stack direction="column">
                             <Typography
                                 variant="body2"
-                                sx={{ color: "#00000077" }}
                             >
                                 Departure Date
                             </Typography>
@@ -180,7 +177,6 @@ export default function InfoBar() {
                         <Stack direction="column">
                             <Typography
                                 variant="body2"
-                                sx={{ color: "#00000077" }}
                             >
                                 Return Date
                             </Typography>
@@ -204,7 +200,6 @@ export default function InfoBar() {
                 >
                     <Typography
                         variant="body2"
-                        sx={{ color: "#00000077" }}
                     >
                         Duration
                     </Typography>
@@ -217,5 +212,6 @@ export default function InfoBar() {
                 </Stack>
             </Grid>
         </Grid>
+        </Paper>
     );
 }

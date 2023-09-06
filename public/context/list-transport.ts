@@ -16,6 +16,12 @@ export interface TransportEntry {
     is_refundable: boolean;
 }
 
+export enum SortingOption {
+    Fare = 'fare',
+    Seats = 'number_of_seats',
+    DepartureTime = 'time',
+}
+
 export interface FilteringData {
     maxFare: number;
     minFare: number;
@@ -28,6 +34,7 @@ export interface FilteringData {
     searchField: string;
     maxDepartureTime: string;
     minDepartureTime: string;
+    selectSortingOption?: SortingOption;
 }
 
 interface ListTransportContextType {

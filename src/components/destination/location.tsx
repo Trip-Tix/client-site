@@ -9,6 +9,7 @@ import Style from "@styles/destination/location.module.css";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 import { DestinationContext } from "@public/context/destination";
+import { ColorContext } from "@public/context/global";
 
 interface LocationData {
     label: string;
@@ -62,6 +63,8 @@ export default function Location() {
         delay: animationStartTime - 300,
     });
 
+    const {mode} = useContext(ColorContext);
+
     return (
         <Paper
             sx={{
@@ -69,15 +72,11 @@ export default function Location() {
             }}
         >
             <Stack
-                sx={{
-                    color: "#000000",
-                }}
                 spacing={2}
             >
                 <Typography
                     variant="h5"
                     sx={{
-                        color: "#000000",
                         fontWeight: "bold",
                         textAlign: "left",
                         marginTop: "5%",
@@ -110,15 +109,15 @@ export default function Location() {
                     >
                         <animated.div
                             style={boxSlide}
-                            className={Style.slide}
+                            className={mode === "dark" ? Style.slide_dark : Style.slide_light}
                         />
                         <animated.div
                             style={sourceSelectedAnimation}
-                            className={Style.startDot}
+                            className={mode === "dark" ? Style.startDot_dark : Style.startDot_light}
                         />
                         <animated.div
                             style={destinationSelectedAnimation}
-                            className={Style.endDot}
+                            className={mode === "dark" ? Style.endDot_dark : Style.endDot_light}
                         />
                     </Box>
 

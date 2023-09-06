@@ -15,7 +15,7 @@ const theme = createTheme({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-    const [mode, setMode] = React.useState<"light" | "dark">("light");
+    const [mode, setMode] = React.useState<"light" | "dark">("dark");
     const theme = React.useMemo(
         () =>
             createTheme({

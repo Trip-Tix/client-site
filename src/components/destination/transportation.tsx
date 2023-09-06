@@ -7,18 +7,24 @@ import { TransportType } from "@public/interface/transport";
 import { useContext, useState } from "react";
 import { DestinationContext } from "@public/context/destination";
 import { TransportEntry } from "@public/interface/transport";
+import { ColorContext } from "@public/context/global";
+import Paper from "@mui/material/Paper";
 
 export default function Transportation() {
+    const { mode } = useContext(ColorContext);
     const [ selectedTransport, setSelectedTransport ] = useState<TransportEntry>(transports[0]);
     const { setTransport } = useContext(DestinationContext);
     return (
-        <>
+        <Paper
+            elevation={3}
+            sx={{
+                width: "100%",
+                height: "100%",
+            }}
+        >
             <Stack
                 direction="row"
                 justifyContent={"center"}
-                sx={{
-                    backgroundColor: "#FFFFFF",
-                }}
             >
                 {transports.map((transport, index) => (
                     <Stack
@@ -31,8 +37,8 @@ export default function Transportation() {
                             color:
                                 transport.transportId ===
                                 selectedTransport.transportId
-                                    ? "#008080"
-                                    : "#000000",
+                                    ? mode === "dark" ? "#008080" : "#14908E"
+                                    : mode === "dark" ? "#fff" : "#000",
                             backgroundColor:
                                 transport.transportId ===
                                 selectedTransport.transportId
@@ -80,6 +86,6 @@ export default function Transportation() {
                     </Stack>
                 ))}
             </Stack>
-        </>
+        </Paper>
     );
 }

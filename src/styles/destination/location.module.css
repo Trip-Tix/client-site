@@ -1,9 +1,11 @@
 .box {
     position: relative;
-    background: rgba(255, 255, 255, 0.05);
+    background: "transparent";
 }
 
-.slide {
+
+
+.slide_light {
     position: absolute;
     top: 45%;
     left: 0;
@@ -12,7 +14,7 @@
     background-color: black;
 }
 
-.startDot {
+.startDot_light {
     position: absolute;
     top: 25%;
     left: -1%;
@@ -22,7 +24,7 @@
     background-color: black;
 }
 
-.endDot {
+.endDot_light {
     position: absolute;
     top: 25%;
     right: -1%;
@@ -30,4 +32,33 @@
     aspect-ratio: 1;
     border-radius: 50%;
     background-color: black;
+}
+
+.slide_dark {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    background-color: white;
+}
+
+.startDot_dark {
+    position: absolute;
+    top: 25%;
+    left: -1%;
+    height: 50%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.endDot_dark {
+    position: absolute;
+    top: 25%;
+    right: -1%;
+    height: 50%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: white;
 }

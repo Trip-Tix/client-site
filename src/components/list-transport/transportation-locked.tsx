@@ -8,19 +8,18 @@ import { useContext, useState } from "react";
 import { DestinationContext } from "@public/context/destination";
 import { TransportEntry } from "@public/interface/transport";
 import { ListTransportContext } from "@public/context/list-transport";
+import Paper from "@mui/material/Paper";
 
 export default function Transportation() {
     const { selectedTransportType } = useContext(ListTransportContext);
 
     const { setTransport } = useContext(DestinationContext);
     return (
-        <>
+        <Paper elevation={3}>
             <Stack
                 direction="row"
                 justifyContent={"center"}
-                sx={{
-                    backgroundColor: "#FFFFFF",
-                }}
+                
             >
                 {transports.map((transport, index) => (
                     <Stack
@@ -69,6 +68,6 @@ export default function Transportation() {
                     </Stack>
                 ))}
             </Stack>
-        </>
+        </Paper>
     );
 }

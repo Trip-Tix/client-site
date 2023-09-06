@@ -7,7 +7,10 @@ import { DestinationContext } from "@public/context/destination";
 import { useContext, useState } from "react";
 import { TransportType } from "@public/interface/transport";
 import Transportation from "@/components/destination/transportation";
-import Stack from "@mui/material/Stack";``
+import Stack from "@mui/material/Stack";
+``;
+import Style from "@styles/destination/home.module.css";
+import { ColorContext } from "@public/context/global";
 
 export default function Destination() {
     const [source, setSource] = useState("");
@@ -15,7 +18,10 @@ export default function Destination() {
     const [date, setDate] = useState("");
     const [returnDate, setReturnDate] = useState("");
     const [hasReturn, setHasReturn] = useState(false);
-    const [transport, setTransport] = useState<TransportType>(TransportType.Bus);
+    const [transport, setTransport] = useState<TransportType>(
+        TransportType.Bus
+    );
+    const { mode } = useContext(ColorContext);
 
     return (
         <>
@@ -36,15 +42,16 @@ export default function Destination() {
                 }}
             >
                 <Stack
-                sx={{
-                    width: "100%",
-                    backgroundColor: "#E4E4E4",
-                }}
-            >
-                <Navbar />
-                <Transportation />
-                <Form />
-                <Footer />
+                    sx={{
+                        width: "100%",
+                        backgroundColor: mode === "dark" ? "#121212" : "#dfdfdf",
+                    }}
+                    
+                >
+                    <Navbar />
+                    <Transportation />
+                    <Form />
+                    <Footer />
                 </Stack>
             </DestinationContext.Provider>
         </>

@@ -28,7 +28,6 @@ export default function DateSelection() {
             sx={{
                 width: "50%",
                 height: "100%",
-                backgroundColor: "#FFFFFF",
                 padding: "2rem",
             }}
         >
@@ -41,7 +40,6 @@ export default function DateSelection() {
                 <Typography
                     variant="h5"
                     sx={{
-                        color: "#000000",
                         fontWeight: "bold",
                         textAlign: "left",
                         marginLeft: "5%",
@@ -73,7 +71,6 @@ export default function DateSelection() {
                 <Typography
                     variant="h5"
                     sx={{
-                        color: "#000000",
                         fontWeight: "bold",
                         textAlign: "left",
                         marginLeft: "5%",

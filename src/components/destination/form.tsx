@@ -7,8 +7,10 @@ import Stats from "@components/destination/stats";
 import { DestinationContext } from "@public/context/destination";
 import { useContext } from "react";
 import { useSpring, animated } from "@react-spring/web";
+import { ColorContext } from "@public/context/global";
 
 export default function Form() {
+    const { mode } = useContext(ColorContext);
     const { destination, source } = useContext(DestinationContext);
 
     const dateAnimation = useSpring({
@@ -25,6 +27,7 @@ export default function Form() {
                 spacing={2}
                 justifyContent={"center"}
                 justifyItems={"center"}
+                color = {mode === "dark" ? "#ffffff" : "#000000"}
             >
                 <Location />
                 <animated.div style={dateAnimation}>
