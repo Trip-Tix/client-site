@@ -9,11 +9,14 @@ import { DestinationContext } from "@public/context/destination";
 import { TransportEntry } from "@public/interface/transport";
 import { ListTransportContext } from "@public/context/list-transport";
 import Paper from "@mui/material/Paper";
+import { ColorContext } from "@public/context/global";
+
 
 export default function Transportation() {
     const { selectedTransportType } = useContext(ListTransportContext);
-
+    const { mode } = useContext(ColorContext);
     const { setTransport } = useContext(DestinationContext);
+
     return (
         <Paper elevation={3}>
             <Stack
@@ -33,7 +36,7 @@ export default function Transportation() {
                                 transport.transportType ===
                                 selectedTransportType
                                     ? "#008080"
-                                    : "#000000",
+                                    : mode === "light" ? "#000000" : "#ffffff",
                             backgroundColor:
                                 transport.transportType ===
                                 selectedTransportType

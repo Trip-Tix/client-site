@@ -14,6 +14,7 @@ import {
 import { TransportType } from "@public/interface/transport";
 import Style from "@/styles/list-transport/list-transport.module.css";
 import { getTransportList } from "@public/api-call/list-transport";
+import { ColorContext } from "@public/context/global";
 
 export default function ListTransport() {
     const [filteringData, setFilteringData] = useState<FilteringData>({
@@ -44,6 +45,8 @@ export default function ListTransport() {
             setTransportList(res);
         });
     }, [selectedTransportType]);
+
+    const { mode } = useContext(ColorContext);
     return (
         <>
             <ListTransportContext.Provider
@@ -55,7 +58,7 @@ export default function ListTransport() {
                     setTransportList,
                 }}
             >
-                <div className={Style.globalPage}>
+                <div className={mode === 'light'? Style.globalPage_light : Style.globalPage_dark}>
                     <Navbar />
                     <TransportationLocked />
                     <InfoBar />

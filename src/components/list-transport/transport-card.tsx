@@ -4,8 +4,9 @@ import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 import EmojiTransportationIcon from "@mui/icons-material/EmojiTransportation";
 import { useSpring, animated } from "@react-spring/web";
-import { useState } from "react";
 import useMeasure from "react-use-measure";
+import { ColorContext } from "@public/context/global";
+import { useContext, useState, useEffect } from "react";
 
 interface TransportCardProps {
     transport: TransportEntry;
@@ -18,6 +19,8 @@ export default function TransportCard({ transport }: TransportCardProps) {
         height: showDetails ? "auto" : 0,
         duration: 500,
     });
+
+    const { mode } = useContext(ColorContext);
     const coachToColor = new Map([
         ["AC", "#0000FF"],
         ["Non AC", "#FF0000"],
@@ -50,6 +53,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                 borderRadius: 5,
                 flexGrow: 1,
                 overflow: "hidden",
+                
             }}
         >
             <Stack direction={"column"} spacing={1}>
@@ -83,30 +87,43 @@ export default function TransportCard({ transport }: TransportCardProps) {
                                     }}
                                 />
                             </Icon>
-                            <Stack direction={"column"} spacing={1}>
-                                <Typography variant="h6">
+                            <Stack
+                                direction={"column"}
+                                spacing={1}
+                                alignContent={"flex-start"}
+                                alignItems={"flex-start"}
+                            >
+                                <Typography variant="h4">
                                     {transport.company_name}
                                 </Typography>
-                                <Typography variant="body1">
-                                    {transport.brand_name}
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    sx={{
-                                        background: coachToColor.has(
-                                            transport.coach_type
-                                        )
-                                            ? coachToColor.get(
-                                                  transport.coach_type
-                                              )
-                                            : "#00000080",
-                                        padding: 1,
-                                        borderRadius: 2,
-                                        fontWeight: "bold",
-                                    }}
+                                <Stack
+                                    direction={"row"}
+                                    spacing={1}
+                                    justifyContent={"center"}
+                                    alignContent={"center"}
+                                    alignItems={"center"}
                                 >
-                                    {transport.coach_type}
-                                </Typography>
+                                    <Typography variant="body1">
+                                        {transport.brand_name}
+                                    </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        sx={{
+                                            background: coachToColor.has(
+                                                transport.coach_type
+                                            )
+                                                ? coachToColor.get(
+                                                      transport.coach_type
+                                                  )
+                                                : "#00000080",
+                                            padding: 1,
+                                            borderRadius: 2,
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        {transport.coach_type}
+                                    </Typography>
+                                </Stack>
                             </Stack>
                         </Stack>
                     </Grid>
@@ -121,21 +138,23 @@ export default function TransportCard({ transport }: TransportCardProps) {
                             alignItems={"flex-start"}
                             sx={{ height: "100%" }}
                         >
-                            <Typography variant="h6">
-                                {transport.time}
+                            <Typography variant="h5">
+                                {`${transport.time}`}
                             </Typography>
-                            <Typography
-                                variant="body1"
-                                sx={{ fontWeight: "bold" }}
-                            >
-                                {`${transport.fare} Tk`}
-                            </Typography>
-                            <Typography
-                                variant="body1"
-                                sx={{ fontWeight: "light" }}
-                            >
-                                {`Seat Available: ${transport.number_of_seats}`}
-                            </Typography>
+                            <Stack direction={"row"} spacing={2} alignItems={"center"}>
+                                <Typography
+                                    variant="h5"
+                                    sx={{ fontWeight: "light" }}
+                                >
+                                    {`${transport.fare} Tk`}
+                                </Typography>
+                                <Typography
+                                    variant="body1"
+                                    sx={{ fontWeight: "light" }}
+                                >
+                                    {`Seat Available: ${transport.number_of_seats}`}
+                                </Typography>
+                            </Stack>
                         </Stack>
                     </Grid>
                     <Grid item xs={3}>
@@ -176,7 +195,9 @@ export default function TransportCard({ transport }: TransportCardProps) {
                     <Typography
                         variant="h5"
                         sx={{
-                            color: "#00000080",
+                            color: mode === "light" ? "#000000" : "#ffffff",
+                            opacity: 0.8,
+                            fontWeight: "light",
                         }}
                     >
                         Facilities:

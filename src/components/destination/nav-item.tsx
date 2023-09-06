@@ -42,7 +42,7 @@ export default function NavItem({ name, href }: NavItemProps) {
     const trigger = () => {
         setHovered(true);
     };
-
+    
     useEffect(() => {
         if (!hovered) return;
 

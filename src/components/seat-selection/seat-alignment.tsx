@@ -1,0 +1,20 @@
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Legend from "@components/seat-selection/legends";
+import SeatLayout from "@components/seat-selection/seat-layout";
+
+export default function SeatAlignment() {
+    return (
+        <Paper sx={{ flexGrow: 1 }}>
+            <Stack
+                direction={"column"}
+                justifyContent={"center"}
+                alignItems={"flex-start"}
+                sx={{ padding: "1rem" }}
+            >
+                <Legend />
+                <SeatLayout />
+            </Stack>
+        </Paper>
+    );
+}
