@@ -4,11 +4,13 @@ import Stack from "@mui/material/Stack";
 import Footer from "@/components/destination/footer";
 import SeatAlignment from "@/components/seat-selection/seat-alignment";
 import SeatDetailsForm from "@/components/seat-selection/seat-details-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SeatSelectionContext, Seat } from "@public/context/seat-selection";
 import Styles from "@styles/list-transport/list-transport.module.css";
 import { ColorContext } from "@public/context/global";
 import { useContext } from "react";
+import { getSeatLayout } from "@public/api-call/select-seat";
+
 
 export default function SeatSelect() {
     const [row, setRow] = useState<number>(4);
@@ -23,6 +25,14 @@ export default function SeatSelect() {
     const [price, setPrice] = useState<number>(0);
 
     const { mode } = useContext(ColorContext);
+    useEffect(() => {
+        getSeatLayout().then((res) => {
+            setLayout(res.layout);
+            setRow(res.row);
+            setColumn(res.column);
+            setPrice(res.price);
+        });
+    }, []);
 
     return (
         <>

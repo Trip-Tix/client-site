@@ -81,36 +81,7 @@ export default function Filter() {
         ]);
     }, [transportList]);
 
-    useEffect(() => {
-        setFilteringData({
-            ...filteringData,
-            maxFare: selectedFareRange[1],
-            minFare: selectedFareRange[0],
-            maxSeats: selectedSeatRange[1],
-            minSeats: selectedSeatRange[0],
-            companies: selectedCompanies,
-            coaches: selectedCoachTypes,
-            wantOffer,
-            wantRefundable,
-        });
-        console.log({
-            selectedFareRange,
-            selectedSeatRange,
-            selectedCompanies,
-            selectedCoachTypes,
-            wantOffer,
-            wantRefundable,
-        });
-    }, [
-        selectedFareRange,
-        selectedSeatRange,
-        selectedCompanies,
-        selectedCoachTypes,
-        wantOffer,
-        wantRefundable,
-        filteringData,
-        setFilteringData,
-    ]);
+    
 
     const handlePriceRangeChange = (
         event: any,
@@ -126,6 +97,29 @@ export default function Filter() {
     const handleCompanyAddition = (event: any, newValue: string | string[]) => {
         setSelectedCompanies(newValue as string[]);
     };
+
+
+    useEffect(() => {
+        setFilteringData({
+            ...filteringData,
+            maxFare: selectedFareRange[1],
+            minFare: selectedFareRange[0],
+            maxSeats: selectedSeatRange[1],
+            minSeats: selectedSeatRange[0],
+            companies: selectedCompanies,
+            coaches: selectedCoachTypes,
+            wantOffer: wantOffer,
+            wantRefundable: wantRefundable,
+        });
+        console.log(filteringData);
+    }, [
+        selectedFareRange,
+        selectedSeatRange,
+        selectedCompanies,
+        selectedCoachTypes,
+        wantOffer,
+        wantRefundable,
+    ]);
 
     return (
         <Stack direction="column" spacing={2} sx={{width: "30%"}}>

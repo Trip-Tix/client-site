@@ -7,6 +7,8 @@ import { useSpring, animated } from "@react-spring/web";
 import useMeasure from "react-use-measure";
 import { ColorContext } from "@public/context/global";
 import { useContext, useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { select_seat_url } from "@public/pagelinks";
 
 interface TransportCardProps {
     transport: TransportEntry;
@@ -45,6 +47,14 @@ export default function TransportCard({ transport }: TransportCardProps) {
         "Price Details",
         "Refund Policy",
     ];
+
+    const router = useRouter();
+    const handleBookNow = ( id: string, price: number) => {
+        sessionStorage.setItem("transportId", id);
+        sessionStorage.setItem("transportPrice", price.toString());
+        console.log("Transport ID: ", id);
+        router.push(select_seat_url);
+    }
 
     return (
         <Paper
@@ -174,6 +184,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                                     borderRadius: 1,
                                     fontSize: "1.2rem",
                                 }}
+                                onClick={() => handleBookNow(transport.unique_id, transport.fare)}
                             >
                                 Book Now
                             </Button>

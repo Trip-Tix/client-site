@@ -27,3 +27,14 @@ destination: sessionStorage.getItem("destination") as string,
 date: sessionStorage.getItem("date") as string,
 hasReturn: sessionStorage.getItem("hasReturn") === "true",
 returnDate: sessionStorage.getItem("returnDate") as string,
+
+// components/list-transports/transport-card.tsx
+
+sessionStorage.setItem("transportId", id);
+sessionStorage.setItem("transportPrice", price.toString());
+
+// public/api-call/select-transport.ts
+
+sessionStorage.getItem('transportId');
+sessionStorage.getItem('transportPrice');
+
