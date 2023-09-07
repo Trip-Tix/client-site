@@ -5,7 +5,7 @@ import Footer from "@/components/destination/footer";
 import SeatAlignment from "@/components/seat-selection/seat-alignment";
 import SeatDetailsForm from "@/components/seat-selection/seat-details-form";
 import { useEffect, useState } from "react";
-import { SeatSelectionContext, Seat } from "@public/context/seat-selection";
+import { SeatSelectionContext, SeatDetailsFormProps } from "@public/context/seat-selection";
 import Styles from "@styles/list-transport/list-transport.module.css";
 import { ColorContext } from "@public/context/global";
 import { useContext } from "react";
@@ -21,7 +21,7 @@ export default function SeatSelect() {
         [0, 1, 0, 1],
         [4, 5, 4, 5]
     ]);
-    const [selectedSeats, setSelectedSeats] = useState<Seat[]>([]);
+    const [selectedSeats, setSelectedSeats] = useState<SeatDetailsFormProps[]>([]);
     const [price, setPrice] = useState<number>(0);
 
     const { mode } = useContext(ColorContext);
@@ -71,7 +71,7 @@ export default function SeatSelect() {
                         <SeatAlignment />
                         <SeatDetailsForm />
                     </Stack>
-                    <Footer />
+                    <Footer/>
                 </div>
             </SeatSelectionContext.Provider>
         </>

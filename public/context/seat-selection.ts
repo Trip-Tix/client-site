@@ -5,6 +5,29 @@ export interface  Seat {
     column: number;
 }
 
+export const enum ValidationNumber {
+    NID = 1,
+    Passport = 2,
+    BirthCertificate = 3,
+}
+
+export const enum Gender {
+    Male = 1,
+    Female = 2,
+}
+
+export interface SeatDetailsFormProps {
+    name: string;
+    phoneNumber: string;
+    dateOfBirth: string;
+    typeOfID: ValidationNumber;
+    NIDNumber: number;
+    passportNumber: number;
+    birthCertificateNumber: number;
+    Gender: Gender;
+    selectedSeat: Seat;
+}
+
 interface SeatSelectionContextType {
     row: number;
     setRow: (row: number) => void;
@@ -14,9 +37,20 @@ interface SeatSelectionContextType {
     setLayout: (layout: number[][]) => void;
     price: number;
     setPrice: (price: number) => void;
-    selectedSeats: Seat[];
-    setSelectedSeats: (selectedSeats: Seat[]) => void;
+    selectedSeats: SeatDetailsFormProps[];
+    setSelectedSeats: (selectedSeats: SeatDetailsFormProps[]) => void;
 }
+
+export enum SeatLabel {
+    Unavailable = 0,
+    Free = 1,
+    MaleTemporaryBooked = 2,
+    FemaleTemporaryBooked = 3,
+    MaleBooked = 4,
+    FemaleBooked = 5,
+    TemporarySelection = 6,
+}
+
 
 export const layout_to_info_map = [
     {
@@ -52,7 +86,7 @@ export const layout_to_info_map = [
     {
         information: "Temporary Selection",
         label: "T",
-        color: "yellow",
+        color: "green",
     }
 ]
 

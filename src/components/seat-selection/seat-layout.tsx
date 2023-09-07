@@ -1,5 +1,11 @@
 import { useEffect, useState, useContext } from "react";
-import { SeatSelectionContext } from "@public/context/seat-selection";
+import {
+    SeatSelectionContext,
+    SeatDetailsFormProps,
+    SeatLabel,
+    ValidationNumber,
+    Gender,
+} from "@public/context/seat-selection";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -9,26 +15,43 @@ export default function SeatLayout() {
     const { row, column, layout, setLayout, selectedSeats, setSelectedSeats } =
         useContext(SeatSelectionContext);
 
-    const handleClick = (row: number, column: number) => {
-        if (layout[row][column] === 1) {
-            const tempLayout = [...layout];
-            tempLayout[row][column] = 6;
-            setLayout(tempLayout);
+    const handleClick = (rowIndex: number, columnIndex: number) => {
+        if (layout[rowIndex][columnIndex] === SeatLabel.Free) {
+            const newLayout = [...layout];
+            newLayout[rowIndex][columnIndex] = SeatLabel.TemporarySelection;
+            setLayout(newLayout);
+
             const tempSelectedSeats = [...selectedSeats];
-            tempSelectedSeats.push({ row, column });
+            tempSelectedSeats.push({
+                selectedSeat: {
+                    row: rowIndex,
+                    column: columnIndex,
+                },
+                name: "",
+                phoneNumber: "01234567890",
+                dateOfBirth: "",
+                typeOfID: ValidationNumber.NID,
+                NIDNumber: 0,
+                passportNumber: 0,
+                birthCertificateNumber: 0,
+                Gender: Gender.Male,
+            });
             setSelectedSeats(tempSelectedSeats);
-        } else if (layout[row][column] === 6) {
-            const tempLayout = [...layout];
-            tempLayout[row][column] = 1;
-            setLayout(tempLayout);
-            const tempSelectedSeats = [...selectedSeats];
-            const index = tempSelectedSeats.findIndex(
-                (seat) => seat.row === row && seat.column === column
+        } else if (
+            layout[rowIndex][columnIndex] === SeatLabel.TemporarySelection
+        ) {
+            const newLayout = [...layout];
+            newLayout[rowIndex][columnIndex] = SeatLabel.Free;
+            setLayout(newLayout);
+            setSelectedSeats(
+                selectedSeats.filter(
+                    (seat) =>
+                        seat.selectedSeat.row !== rowIndex ||
+                        seat.selectedSeat.column !== columnIndex
+                )
             );
-            tempSelectedSeats.splice(index, 1);
-            setSelectedSeats(tempSelectedSeats);
         }
-    }
+    };
 
     return (
         <>
@@ -39,26 +62,33 @@ export default function SeatLayout() {
                             <Box
                                 key={columnIndex}
                                 sx={{
-                                    width: "5rem",
-                                    height: "5rem",
+                                    width: "2.5rem",
+                                    height: "2.5rem",
                                     backgroundColor:
                                         layout_to_info_map[seat].color,
                                     borderRadius: "0.5rem",
                                     display: "flex",
                                     justifyContent: "center",
                                     alignItems: "center",
-                                    cursor: seat === 1 || seat === 6 ? "pointer" : "default",
+                                    cursor:
+                                        seat === 1 || seat === 6
+                                            ? "pointer"
+                                            : "default",
                                 }}
-                                onClick={() => handleClick(rowIndex, columnIndex)}
+                                onClick={() =>
+                                    handleClick(rowIndex, columnIndex)
+                                }
                             >
                                 <Typography
-                                    variant={"h3"}
-                                    sx={{ color: "green" }}
+                                    variant={"h5"}
                                 >
                                     {layout_to_info_map[seat].label}
                                 </Typography>
                             </Box>
                         ))}
+                    <Typography variant={"h5"}>
+                        {`Row: ${rowIndex + 1}`}
+                    </Typography>
                     </Stack>
                 ))}
             </Stack>
