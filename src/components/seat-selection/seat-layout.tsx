@@ -57,12 +57,35 @@ export default function SeatLayout() {
     return (
         <>
             <Stack direction={"column"} spacing={2} alignItems={"center"}>
+                <Stack direction={"row"} spacing={2} alignItems={"center"}>
+                    {layout[0].map((row, rowIndex) => (
+                        <Box
+                            sx={{
+                                width: "3rem",
+                                height: "3rem",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                alignContent: "center",
+                            }}
+                        >
+                            <Typography key={rowIndex} variant={"h6"}>
+                                {rowIndex + 1}
+                            </Typography>
+                        </Box>
+                    ))}
+                </Stack>
                 {layout.map((row, rowIndex) => (
-                    <Stack direction={"row"} spacing={2} key={rowIndex} alignItems={"center"}>
+                    <Stack
+                        direction={"row"}
+                        spacing={2}
+                        key={rowIndex}
+                        alignItems={"center"}
+                    >
                         {row.map((seat, columnIndex) => (
-                            <SeatBox 
-                                key={columnIndex} 
-                                seat={seat} 
+                            <SeatBox
+                                key={columnIndex}
+                                seat={seat}
                                 rowIndex={rowIndex}
                                 columnIndex={columnIndex}
                                 handleClick={handleClick}

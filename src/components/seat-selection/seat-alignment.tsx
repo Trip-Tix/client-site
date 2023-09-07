@@ -5,14 +5,19 @@ import SeatLayout from "@components/seat-selection/seat-layout";
 
 export default function SeatAlignment() {
     return (
-        <Paper sx={{ flexGrow: 1 }}>
+        <Paper
+            sx={{
+                flexGrow: 1,
+                maxHeight: "80vh",
+                overflow: "scroll",
+            }}
+        >
             <Stack
                 direction={"column"}
                 justifyContent={"center"}
-                alignItems={"flex-start"}
+                alignItems={"center"}
                 sx={{ padding: "1rem" }}
             >
-                <Legend />
                 <SeatLayout />
             </Stack>
         </Paper>

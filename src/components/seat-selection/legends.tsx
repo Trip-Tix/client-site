@@ -8,8 +8,12 @@ export default function Legends() {
             direction={"column"}
             justifyContent={"center"}
             alignItems={"flex-start"}
+            sx={{ padding: "1rem" }}    
         >
-            <Typography variant={"h6"}>Legends</Typography>
+            <Typography variant={"h4"}
+            sx={{
+                fontWeight: "light",
+            }}>Legends</Typography>
         </Stack>
     );
 }

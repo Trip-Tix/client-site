@@ -22,7 +22,14 @@ export default function SeatBox({
     const [hovered, setHovered] = React.useState(false);
     const SeatIcon = layout_to_info_map[seat].icon;
     const available = seat !== SeatLabel.Unavailable;
-
+    const booked =
+        seat !== SeatLabel.Free && seat !== SeatLabel.TemporarySelection;
+    const gender = booked
+        ? seat === SeatLabel.MaleBooked ||
+          seat === SeatLabel.MaleTemporaryBooked
+            ? "M"
+            : "F"
+        : "";
 
     return (
         <>
@@ -51,8 +58,10 @@ export default function SeatBox({
                 >
                     <SeatIcon />
                 </Icon>
-                <Typography sx={{ display: hovered && available ? "block" : "none" }}>
-                    {seat}
+                <Typography
+                    sx={{ display: hovered && available ? "block" : "none" }}
+                >
+                    {gender}
                 </Typography>
             </Box>
         </>
