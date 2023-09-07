@@ -13,7 +13,7 @@ export default function TotalPrice() {
     useEffect(() => {
         console.log(selectedSeats, price);
         setTotalPrice(price * selectedSeats.length);
-    }, [selectedSeats]);
+    }, [selectedSeats, price]);
 
     return (
         <Paper

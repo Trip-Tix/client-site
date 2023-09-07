@@ -9,9 +9,9 @@ export interface  Seat {
 }
 
 export const enum ValidationNumber {
-    NID = 1,
-    Passport = 2,
-    BirthCertificate = 3,
+    NID = 0,
+    Passport = 1,
+    BirthCertificate = 2,
 }
 
 export const enum Gender {

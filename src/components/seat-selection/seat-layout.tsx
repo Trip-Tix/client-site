@@ -68,6 +68,7 @@ export default function SeatLayout() {
                                 alignItems: "center",
                                 alignContent: "center",
                             }}
+                            key = {rowIndex}
                         >
                             <Typography key={rowIndex} variant={"h6"}>
                                 {rowIndex + 1}

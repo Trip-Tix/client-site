@@ -11,11 +11,13 @@ export default function SeatDetailsFrom() {
     return (
         <Paper sx={{ flexGrow: 1, padding: "1rem" }}>
             <Stack direction={"column"} spacing={2}>
-            { selectedSeats.map((seat, index) => (
-                <Stack direction={"column"} spacing={1} key={index}>
-                    <SeatFormEntry row={seat.selectedSeat.row} column={seat.selectedSeat.column} />
-                </Stack>
-            ))}
+                {selectedSeats.map((seat, index) => (
+                    <SeatFormEntry
+                        row={seat.selectedSeat.row}
+                        column={seat.selectedSeat.column}
+                        key={index}
+                    />
+                ))}
             </Stack>
         </Paper>
     );
