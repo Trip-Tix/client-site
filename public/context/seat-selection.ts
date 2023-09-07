@@ -1,4 +1,7 @@
 import { createContext } from "react";
+import CloseIcon from '@mui/icons-material/Close';
+import BookmarkIcon from '@mui/icons-material/Bookmark';    
+import CheckIcon from '@mui/icons-material/Check';
 
 export interface  Seat {
     row: number;
@@ -51,42 +54,56 @@ export enum SeatLabel {
     TemporarySelection = 6,
 }
 
+interface LayoutInfo {
+    information: string;
+    label: string;
+    color: string;
+    icon: any;
+}
 
-export const layout_to_info_map = [
+
+export const layout_to_info_map: LayoutInfo[] = [
     {
         information: "Unavailable",
         label: "",
         color: "invisible",
+        icon: CheckIcon,
     },
     {
         information: "Free",
         label: "",
-        color: "white",
+        color: "#008080",
+        icon: CheckIcon,
     },
     {
         information: "Male Temporary Booked",
         label: "M",
-        color: "blue",
+        color: "#C8C8C8",
+        icon: CloseIcon,
     },
     {
         information: "Female Temporary Booked",
         label: "F",
-        color: "blue",
+        color: "#C8C8C8",
+        icon: CloseIcon,
     },
     {
         information: "Male Booked",
         label: "M",
-        color: "red",
+        color: "#888888",
+        icon: CloseIcon,
     },
     {
         information: "Female Booked",
         label: "F",
-        color: "red",
+        color: "#888888",
+        icon: CloseIcon,
     },
     {
         information: "Temporary Selection",
         label: "T",
         color: "green",
+        icon: BookmarkIcon,
     }
 ]
 
