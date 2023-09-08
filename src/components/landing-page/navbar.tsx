@@ -1,3 +1,6 @@
+// react essentials
+import { use, useState, useEffect } from "react";
+
 // pre-made component
 import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
@@ -8,38 +11,61 @@ import Image from "next/image";
 import NavItem from "@components/landing-page/nav-item";
 import TripTixLogo from "@public/TripTixLogo.svg";
 
-const pages = [
-    {
-        name: "Home",
-        href: "/",
-    },
-    {
-        name: "About Us",
-        href: "/about",
-    },
-    {
-        name: "Customer Care",
-        href: "/customer-care",
-    },
-    {
-        name: "Policy",
-        href: "/policy",
-    },
-    {
-        name: "Transportation",
-        href: "/transportation",
-    },
-    {
-        name: "Sign In",
-        href: "/sign-in",
-    },
-    {
-        name: "Sign Up",
-        href: "/sign-up",
-    },
-];
+interface NavbarProps {
+    name: string;
+    href: string;
+}
 
 export default function Navbar() {
+    const [pages, setPages] = useState<NavbarProps[]>([
+        {
+            name: "Home",
+            href: "/",
+        },
+        {
+            name: "About Us",
+            href: "/about",
+        },
+        {
+            name: "Customer Care",
+            href: "/customer-care",
+        },
+        {
+            name: "Policy",
+            href: "/policy",
+        },
+        {
+            name: "Transportation",
+            href: "/transportation",
+        },
+        {
+            name: "Sign In",
+            href: "/login",
+        },
+        {
+            name: "Sign Up",
+            href: "/register",
+        },
+    ]);
+
+    useEffect(() => {
+        const username = sessionStorage.getItem("username");
+        if (username) {
+            const tempPages = [...pages];
+            tempPages.filter((page) => {
+                if (page.name === "Sign In" ) {
+                    page.name = "Log Out";
+                    page.href = "/log-out";
+                }
+            });
+            //remove sign up
+            tempPages.pop();
+
+
+            setPages(tempPages);
+        }
+    }, []);
+
     return (
         <AppBar
             position="relative"

@@ -1,6 +1,7 @@
 // essential reacts
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 // pre-made component
 import Typography from "@mui/material/Typography";
@@ -26,6 +27,8 @@ export default function NavItem({ name, href }: NavItemProps) {
             friction: 100,
         },
     }));
+
+    const router = useRouter();
 
     useEffect(() => {
         set({
@@ -58,6 +61,7 @@ export default function NavItem({ name, href }: NavItemProps) {
                 sx={{
                     cursor: "pointer",
                 }}
+                onClick={() => router.push(href)}
             >
                 {name}
             </Typography>
