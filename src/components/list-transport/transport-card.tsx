@@ -75,7 +75,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                     console.log(err);
                 });
         }
-    }, [selectExtraOption, showDetails]);
+    }, [selectExtraOption, showDetails, extraOptions, setDetailsMessage, transport.unique_id]);
 
     const router = useRouter();
     const handleBookNow = (id: string, price: number) => {

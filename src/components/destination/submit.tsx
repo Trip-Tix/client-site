@@ -6,23 +6,11 @@ import { useSpring, animated } from "@react-spring/web";
 import { useState } from "react";
 import { transport_list_url } from "@public/pagelinks";
 import { Height } from "@mui/icons-material";
+import { ColorContext } from "@public/context/global";
 
 export default function Submit() {
     const { source, destination, date, returnDate, hasReturn, transport } =
         useContext(DestinationContext);
-
-    const submitAnimation = useSpring({
-        height: "100%",
-        opacity:
-            source === "" ||
-            destination === "" ||
-            date === "" ||
-            (hasReturn && returnDate === "") ||
-            transport === null
-                ? 0
-                : 1,
-        delay: 500,
-    });
 
     const [togglePageChange, setTogglePageChange] = useState(false);
     const router = useRouter();
@@ -55,15 +43,15 @@ export default function Submit() {
         });
     };
 
+    const {mode} = useContext(ColorContext);
     return (
-        <animated.div style={submitAnimation}>
             <Button
                 color="primary"
                 variant="contained"
                 sx={{
                     width: "100%",
                     height: "100%",
-                    backgroundColor: "rgba(0,0,0,0)",
+                    backgroundColor: mode === "dark" ? "rgb(255,255,255,0.05)" : "rgb(255,255,255,1)",
                     color: "#008080",
                     fontWeight: "bold",
                     fontSize: "1.5rem",
@@ -79,9 +67,10 @@ export default function Submit() {
                     },
                 }}
                 onClick={handleClick}
+                disabled={source === "" || destination === "" || date === "" || transport === null}
             >
                 Search Ticket
             </Button>
-        </animated.div>
+
     );
 }

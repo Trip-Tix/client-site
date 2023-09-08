@@ -3,6 +3,9 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { useContext, useEffect } from "react";
 import { DestinationContext } from "@public/context/destination";
+import NorthEastIcon from "@mui/icons-material/NorthEast";
+import SouthEastIcon from "@mui/icons-material/SouthEast";
+import Icon from "@mui/material/Icon";
 
 export default function DateSelection() {
     const {
@@ -48,11 +51,13 @@ export default function DateSelection() {
                 </Typography>
                 <Stack
                     direction="row"
-                    spacing={2}
+                    spacing={5}
                     sx={{
                         marginLeft: "5%",
                         marginTop: "2%",
                     }}
+                    alignContent={"center"}
+                    alignItems={"center"}
                 >
                     <TextField
                         id="date"
@@ -64,6 +69,9 @@ export default function DateSelection() {
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
                     />
+                    <Icon>
+                        <NorthEastIcon />
+                    </Icon>
                 </Stack>
 
                 <Typography
@@ -75,15 +83,17 @@ export default function DateSelection() {
                         marginTop: "5%",
                     }}
                 >
-                    Select Return Date (Optional)
+                    Select Return Date
                 </Typography>
                 <Stack
                     direction="row"
-                    spacing={2}
+                    spacing={5}
                     sx={{
                         marginLeft: "5%",
                         marginTop: "2%",
                     }}
+                    alignContent={"center"}
+                    alignItems={"center"}
                 >
                     <TextField
                         id="date"
@@ -95,6 +105,15 @@ export default function DateSelection() {
                         value={returnDate}
                         onChange={(e) => setReturnDate(e.target.value)}
                     />
+                    <Icon>
+                        <SouthEastIcon />
+                    </Icon>
+                    <Typography
+                        variant="h5"
+                        display={hasReturn ? "none" : "block"}
+                    >
+                        *Optional
+                    </Typography>
                 </Stack>
             </Stack>
         </Paper>

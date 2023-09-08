@@ -10,22 +10,7 @@ import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 import { DestinationContext } from "@public/context/destination";
 import { ColorContext } from "@public/context/global";
-
-interface LocationData {
-    label: string;
-    id: number;
-}
-
-const locations: LocationData[] = [
-    { label: "Dhaka", id: 1 },
-    { label: "Chittagong", id: 2 },
-    { label: "Sylhet", id: 3 },
-    { label: "Rajshahi", id: 4 },
-    { label: "Khulna", id: 5 },
-    { label: "Barishal", id: 6 },
-    { label: "Rangpur", id: 7 },
-    { label: "Mymensingh", id: 8 },
-];
+import { getLocations, LocationData } from "@public/api-call/destination";
 
 export default function Location() {
     const animationStartTime = 500;
@@ -62,6 +47,15 @@ export default function Location() {
         opacity: destination === "" || source === "" ? 0 : 1,
         delay: animationStartTime - 300,
     });
+
+    const [locations, setLocations] = useState<LocationData[]>([]);
+
+    const { transport } = useContext(DestinationContext);
+    useEffect(() => {
+        getLocations(transport).then((res) => {
+            setLocations(res);
+        });
+    }, [transport]);
 
     const { mode } = useContext(ColorContext);
 
