@@ -44,13 +44,18 @@ export default function Destination() {
                 <Stack
                     sx={{
                         width: "100%",
-                        backgroundColor: mode === "dark" ? "#121212" : "#dfdfdf",
+                        backgroundColor:
+                            mode === "dark" ? "#121212" : "#dfdfdf",
+                        height: "100vh",
                     }}
-                    
+                    direction={"column"}
+                    justifyContent="space-between"
                 >
-                    <Navbar />
-                    <Transportation />
-                    <Form />
+                    <Stack direction="column" justifyContent="flex-start">
+                        <Navbar />
+                        <Transportation />
+                        <Form />
+                    </Stack>
                     <Footer />
                 </Stack>
             </DestinationContext.Provider>

@@ -48,12 +48,6 @@ export default function TransportCard({ transport }: TransportCardProps) {
         ["Type 1A", "#C0C0C0"],
     ]);
 
-    // const extraOptions = [
-    //     "Transport Details",
-    //     "Price Details",
-    //     "Refund Policy",
-    // ];
-
     const extraOptions = [
         {
             name: "Transport Details",
@@ -98,6 +92,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                 borderRadius: 5,
                 flexGrow: 1,
                 overflow: "hidden",
+                height: "100%",
             }}
         >
             <Stack direction={"column"} spacing={1}>

@@ -9,7 +9,6 @@ export default function SeatAlignment() {
             sx={{
                 flexGrow: 1,
                 maxHeight: "80vh",
-                overflow: "scroll",
             }}
         >
             <Stack

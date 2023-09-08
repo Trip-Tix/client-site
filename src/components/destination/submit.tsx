@@ -41,6 +41,7 @@ export default function Submit() {
         sessionStorage.setItem("returnDate", returnDate);
         sessionStorage.setItem("hasReturn", hasReturn.toString());
         sessionStorage.setItem("transport", transport.toString());
+        sessionStorage.setItem("processingReturn", "false");
 
         setTogglePageChange(true);
 

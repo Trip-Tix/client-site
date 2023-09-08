@@ -58,11 +58,17 @@ export default function ListTransport() {
                     setTransportList,
                 }}
             >
-                <div className={mode === 'light'? Style.globalPage_light : Style.globalPage_dark}>
+                <div
+                    className={
+                        mode === "light"
+                            ? Style.globalPage_light
+                            : Style.globalPage_dark
+                    }
+                >
                     <Navbar />
                     <TransportationLocked />
                     <InfoBar />
-                    <Stack direction="row" spacing={2} padding={2}>
+                    <Stack direction="row" spacing={2} padding={2} className={Style.filterListContainer}>
                         <Filter />
                         <List />
                     </Stack>

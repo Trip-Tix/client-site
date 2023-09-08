@@ -66,18 +66,6 @@ export default function SeatSelect() {
                 >
                     <Navbar />
                     <TransportationLocked />
-                    {/* <Stack
-                        direction={"row"}
-                        justifyContent={"center"}
-                        alignItems={"flex-start"}
-                        spacing={2}
-                        sx={{
-                            padding: "1rem",
-                        }}
-                    >
-                        <SeatAlignment />
-                        <SeatDetailsForm />
-                    </Stack> */}
                     <Grid container spacing={2} sx={{
                         padding: "1rem",
                     }}>
@@ -86,7 +74,6 @@ export default function SeatSelect() {
                         <Grid xs={8}><SeatDetailsForm /></Grid>
                         <Grid xs={4}><SeatAlignment /></Grid>
                     </Grid>
-                    <Footer />
                 </div>
             </SeatSelectionContext.Provider>
         </>

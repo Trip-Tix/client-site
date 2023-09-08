@@ -26,7 +26,8 @@ const IdentificationText = [
 ];
 
 export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
-    const { selectedSeats, setSelectedSeats } = useContext(SeatSelectionContext);
+    const { selectedSeats, setSelectedSeats } =
+        useContext(SeatSelectionContext);
     const [selectedId, setSelectedId] = useState<ValidationNumber>(
         ValidationNumber.NID
     );
@@ -34,38 +35,58 @@ export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
     const ChangeNameAction = (event: React.ChangeEvent<HTMLInputElement>) => {
         const temp = [...selectedSeats];
         temp.filter((seat) => {
-            if (seat.selectedSeat.row === row && seat.selectedSeat.column === column) {
+            if (
+                seat.selectedSeat.row === row &&
+                seat.selectedSeat.column === column
+            ) {
                 seat.name = event.target.value;
             }
         });
         setSelectedSeats(temp);
     };
 
-    const ChangePhoneNumberAction = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const ChangePhoneNumberAction = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const temp = [...selectedSeats];
         temp.filter((seat) => {
-            if (seat.selectedSeat.row === row && seat.selectedSeat.column === column) {
+            if (
+                seat.selectedSeat.row === row &&
+                seat.selectedSeat.column === column
+            ) {
                 seat.phoneNumber = event.target.value;
             }
         });
         setSelectedSeats(temp);
     };
 
-    const ChangeDateOfBirthAction = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const ChangeDateOfBirthAction = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const temp = [...selectedSeats];
         temp.filter((seat) => {
-            if (seat.selectedSeat.row === row && seat.selectedSeat.column === column) {
+            if (
+                seat.selectedSeat.row === row &&
+                seat.selectedSeat.column === column
+            ) {
                 seat.dateOfBirth = event.target.value;
             }
         });
         setSelectedSeats(temp);
     };
 
-    const ChangeIdentificationNumberAction = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const ChangeIdentificationNumberAction = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const temp = [...selectedSeats];
         temp.filter((seat) => {
-            if (seat.selectedSeat.row === row && seat.selectedSeat.column === column) {
-                seat.typeOfID = parseInt(event.target.value === "" ? "0" : event.target.value);
+            if (
+                seat.selectedSeat.row === row &&
+                seat.selectedSeat.column === column
+            ) {
+                seat.typeOfID = parseInt(
+                    event.target.value === "" ? "0" : event.target.value
+                );
             }
         });
         setSelectedSeats(temp);
@@ -74,12 +95,74 @@ export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
     const ChangeGenderAction = (event: React.ChangeEvent<HTMLInputElement>) => {
         const temp = [...selectedSeats];
         temp.filter((seat) => {
-            if (seat.selectedSeat.row === row && seat.selectedSeat.column === column) {
-                seat.Gender = parseInt(event.target.value === "" ? "0" : event.target.value);
+            if (
+                seat.selectedSeat.row === row &&
+                seat.selectedSeat.column === column
+            ) {
+                seat.Gender = parseInt(
+                    event.target.value === "" ? "0" : event.target.value
+                );
             }
         });
         setSelectedSeats(temp);
     };
+
+    const ChangeNIDNumberAction = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const temp = [...selectedSeats];
+        temp.filter((seat) => {
+            if (
+                seat.selectedSeat.row === row &&
+                seat.selectedSeat.column === column
+            ) {
+                seat.NIDNumber = parseInt(
+                    event.target.value === "" ? "0" : event.target.value
+                );
+            }
+        });
+        setSelectedSeats(temp);
+    };
+
+    const ChangePassportNumberAction = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const temp = [...selectedSeats];
+        temp.filter((seat) => {
+            if (
+                seat.selectedSeat.row === row &&
+                seat.selectedSeat.column === column
+            ) {
+                seat.passportNumber = parseInt(
+                    event.target.value === "" ? "0" : event.target.value
+                );
+            }
+        });
+        setSelectedSeats(temp);
+    };
+
+    const ChangeBirthCertificateNumberAction = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const temp = [...selectedSeats];
+        temp.filter((seat) => {
+            if (
+                seat.selectedSeat.row === row &&
+                seat.selectedSeat.column === column
+            ) {
+                seat.birthCertificateNumber = parseInt(
+                    event.target.value === "" ? "0" : event.target.value
+                );
+            }
+        });
+        setSelectedSeats(temp);
+    };
+
+    const IdentificationChangeApi = [
+        ChangeNIDNumberAction,
+        ChangePassportNumberAction,
+        ChangeBirthCertificateNumberAction,
+    ];
 
     return (
         <Stack direction={"column"} spacing={1}>
@@ -89,15 +172,25 @@ export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
             <Stack direction={"row"} spacing={2}>
                 <FormControl>
                     <FormLabel id="name">Name</FormLabel>
-                    <TextField variant={"outlined"} onChange={ChangeNameAction} />
+                    <TextField
+                        variant={"outlined"}
+                        onChange={ChangeNameAction}
+                    />
                 </FormControl>
                 <FormControl>
                     <FormLabel id="phone-number">Phone Number</FormLabel>
-                    <TextField variant={"outlined"} onChange={ChangePhoneNumberAction} />
+                    <TextField
+                        variant={"outlined"}
+                        onChange={ChangePhoneNumberAction}
+                    />
                 </FormControl>
                 <FormControl>
                     <FormLabel id="date-of-birth">Date of Birth</FormLabel>
-                    <TextField variant={"outlined"} type="date" onChange={ChangeDateOfBirthAction} />
+                    <TextField
+                        variant={"outlined"}
+                        type="date"
+                        onChange={ChangeDateOfBirthAction}
+                    />
                 </FormControl>
                 <FormControl>
                     <FormLabel id="Type of id">
@@ -134,7 +227,10 @@ export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
             <Stack direction={"row"} spacing={2}>
                 <FormControl>
                     <FormLabel id="nid-number">{`${IdentificationText[selectedId]}`}</FormLabel>
-                    <TextField variant={"outlined"} />
+                    <TextField
+                        variant={"outlined"}
+                        onChange={IdentificationChangeApi[selectedId]}
+                    />
                 </FormControl>
                 <FormControl>
                     <FormLabel id="gender">Gender</FormLabel>

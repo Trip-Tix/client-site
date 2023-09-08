@@ -9,7 +9,7 @@ export default function SeatDetailsFrom() {
     const { selectedSeats } = useContext(SeatSelectionContext);
 
     return (
-        <Paper sx={{ flexGrow: 1, padding: "1rem" }}>
+        <Paper sx={{ flexGrow: 1, padding: "1rem", overflowY: "auto", maxHeight: "45rem" }}>
             <Stack direction={"column"} spacing={2}>
                 {selectedSeats.map((seat, index) => (
                     <SeatFormEntry

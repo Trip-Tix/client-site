@@ -20,6 +20,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { FormControl, FormLabel } from "@mui/material";
 import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
+import Style from "@/styles/list-transport/list-transport.module.css";
 
 export default function Filter() {
     const { filteringData, setFilteringData, transportList } =
@@ -127,13 +128,14 @@ export default function Filter() {
     ]);
 
     return (
-        <Stack direction="column" spacing={2} sx={{ width: "30%" }}>
+        <Stack direction="column" spacing={2} sx={{ width: "30%"}}>
             <Paper
                 elevation={3}
                 sx={{
                     padding: 5,
                     borderRadius: 5,
                 }}
+                
             >
                 <Stack spacing={2}>
                     <Typography variant="h5">Filter</Typography>
@@ -230,8 +232,8 @@ export default function Filter() {
                         />
                     </Stack>
                     <Divider />
-                    <Stack spacing={2}>
-                        <Typography variant="h6">Offer</Typography>
+                    <Stack spacing={2} direction={"row"}>
+
                         <FormControlLabel
                             control={
                                 <Checkbox
@@ -249,10 +251,8 @@ export default function Filter() {
                             }
                             label="Offer"
                         />
-                    </Stack>
-                    <Divider />
-                    <Stack spacing={2}>
-                        <Typography variant="h6">Refundable</Typography>
+
+  
                         <FormControlLabel
                             control={
                                 <Checkbox

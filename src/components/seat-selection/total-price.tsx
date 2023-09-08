@@ -1,21 +1,29 @@
 import { useContext, useState, useEffect } from "react";
-import { SeatSelectionContext } from "@public/context/seat-selection";
+import {
+    SeatSelectionContext,
+    SeatDetailsFormProps,
+} from "@public/context/seat-selection";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
+import { processPurchase } from "@public/api-call/select-seat";
+import { useRouter } from "next/router";
 
 export default function TotalPrice() {
     const { price, selectedSeats } = useContext(SeatSelectionContext);
     const [totalPrice, setTotalPrice] = useState<number>(0);
+    const router = useRouter();
 
     useEffect(() => {
         setTotalPrice(price * selectedSeats.length);
     }, [selectedSeats, price]);
 
     const handleClick = () => {
-        console.log(selectedSeats);
+        processPurchase(selectedSeats).then((res) => {
+            if (res) router.push(res);
+        });
     };
 
     return (
@@ -26,7 +34,11 @@ export default function TotalPrice() {
                 padding: "1rem",
             }}
         >
-            <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+            <Stack
+                direction={"row"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+            >
                 <Stack
                     direction={"column"}
                     spacing={1}

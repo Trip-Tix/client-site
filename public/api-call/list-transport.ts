@@ -167,6 +167,7 @@ interface GetTransportListProps {
     date: string;
     hasReturn: boolean;
     returnDate?: string;
+    processingReturn: boolean;
 }
 
 export const getTransportList = async (): Promise<TransportEntry[]> => {
@@ -177,6 +178,7 @@ export const getTransportList = async (): Promise<TransportEntry[]> => {
         date: sessionStorage.getItem("date") as string,
         hasReturn: sessionStorage.getItem("hasReturn") === "true",
         returnDate: sessionStorage.getItem("returnDate") as string,
+        processingReturn : sessionStorage.getItem("processingReturn") === "true",
     };
     console.log({
         message: "getTransportList() called",
