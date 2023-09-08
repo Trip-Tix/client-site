@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { ListTransportContext, TransportEntry } from "@public/context/list-transport";
+import { ListTransportContext, TransportEntry, SortingOption } from "@public/context/list-transport";
 import Stack from "@mui/material/Stack";
 import TransportCard from "@components/list-transport/transport-card";
 
@@ -8,7 +8,7 @@ export default function ListTransport() {
     const { transportList, filteringData } = useContext(ListTransportContext);
     const [filteredTransportList, setFilteredTransportList] = useState<TransportEntry[]>([]);
     useEffect(() => {
-        setFilteredTransportList(transportList.filter((transport) => {
+        const temp = transportList.filter((transport) => {
             if (transport.fare < filteringData.minFare || transport.fare > filteringData.maxFare) return false;
             if (transport.number_of_seats < filteringData.minSeats || transport.number_of_seats > filteringData.maxSeats) return false;
             if (filteringData.companies.length > 0 && !filteringData.companies.includes(transport.company_name)) return false;
@@ -19,7 +19,21 @@ export default function ListTransport() {
             if (filteringData.maxDepartureTime !== "" && transport.time > filteringData.maxDepartureTime) return false;
 
             return true;
-        }));
+        });
+
+        if (filteringData.selectSortingOption === SortingOption.Fare) {
+            temp.sort((a, b) => a.fare - b.fare);
+        } else if (filteringData.selectSortingOption === SortingOption.DepartureTime) {
+            temp.sort((a, b) => {
+                const aTime = new Date(a.time);
+                const bTime = new Date(b.time);
+                return aTime.getTime() - bTime.getTime();
+            });
+        } else if (filteringData.selectSortingOption === SortingOption.Seats) {
+            temp.sort((a, b) => b.number_of_seats - a.number_of_seats);
+        }
+
+        setFilteredTransportList(temp);
     }, [transportList, filteringData]);
     
 

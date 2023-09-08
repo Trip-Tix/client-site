@@ -5,13 +5,14 @@ import { Button } from "@mui/material";
 import { useSpring, animated } from "@react-spring/web";
 import { useState } from "react";
 import { transport_list_url } from "@public/pagelinks";
-
+import { Height } from "@mui/icons-material";
 
 export default function Submit() {
     const { source, destination, date, returnDate, hasReturn, transport } =
         useContext(DestinationContext);
 
     const submitAnimation = useSpring({
+        height: "100%",
         opacity:
             source === "" ||
             destination === "" ||
@@ -40,7 +41,7 @@ export default function Submit() {
         sessionStorage.setItem("returnDate", returnDate);
         sessionStorage.setItem("hasReturn", hasReturn.toString());
         sessionStorage.setItem("transport", transport.toString());
-        
+
         setTogglePageChange(true);
 
         console.log({
@@ -50,8 +51,8 @@ export default function Submit() {
             returnDate,
             hasReturn,
             transport,
-        })
-    }
+        });
+    };
 
     return (
         <animated.div style={submitAnimation}>
@@ -60,12 +61,12 @@ export default function Submit() {
                 variant="contained"
                 sx={{
                     width: "100%",
+                    height: "100%",
                     backgroundColor: "rgba(0,0,0,0)",
                     color: "#008080",
                     fontWeight: "bold",
                     fontSize: "1.5rem",
                     padding: "1rem",
-                    marginTop: "2rem",
                     marginBottom: "2rem",
                     boxShadow: "0px 0px 0px rgba(0, 0, 0, 0.25)",
                     ":hover": {

@@ -185,3 +185,48 @@ export const getTransportList = async (): Promise<TransportEntry[]> => {
     });
     return transportEntries;
 };
+
+/*
+const extraOptions = [
+        "Transport Details",
+        "Price Details",
+        "Refund Policy",
+    ];
+*/
+
+export const getTransportDetails = async (
+    unique_id: string
+): Promise<string> => {
+    const transportDetails = `Transport is good. Like my app.`;
+    console.log({
+        message: "getTransportDetails() called",
+        sent: unique_id,
+        received: transportDetails,
+    });
+    return transportDetails;
+}
+
+export const getPriceDetails = async (
+    unique_id: string
+): Promise<string> => {
+    const priceDetails = `Price is good. Like my app.`;
+    console.log({
+        message: "getPriceDetails() called",
+        sent: unique_id,
+        received: priceDetails,
+    });
+    return priceDetails;
+}
+
+
+export const getRefundPolicy = async (
+    unique_id: string
+): Promise<string> => {
+    const refundPolicy = `No refund. Like my app.`;
+    console.log({
+        message: "getRefundPolicy() called",
+        sent: unique_id,
+        received: refundPolicy,
+    });
+    return refundPolicy;
+}

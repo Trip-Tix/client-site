@@ -3,6 +3,7 @@ import {
     ListTransportContext,
     FilteringData,
     TransportEntry,
+    SortingOption,
 } from "@public/context/list-transport";
 import { TransportType } from "@public/interface/transport";
 import Stack from "@mui/material/Stack";
@@ -16,6 +17,9 @@ import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Autocomplete from "@mui/material/Autocomplete";
+import { FormControl, FormLabel } from "@mui/material";
+import RadioGroup from "@mui/material/RadioGroup";
+import Radio from "@mui/material/Radio";
 
 export default function Filter() {
     const { filteringData, setFilteringData, transportList } =
@@ -31,10 +35,13 @@ export default function Filter() {
     const [wantOffer, setWantOffer] = useState(false);
     const [wantRefundable, setWantRefundable] = useState(false);
 
-    const [priceRange, setPriceRange] = useState([0, 0]);
+    const [priceRange, setPriceRange] = useState([0, 0]);``
     const [seatRange, setSeatRange] = useState([0, 0]);
     const [companies, setCompanies] = useState<string[]>([]);
     const [coachTypes, setCoachTypes] = useState<string[]>([]);
+    const [sortingOption, setSortingOption] = useState<SortingOption>(
+        SortingOption.Fare
+    );
 
     useEffect(() => {
         if (transportList.length === 0) return;
@@ -81,8 +88,6 @@ export default function Filter() {
         ]);
     }, [transportList]);
 
-    
-
     const handlePriceRangeChange = (
         event: any,
         newValue: number | number[]
@@ -98,7 +103,6 @@ export default function Filter() {
         setSelectedCompanies(newValue as string[]);
     };
 
-
     useEffect(() => {
         setFilteringData({
             ...filteringData,
@@ -110,8 +114,8 @@ export default function Filter() {
             coaches: selectedCoachTypes,
             wantOffer: wantOffer,
             wantRefundable: wantRefundable,
+            selectSortingOption: sortingOption,
         });
-        console.log(filteringData);
     }, [
         selectedFareRange,
         selectedSeatRange,
@@ -119,121 +123,156 @@ export default function Filter() {
         selectedCoachTypes,
         wantOffer,
         wantRefundable,
+        sortingOption,
     ]);
 
     return (
-        <Stack direction="column" spacing={2} sx={{width: "30%"}}>
-        <Paper
-            elevation={3}
-            sx={{ 
-                padding: 5, 
-                borderRadius: 5,
-             }}
-        >
-            <Stack spacing={2}>
-                <Typography variant="h5">Filter</Typography>
-                <Divider />
+        <Stack direction="column" spacing={2} sx={{ width: "30%" }}>
+            <Paper
+                elevation={3}
+                sx={{
+                    padding: 5,
+                    borderRadius: 5,
+                }}
+            >
                 <Stack spacing={2}>
-                    <Typography variant="h6">Price</Typography>
-                    <Slider
-                        value={selectedFareRange}
-                        valueLabelDisplay="auto"
-                        onChange={handlePriceRangeChange}
-                    />
-                </Stack>
-                <Divider />
-                <Stack spacing={2}>
-                    <Typography variant="h6">Number of seats</Typography>
-                    <Slider
-                        value={selectedSeatRange}
-                        valueLabelDisplay="auto"
-                        onChange={handleSeatRangeChange}
-                    />
-                </Stack>
-                <Divider />
-                <Stack spacing={2}>
-                    <Typography variant="h6">Company</Typography>
-                    <Autocomplete
-                        multiple
-                        options={companies}
-                        filterSelectedOptions
-                        limitTags={2}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                variant="standard"
-                                placeholder="Company"
+                    <Typography variant="h5">Filter</Typography>
+                    <Divider />
+                    <FormControl>
+                        <FormLabel>Sort by</FormLabel>
+                        <RadioGroup
+                            row
+                            aria-label="sort-by"
+                            name="row-radio-buttons-group"
+                            value={sortingOption}
+                            onChange={(event) => {
+                                setSortingOption(
+                                    parseInt(event.target.value)
+                                );
+                            }}
+                        >
+                            <FormControlLabel
+                                value={SortingOption.Fare}
+                                control={<Radio />}
+                                label="Fare"
                             />
-                        )}
-                        onChange={(event, value) => {
-                            setSelectedCompanies(value);
-                        }}
-                    />
-                </Stack>
-                <Divider />
-                <Stack spacing={2}>
-                    <Typography variant="h6">Coach type</Typography>
-                    <Autocomplete
-                        multiple
-                        options={coachTypes}
-                        filterSelectedOptions
-                        limitTags={2}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                variant="standard"
-                                placeholder="Coach type"
+                            <FormControlLabel
+                                value={SortingOption.Seats}
+                                control={<Radio />}
+                                label="Seat"
                             />
-                        )}
-                        onChange={(event, value) => {
-                            setSelectedCoachTypes(value);
-                        }}
-                    />
-                </Stack>
-                <Divider />
-                <Stack spacing={2}>
-                    <Typography variant="h6">Offer</Typography>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={wantOffer}
-                                onChange={(e) => {
-                                    setWantOffer(e.target.checked);
-                                    setFilteringData({
-                                        ...filteringData,
-                                        wantOffer: e.target.checked,
-                                    });
-                                }}
-                                name="wantOffer"
-                                color="primary"
+                            <FormControlLabel
+                                value={SortingOption.DepartureTime}
+                                control={<Radio />}
+                                label="Departure Time"
                             />
-                        }
-                        label="Offer"
-                    />
+                        </RadioGroup>
+                    </FormControl>
+                    <Stack spacing={2}>
+                        <Typography variant="h6">Price</Typography>
+                        <Slider
+                            value={selectedFareRange}
+                            valueLabelDisplay="auto"
+                            onChange={handlePriceRangeChange}
+                            min={priceRange[0]}
+                            max={priceRange[1]}
+                        />
+                    </Stack>
+                    <Divider />
+                    <Stack spacing={2}>
+                        <Typography variant="h6">Number of seats</Typography>
+                        <Slider
+                            value={selectedSeatRange}
+                            valueLabelDisplay="auto"
+                            onChange={handleSeatRangeChange}
+                            min={seatRange[0]}
+                            max={seatRange[1]}
+                        />
+                    </Stack>
+                    <Divider />
+                    <Stack spacing={2}>
+                        <Typography variant="h6">Company</Typography>
+                        <Autocomplete
+                            multiple
+                            options={companies}
+                            filterSelectedOptions
+                            limitTags={2}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    variant="standard"
+                                    placeholder="Company"
+                                />
+                            )}
+                            onChange={(event, value) => {
+                                setSelectedCompanies(value);
+                            }}
+                        />
+                    </Stack>
+                    <Divider />
+                    <Stack spacing={2}>
+                        <Typography variant="h6">Coach type</Typography>
+                        <Autocomplete
+                            multiple
+                            options={coachTypes}
+                            filterSelectedOptions
+                            limitTags={2}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    variant="standard"
+                                    placeholder="Coach type"
+                                />
+                            )}
+                            onChange={(event, value) => {
+                                setSelectedCoachTypes(value);
+                            }}
+                        />
+                    </Stack>
+                    <Divider />
+                    <Stack spacing={2}>
+                        <Typography variant="h6">Offer</Typography>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={wantOffer}
+                                    onChange={(e) => {
+                                        setWantOffer(e.target.checked);
+                                        setFilteringData({
+                                            ...filteringData,
+                                            wantOffer: e.target.checked,
+                                        });
+                                    }}
+                                    name="wantOffer"
+                                    color="primary"
+                                />
+                            }
+                            label="Offer"
+                        />
+                    </Stack>
+                    <Divider />
+                    <Stack spacing={2}>
+                        <Typography variant="h6">Refundable</Typography>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={wantRefundable}
+                                    onChange={(e) => {
+                                        setWantRefundable(e.target.checked);
+                                        setFilteringData({
+                                            ...filteringData,
+                                            wantRefundable: e.target.checked,
+                                        });
+                                    }}
+                                    name="wantRefundable"
+                                    color="primary"
+                                />
+                            }
+                            label="Refundable"
+                        />
+                    </Stack>
                 </Stack>
-                <Divider />
-                <Stack spacing={2}>
-                    <Typography variant="h6">Refundable</Typography>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={wantRefundable}
-                                onChange={(e) => {
-                                    setWantRefundable(e.target.checked);
-                                    setFilteringData({
-                                        ...filteringData,
-                                        wantRefundable: e.target.checked,
-                                    });
-                                }}
-                                name="wantRefundable"
-                                color="primary"
-                            />
-                        }
-                        label="Refundable"
-                    />
-                </Stack>
-            </Stack>
-        </Paper>
+            </Paper>
         </Stack>
     );
 }

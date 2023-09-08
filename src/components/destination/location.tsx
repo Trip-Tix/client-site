@@ -63,17 +63,16 @@ export default function Location() {
         delay: animationStartTime - 300,
     });
 
-    const {mode} = useContext(ColorContext);
+    const { mode } = useContext(ColorContext);
 
     return (
         <Paper
+            elevation={3}
             sx={{
                 padding: "2rem",
             }}
         >
-            <Stack
-                spacing={2}
-            >
+            <Stack spacing={2}>
                 <Typography
                     variant="h5"
                     sx={{
@@ -109,15 +108,27 @@ export default function Location() {
                     >
                         <animated.div
                             style={boxSlide}
-                            className={mode === "dark" ? Style.slide_dark : Style.slide_light}
+                            className={
+                                mode === "dark"
+                                    ? Style.slide_dark
+                                    : Style.slide_light
+                            }
                         />
                         <animated.div
                             style={sourceSelectedAnimation}
-                            className={mode === "dark" ? Style.startDot_dark : Style.startDot_light}
+                            className={
+                                mode === "dark"
+                                    ? Style.startDot_dark
+                                    : Style.startDot_light
+                            }
                         />
                         <animated.div
                             style={destinationSelectedAnimation}
-                            className={mode === "dark" ? Style.endDot_dark : Style.endDot_light}
+                            className={
+                                mode === "dark"
+                                    ? Style.endDot_dark
+                                    : Style.endDot_light
+                            }
                         />
                     </Box>
 

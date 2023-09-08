@@ -17,9 +17,9 @@ export interface TransportEntry {
 }
 
 export enum SortingOption {
-    Fare = 'fare',
-    Seats = 'number_of_seats',
-    DepartureTime = 'time',
+    Fare = 0,
+    Seats = 1,
+    DepartureTime = 2,
 }
 
 export interface FilteringData {

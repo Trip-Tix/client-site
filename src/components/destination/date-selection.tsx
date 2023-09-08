@@ -26,8 +26,6 @@ export default function DateSelection() {
         <Paper
             elevation={3}
             sx={{
-                width: "50%",
-                height: "100%",
                 padding: "2rem",
             }}
         >

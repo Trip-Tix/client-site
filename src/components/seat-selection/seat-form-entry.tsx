@@ -26,10 +26,60 @@ const IdentificationText = [
 ];
 
 export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
-    const { selectedSeats } = useContext(SeatSelectionContext);
+    const { selectedSeats, setSelectedSeats } = useContext(SeatSelectionContext);
     const [selectedId, setSelectedId] = useState<ValidationNumber>(
         ValidationNumber.NID
     );
+
+    const ChangeNameAction = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const temp = [...selectedSeats];
+        temp.filter((seat) => {
+            if (seat.selectedSeat.row === row && seat.selectedSeat.column === column) {
+                seat.name = event.target.value;
+            }
+        });
+        setSelectedSeats(temp);
+    };
+
+    const ChangePhoneNumberAction = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const temp = [...selectedSeats];
+        temp.filter((seat) => {
+            if (seat.selectedSeat.row === row && seat.selectedSeat.column === column) {
+                seat.phoneNumber = event.target.value;
+            }
+        });
+        setSelectedSeats(temp);
+    };
+
+    const ChangeDateOfBirthAction = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const temp = [...selectedSeats];
+        temp.filter((seat) => {
+            if (seat.selectedSeat.row === row && seat.selectedSeat.column === column) {
+                seat.dateOfBirth = event.target.value;
+            }
+        });
+        setSelectedSeats(temp);
+    };
+
+    const ChangeIdentificationNumberAction = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const temp = [...selectedSeats];
+        temp.filter((seat) => {
+            if (seat.selectedSeat.row === row && seat.selectedSeat.column === column) {
+                seat.typeOfID = parseInt(event.target.value === "" ? "0" : event.target.value);
+            }
+        });
+        setSelectedSeats(temp);
+    };
+
+    const ChangeGenderAction = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const temp = [...selectedSeats];
+        temp.filter((seat) => {
+            if (seat.selectedSeat.row === row && seat.selectedSeat.column === column) {
+                seat.Gender = parseInt(event.target.value === "" ? "0" : event.target.value);
+            }
+        });
+        setSelectedSeats(temp);
+    };
 
     return (
         <Stack direction={"column"} spacing={1}>
@@ -39,15 +89,15 @@ export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
             <Stack direction={"row"} spacing={2}>
                 <FormControl>
                     <FormLabel id="name">Name</FormLabel>
-                    <TextField variant={"outlined"} />
+                    <TextField variant={"outlined"} onChange={ChangeNameAction} />
                 </FormControl>
                 <FormControl>
                     <FormLabel id="phone-number">Phone Number</FormLabel>
-                    <TextField variant={"outlined"} />
+                    <TextField variant={"outlined"} onChange={ChangePhoneNumberAction} />
                 </FormControl>
                 <FormControl>
                     <FormLabel id="date-of-birth">Date of Birth</FormLabel>
-                    <TextField variant={"outlined"} type="date" />
+                    <TextField variant={"outlined"} type="date" onChange={ChangeDateOfBirthAction} />
                 </FormControl>
                 <FormControl>
                     <FormLabel id="Type of id">
@@ -60,6 +110,7 @@ export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
                         value={selectedId}
                         onChange={(event) => {
                             setSelectedId(parseInt(event.target.value));
+                            ChangeIdentificationNumberAction(event);
                         }}
                     >
                         <FormControlLabel
@@ -91,6 +142,7 @@ export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
                         row
                         aria-labelledby="demo-row-radio-buttons-group-label"
                         name="row-radio-buttons-group"
+                        onChange={ChangeGenderAction}
                     >
                         <FormControlLabel
                             value={Gender.Male}
@@ -101,6 +153,11 @@ export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
                             value={Gender.Female}
                             control={<Radio />}
                             label="Female"
+                        />
+                        <FormControlLabel
+                            value={0}
+                            control={<Radio />}
+                            label="Other"
                         />
                     </RadioGroup>
                 </FormControl>

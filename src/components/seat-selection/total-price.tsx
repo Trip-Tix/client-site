@@ -11,9 +11,12 @@ export default function TotalPrice() {
     const [totalPrice, setTotalPrice] = useState<number>(0);
 
     useEffect(() => {
-        console.log(selectedSeats, price);
         setTotalPrice(price * selectedSeats.length);
     }, [selectedSeats, price]);
+
+    const handleClick = () => {
+        console.log(selectedSeats);
+    };
 
     return (
         <Paper
@@ -23,18 +26,30 @@ export default function TotalPrice() {
                 padding: "1rem",
             }}
         >
-            <Stack
-                direction={"column"}
-                spacing={1}
-                justifyContent={"flex-start"}
-            >
-                <Typography variant={"h4"}>Total Price</Typography>
-                <Typography
-                    variant={"h6"}
+            <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                <Stack
+                    direction={"column"}
+                    spacing={1}
+                    justifyContent={"flex-start"}
+                >
+                    <Typography variant={"h4"}>Total Price</Typography>
+                    <Typography
+                        variant={"h6"}
+                        sx={{
+                            fontWeight: "light",
+                        }}
+                    >{`${totalPrice} Tk`}</Typography>
+                </Stack>
+                <Button
+                    variant={"contained"}
                     sx={{
-                        fontWeight: "light",
+                        width: "20%",
+                        height: "100%",
                     }}
-                >{`${totalPrice} Tk`}</Typography>
+                    onClick={handleClick}
+                >
+                    Confirm
+                </Button>
             </Stack>
         </Paper>
     );
