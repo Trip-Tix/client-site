@@ -42,6 +42,7 @@ export default function ListTransport() {
 
     useEffect(() => {
         getTransportList().then((res) => {
+            console.log(res);
             setTransportList(res);
         });
     }, [selectedTransportType]);

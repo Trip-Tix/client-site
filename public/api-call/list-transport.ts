@@ -2,6 +2,7 @@ import { TransportType } from "@public/interface/transport";
 import { TransportEntry } from "@public/context/list-transport";
 import axios from "axios";
 
+/*
 const transportEntries: TransportEntry[] = [
     {
         unique_id: "1",
@@ -159,6 +160,7 @@ const transportEntries: TransportEntry[] = [
     },
     // Add more entries as needed
 ];
+*/
 
 interface GetTransportListProps {
     transportType: TransportType;
@@ -177,15 +179,15 @@ const plane_api = main_url + "/api/getScheduleWisePlaneDetails";
 
 interface busListReturnType {
     unique_bus_id: string;
-    bus_id: string;
-    bus_scedule_id: string;
+    bus_id: number;
+    bus_schedule_id: number;
     departure_time: string;
     arrival_time: string;
     fare: number;
     bus_company_name: string;
     coach_id: number;
     brand_name: string;
-    coach_type: string;
+    coach_name: string;
     available_seat_count: number;
     bus_layout_id: number;
     number_of_seats: number;
@@ -218,15 +220,17 @@ export const getBusList = async (
                     unique_id: bus.unique_bus_id,
                     company_name: bus.bus_company_name,
                     brand_name: bus.brand_name,
-                    coach_type: bus.coach_type,
+                    coach_type: bus.coach_name,
                     time: bus.departure_time,
                     fare: bus.fare,
                     number_of_seats: bus.available_seat_count,
-                    fasilites: ["--", "--"],
+                    fasilites: ["--"],
                     transport_type: TransportType.Bus,
                     company_logo: "companyA-logo.png",
                     has_offer: false,
                     is_refundable: false,
+                    schedule_id: bus.bus_schedule_id,
+                    transport_id: bus.bus_id,
                 };
                 returningResponse.push(newEntry);
             });

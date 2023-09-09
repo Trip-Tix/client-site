@@ -14,6 +14,8 @@ export interface TransportEntry {
     company_logo: string;
     has_offer: boolean;
     is_refundable: boolean;
+    schedule_id: number;
+    transport_id: number;
 }
 
 export enum SortingOption {
