@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 const main_url = "https://triptix-backend.onrender.com";
 const login_api = main_url + "/api/user/login";
 
