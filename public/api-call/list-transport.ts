@@ -1,6 +1,6 @@
 import { TransportType } from "@public/interface/transport";
 import { TransportEntry } from "@public/context/list-transport";
-import { Axios } from "axios";
+import axios from "axios";
 
 const transportEntries: TransportEntry[] = [
     {
@@ -170,22 +170,120 @@ interface GetTransportListProps {
     processingReturn: boolean;
 }
 
+const main_url = "https://triptix-backend.onrender.com";
+const bus_api = main_url + "/api/getScheduleWiseBusDetails";
+const train_api = main_url + "/api/getScheduleWiseTrainDetails";
+const plane_api = main_url + "/api/getScheduleWisePlaneDetails";
+
+interface busListReturnType {
+    unique_bus_id: string;
+    bus_id: string;
+    bus_scedule_id: string;
+    departure_time: string;
+    arrival_time: string;
+    fare: number;
+    bus_company_name: string;
+    coach_id: number;
+    brand_name: string;
+    coach_type: string;
+    available_seat_count: number;
+    bus_layout_id: number;
+    number_of_seats: number;
+    layout: number[][];
+    seat_name: string[][];
+}
+
+export const getBusList = async (
+    source: string,
+    destination: string,
+    date: string
+): Promise<TransportEntry[]> => {
+    try {
+        console.log({
+            source: source,
+            destination: destination,
+            journeyDate: date,
+        });
+        const res = await axios.post(bus_api, {
+            source: source,
+            destination: destination,
+            journeyDate: date,
+        });
+        const returningResponse: TransportEntry[] = [];
+        if (res.status === 200) {
+            console.log(res);
+            const busList: busListReturnType[] = res.data;
+            busList.forEach((bus) => {
+                const newEntry: TransportEntry = {
+                    unique_id: bus.unique_bus_id,
+                    company_name: bus.bus_company_name,
+                    brand_name: bus.brand_name,
+                    coach_type: bus.coach_type,
+                    time: bus.departure_time,
+                    fare: bus.fare,
+                    number_of_seats: bus.available_seat_count,
+                    fasilites: ["--", "--"],
+                    transport_type: TransportType.Bus,
+                    company_logo: "companyA-logo.png",
+                    has_offer: false,
+                    is_refundable: false,
+                };
+                returningResponse.push(newEntry);
+            });
+        } else {
+            console.log("Error in getBusList()");
+        }
+        return returningResponse;
+    } catch (err: any) {
+        console.log(err);
+        console.log("We got Error in getBusList()");
+        const returningResponse: TransportEntry[] = [];
+        return returningResponse;
+    }
+};
+
 export const getTransportList = async (): Promise<TransportEntry[]> => {
-    const GetTransportListProps: GetTransportListProps = {
-        transportType: sessionStorage.getItem("transportType") as TransportType,
-        source: sessionStorage.getItem("source") as string,
-        destination: sessionStorage.getItem("destination") as string,
-        date: sessionStorage.getItem("date") as string,
-        hasReturn: sessionStorage.getItem("hasReturn") === "true",
-        returnDate: sessionStorage.getItem("returnDate") as string,
-        processingReturn : sessionStorage.getItem("processingReturn") === "true",
-    };
-    console.log({
-        message: "getTransportList() called",
-        sent: GetTransportListProps,
-        received: transportEntries,
-    });
-    return transportEntries;
+    const transport_type = sessionStorage.getItem("transport");
+    const source = sessionStorage.getItem("source");
+    const destination = sessionStorage.getItem("destination");
+    const processingReturn = sessionStorage.getItem("processingReturn");
+    const date = sessionStorage.getItem("date");
+    const returnDate = sessionStorage.getItem("returnDate");
+    const hasReturn = sessionStorage.getItem("hasReturn");
+
+    const journeyDateParsed = new Date(date!);
+    const returnDateParsed = new Date(returnDate!);
+
+    let day = journeyDateParsed.getDate();
+    let month = journeyDateParsed.getMonth() + 1;
+    let year = journeyDateParsed.getFullYear();
+
+    const formattedJourneyDate = `${day.toString().padStart(2, "0")}-${month
+        .toString()
+        .padStart(2, "0")}-${year}`;
+
+    day = returnDateParsed.getDate();
+    month = returnDateParsed.getMonth() + 1;
+    year = returnDateParsed.getFullYear();
+
+    const formattedReturnDate = `${day.toString().padStart(2, "0")}-${month
+        .toString()
+        .padStart(2, "0")}-${year}`;
+
+
+    if (transport_type === TransportType.Bus) {
+        if (processingReturn === "true") {
+            return await getBusList(destination!, source!, formattedReturnDate!);
+        } else {
+            return await getBusList(source!, destination!, formattedJourneyDate!);
+        }
+    } else if (transport_type === TransportType.Train) {
+        return [];
+    } else if (transport_type === TransportType.Flight) {
+        return [];
+    } else {
+        return [];
+    }
 };
 
 /*
@@ -206,11 +304,9 @@ export const getTransportDetails = async (
         received: transportDetails,
     });
     return transportDetails;
-}
+};
 
-export const getPriceDetails = async (
-    unique_id: string
-): Promise<string> => {
+export const getPriceDetails = async (unique_id: string): Promise<string> => {
     const priceDetails = `Price is good. Like my app.`;
     console.log({
         message: "getPriceDetails() called",
@@ -218,12 +314,9 @@ export const getPriceDetails = async (
         received: priceDetails,
     });
     return priceDetails;
-}
+};
 
-
-export const getRefundPolicy = async (
-    unique_id: string
-): Promise<string> => {
+export const getRefundPolicy = async (unique_id: string): Promise<string> => {
     const refundPolicy = `No refund. Like my app.`;
     console.log({
         message: "getRefundPolicy() called",
@@ -231,4 +324,4 @@ export const getRefundPolicy = async (
         received: refundPolicy,
     });
     return refundPolicy;
-}
+};

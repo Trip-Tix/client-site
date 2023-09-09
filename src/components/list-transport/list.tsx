@@ -74,7 +74,10 @@ export default function ListTransport() {
 
     return (
         <>
-            <Stack spacing={2} sx={{ width: "100%", height: "100%" }}>
+            <Stack
+                spacing={2}
+                sx={{ width: "100%", height: "44.8rem", overflowY: "scroll" }}
+            >
                 {filteredTransportList.map((transport) => (
                     <TransportCard
                         key={transport.unique_id}

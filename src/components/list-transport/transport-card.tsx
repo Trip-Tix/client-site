@@ -91,8 +91,6 @@ export default function TransportCard({ transport }: TransportCardProps) {
             sx={{
                 borderRadius: 5,
                 flexGrow: 1,
-                overflow: "hidden",
-                height: "100%",
             }}
         >
             <Stack direction={"column"} spacing={1}>
