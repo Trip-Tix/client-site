@@ -32,6 +32,8 @@ returnDate: sessionStorage.getItem("returnDate") as string,
 
 sessionStorage.setItem("transportId", id);
 sessionStorage.setItem("transportPrice", price.toString());
+sessionStorage.setItem("scheduleId", schedule_id.toString());
+sessionStorage.setItem("transportId", transport_id.toString());
 
 // public/api-call/select-transport.ts
 

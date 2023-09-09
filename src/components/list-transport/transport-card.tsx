@@ -78,9 +78,11 @@ export default function TransportCard({ transport }: TransportCardProps) {
     }, [selectExtraOption, showDetails, extraOptions, setDetailsMessage, transport.unique_id]);
 
     const router = useRouter();
-    const handleBookNow = (id: string, price: number) => {
-        sessionStorage.setItem("transportId", id);
+    const handleBookNow = (id: string, price: number, schedule_id: number, transport_id: number) => {
+        sessionStorage.setItem("uniqueId", id);
         sessionStorage.setItem("transportPrice", price.toString());
+        sessionStorage.setItem("scheduleId", schedule_id.toString());
+        sessionStorage.setItem("transportId", transport_id.toString());
         console.log("Transport ID: ", id);
         router.push(select_seat_url);
     };
@@ -281,7 +283,9 @@ export default function TransportCard({ transport }: TransportCardProps) {
                                 onClick={() =>
                                     handleBookNow(
                                         transport.unique_id,
-                                        transport.fare
+                                        transport.fare,
+                                        transport.schedule_id,
+                                        transport.transport_id,
                                     )
                                 }
                                 startIcon={<BookIcon />}

@@ -32,16 +32,26 @@ export interface SeatDetailsFormProps {
 }
 
 interface SeatSelectionContextType {
-    row: number;
-    setRow: (row: number) => void;
-    column: number;
-    setColumn: (column: number) => void;
     layout: number[][];
-    setLayout: (layout: number[][]) => void;
-    price: number;
-    setPrice: (price: number) => void;
+    setLayout: React.Dispatch<React.SetStateAction<number[][]>>;
+    seatName: string[][];
+    setSeatName: React.Dispatch<React.SetStateAction<string[][]>>;
+    seatId: number[][];
+    setSeatId: React.Dispatch<React.SetStateAction<number[][]>>;
+    numberOfSeats: number;
+    setNumberOfSeats: React.Dispatch<React.SetStateAction<number>>;
+    availableSeatCount: number;
+    setAvailableSeatCount: React.Dispatch<React.SetStateAction<number>>;
     selectedSeats: SeatDetailsFormProps[];
-    setSelectedSeats: (selectedSeats: SeatDetailsFormProps[]) => void;
+    setSelectedSeats: React.Dispatch<React.SetStateAction<SeatDetailsFormProps[]>>;
+    price : number;
+    setPrice : React.Dispatch<React.SetStateAction<number>>;
+    uniqueId : string;
+    setUniqueId : React.Dispatch<React.SetStateAction<string>>;
+    transportId : number;
+    setTransportId : React.Dispatch<React.SetStateAction<number>>;
+    scheduleId : number;
+    setScheduleId : React.Dispatch<React.SetStateAction<number>>;
 }
 
 export enum SeatLabel {
@@ -108,15 +118,25 @@ export const layout_to_info_map: LayoutInfo[] = [
 ]
 
 export const SeatSelectionContext = createContext<SeatSelectionContextType>({
-    row: 0,
-    setRow: () => {},
-    column: 0,
-    setColumn: () => {},
-    layout: [[]],
+    layout: [],
     setLayout: () => {},
-    price: 0,
-    setPrice: () => {},
+    seatName: [],
+    setSeatName: () => {},
+    seatId: [],
+    setSeatId: () => {},
+    numberOfSeats: 0,
+    setNumberOfSeats: () => {},
+    availableSeatCount: 0,
+    setAvailableSeatCount: () => {},
     selectedSeats: [],
     setSelectedSeats: () => {},
+    price : 0,
+    setPrice : () => {},
+    uniqueId : "",
+    setUniqueId : () => {},
+    transportId : 0,
+    setTransportId : () => {},
+    scheduleId : 0,
+    setScheduleId : () => {},
 });
 

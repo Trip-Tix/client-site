@@ -1,40 +1,127 @@
-interface response_data {
-    row: number;
-    column: number;
+import axios from "axios";
+
+const main_url = "https://triptix-backend.onrender.com";
+const layout_api = main_url + "/api/getUniqueBusDetails";
+
+interface layout_data {
     layout: number[][];
+    seatName: string[][];
+    SeatId: number[][];
+    numberOfSeats: number;
+    availableSeatCount: number;
     price: number;
+    uniqueId: string;
+    transportId: number;
+    scheduleId: number;
 }
 
-// demo data
+interface bus_response_data {
+    layout: number[][];
+    seatName: string[][];
+    busSeatId: number[][];
+    numberOfSeats: number;
+    availableSeatCount: number;
+}
 
-const response: response_data = {
-    row: 10,
-    column: 5,
-    layout: [
-        [3, 1, 0, 1, 1],
-        [1, 1, 0, 1, 1],
-        [4, 4, 0, 4, 4],
-        [1, 1, 0, 4, 5],
-        [3, 3, 0, 4, 5],
-        [3, 2, 0, 1, 1],
-        [1, 1, 0, 1, 1],
-        [1, 1, 0, 1, 1],
-        [1, 1, 0, 1, 1],
-        [1, 1, 1, 1, 1],
-    ],
-    price: 50,
+const getBusLayout = async (): Promise<layout_data> => {
+    try {
+        const response = await axios.post(
+            layout_api,
+            {
+                uniqueBusId: sessionStorage.getItem("uniqueId"),
+                busId: sessionStorage.getItem("transportId"),
+                busScheduleId: sessionStorage.getItem("scheduleId"),
+            },
+            {
+                headers: {
+                    token: sessionStorage.getItem("access_token"),
+                },
+            }
+        );
+
+        const responseData: bus_response_data = response.data;
+
+        if (response.status === 200) {
+            console.log(responseData);
+            return {
+                layout: responseData.layout,
+                seatName: responseData.seatName,
+                SeatId: responseData.busSeatId,
+                numberOfSeats: responseData.numberOfSeats,
+                availableSeatCount: responseData.availableSeatCount,
+                price:
+                    sessionStorage.getItem("price") === null
+                        ? 0
+                        : parseInt(sessionStorage.getItem("price") as string),
+                uniqueId: sessionStorage.getItem("uniqueId") as string,
+                transportId:
+                    sessionStorage.getItem("transportId") === null
+                        ? 0
+                        : parseInt(
+                              sessionStorage.getItem("transportId") as string
+                          ),
+                scheduleId:
+                    sessionStorage.getItem("scheduleId") === null
+                        ? 0
+                        : parseInt(
+                              sessionStorage.getItem("scheduleId") as string
+                          ),
+            };
+        } else {
+            console.log(response);
+            return {
+                layout: [],
+                seatName: [],
+                SeatId: [],
+                numberOfSeats: 0,
+                availableSeatCount: 0,
+                price: 0,
+                uniqueId: "",
+                transportId: 0,
+                scheduleId: 0,
+            };
+        }
+    } catch (error) {
+        return {
+            layout: [],
+            seatName: [],
+            SeatId: [],
+            numberOfSeats: 0,
+            availableSeatCount: 0,
+            price: 0,
+            uniqueId: "",
+            transportId: 0,
+            scheduleId: 0,
+        };
+    }
 };
 
-export const getSeatLayout = async (): Promise<response_data> => {
-    const transport_id = sessionStorage.getItem("transportId");
-    const price = sessionStorage.getItem("transportPrice");
-    response.price = price ? parseInt(price) : 0;
-    console.log(transport_id);
-    return response;
+export const getSeatLayout = async (): Promise<layout_data> => {
+    const transportType = sessionStorage.getItem("transport") as TransportType;
+    if (transportType === TransportType.Bus) {
+        return await getBusLayout();
+    } else {
+        return {
+            layout: [],
+            seatName: [],
+            SeatId: [],
+            numberOfSeats: 0,
+            availableSeatCount: 0,
+            price: 0,
+            uniqueId: "",
+            transportId: 0,
+            scheduleId: 0,
+        };
+    }
 };
 
 import { SeatDetailsFormProps } from "@public/context/seat-selection";
-import { transport_list_url, select_seat_url,payment_url } from "@public/pagelinks";
+import {
+    transport_list_url,
+    select_seat_url,
+    payment_url,
+} from "@public/pagelinks";
+import { TransportType } from "@public/interface/transport";
 export const processPurchase = async (
     purchasingSeats: SeatDetailsFormProps[]
 ): Promise<string> => {

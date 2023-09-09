@@ -18,26 +18,51 @@ import { useContext } from "react";
 import { getSeatLayout } from "@public/api-call/select-seat";
 
 export default function SeatSelect() {
-    const [row, setRow] = useState<number>(4);
-    const [column, setColumn] = useState<number>(4);
     const [layout, setLayout] = useState<number[][]>([
         [0, 1, 0, 1],
         [2, 3, 2, 3],
         [0, 1, 0, 1],
         [4, 5, 4, 5],
     ]);
+    const [seatName , setSeatName] = useState<string[][]>([
+        ["A1", "A2", "A3", "A4"],
+        ["B1", "B2", "B3", "B4"],
+        ["C1", "C2", "C3", "C4"],
+        ["D1", "D2", "D3", "D4"],
+    ]);
+    const [seatId, setSeatId] = useState<number[][]>([
+        [1, 2, 3, 4],
+        [5, 6, 7, 8],
+        [9, 10, 11, 12],
+        [13, 14, 15, 16],
+    ]);
+    const [numberOfSeats, setNumberOfSeats] = useState<number>(12);
+    const [availableSeatCount, setAvailableSeatCount] = useState<number>(4);
     const [selectedSeats, setSelectedSeats] = useState<SeatDetailsFormProps[]>(
         []
     );
     const [price, setPrice] = useState<number>(0);
+    const [uniqueId, setUniqueId] = useState<string>("");
+    const [scheduleId, setScheduleId] = useState<number>(0);
+    const [transportId, setTransportId] = useState<number>(0);
+
+
 
     const { mode } = useContext(ColorContext);
     useEffect(() => {
         getSeatLayout().then((res) => {
-            setLayout(res.layout);
-            setRow(res.row);
-            setColumn(res.column);
-            setPrice(res.price);
+            console.log(res);
+            if (res) {
+                setLayout(res.layout.length === 0 ? layout : res.layout);
+                setSeatName(res.seatName);
+                setSeatId(res.SeatId);
+                setNumberOfSeats(res.numberOfSeats);
+                setAvailableSeatCount(res.availableSeatCount);
+                setPrice(res.price);
+                setUniqueId(res.uniqueId);
+                setScheduleId(res.scheduleId);
+                setTransportId(res.transportId);
+            }
         });
     }, []);
 
@@ -45,16 +70,26 @@ export default function SeatSelect() {
         <>
             <SeatSelectionContext.Provider
                 value={{
-                    row,
-                    setRow,
-                    column,
-                    setColumn,
                     layout,
                     setLayout,
-                    price,
-                    setPrice,
+                    seatName,
+                    setSeatName,
+                    seatId,
+                    setSeatId,
+                    numberOfSeats,
+                    setNumberOfSeats,
+                    availableSeatCount,
+                    setAvailableSeatCount,
                     selectedSeats,
                     setSelectedSeats,
+                    price,
+                    setPrice,
+                    uniqueId,
+                    setUniqueId,
+                    scheduleId,
+                    setScheduleId,
+                    transportId,
+                    setTransportId, 
                 }}
             >
                 <div
