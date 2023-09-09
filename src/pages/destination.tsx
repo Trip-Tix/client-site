@@ -21,6 +21,7 @@ export default function Destination() {
     const [transport, setTransport] = useState<TransportType>(
         TransportType.Bus
     );
+    const [hasError, setHasError] = useState(false);
     const { mode } = useContext(ColorContext);
 
     return (
@@ -39,6 +40,8 @@ export default function Destination() {
                     setHasReturn,
                     transport,
                     setTransport,
+                    hasError,
+                    setHasError,
                 }}
             >
                 <Stack

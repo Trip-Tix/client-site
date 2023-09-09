@@ -58,6 +58,25 @@ export default function Location() {
     }, [transport]);
 
     const { mode } = useContext(ColorContext);
+    const [filteredDestination, setFilteredDestination] = useState<
+        LocationData[]
+    >([]);
+    useEffect(() => {
+        if (source === "") setFilteredDestination(locations);
+        setFilteredDestination(
+            locations.filter((location) => location.label !== source)
+        );
+    }, [locations, source]);
+
+    const [filteredSource, setFilteredSource] = useState<LocationData[]>([]);
+    useEffect(() => {
+        if (destination === "") setFilteredSource(locations);
+        setFilteredSource(
+            locations.filter((location) => location.label !== destination)
+        );
+    }, [locations, destination]);
+
+    
 
     return (
         <Paper
@@ -81,7 +100,7 @@ export default function Location() {
                     <animated.div style={sourceAnimation}>
                         <Autocomplete
                             id="combo-box-demo"
-                            options={locations}
+                            options={filteredSource}
                             sx={{ width: 300 }}
                             renderInput={(params) => (
                                 <TextField {...params} label="Source" />
@@ -129,7 +148,7 @@ export default function Location() {
                     <animated.div style={destinationAnimation}>
                         <Autocomplete
                             id="combo-box-demo"
-                            options={locations}
+                            options={filteredDestination}
                             sx={{ width: 300 }}
                             renderInput={(params) => (
                                 <TextField {...params} label="Destination" />

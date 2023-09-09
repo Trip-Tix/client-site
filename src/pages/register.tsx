@@ -76,7 +76,7 @@ export default function Register() {
             .then((res) => {
                 console.log(res);
                 if (!res.hasError) {
-                    // router.push(home_url);
+                    router.push(login_url)
                 } else {
                     console.log("register failed");
                     setRegisterError(true);
@@ -270,7 +270,7 @@ export default function Register() {
                 >
                     Register
                 </Button>
-                <Box sx={{ width: "100%" }}>
+                <Box sx={{ width: "25rem" }}>
                     {loading && <LinearProgress />}
                 </Box>
 

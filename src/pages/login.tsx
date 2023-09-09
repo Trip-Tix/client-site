@@ -50,7 +50,7 @@ export default function Login() {
                     sessionStorage.setItem("access_token", res.accessToken);
                     sessionStorage.setItem("user_id", res.user.user_id.toString());
                     sessionStorage.setItem("user_email", res.user.email);
-                    // router.push(home_url);
+                    router.push(home_url);
                 } else {
                     console.log("login failed");
                     setLoginError(true);
@@ -162,7 +162,7 @@ export default function Login() {
                 >
                     Login
                 </Button>
-                <Box sx={{ width: "100%" }}>
+                <Box sx={{ width: "30rem" }}>
                     {loading && <LinearProgress />}
                 </Box>
 

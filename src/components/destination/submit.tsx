@@ -14,6 +14,7 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import { ProcessLogin } from "@public/api-call/login";
 import Stack from "@mui/material/Stack";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const style = {
     position: "absolute" as "absolute",
@@ -28,13 +29,14 @@ const style = {
 };
 
 export default function Submit() {
-    const { source, destination, date, returnDate, hasReturn, transport } =
+    const { source, destination, date, returnDate, hasReturn, transport, hasError } =
         useContext(DestinationContext);
 
     const router = useRouter();
     const [open, setOpen] = useState(false);
 
     const handleClose = () => setOpen(false);
+    const [startLogin, setStartLogin] = useState(false);
 
     const handleClick = () => {
         sessionStorage.setItem("source", source);
@@ -50,7 +52,6 @@ export default function Submit() {
             setOpen(true);
         } else {
             //directly go to transport list
-
             router.push(transport_list_url);
         }
     };
@@ -61,25 +62,42 @@ export default function Submit() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleLogin = () => {
-        if (username !== "" && password !== "") {
-            ProcessLogin(username, password).then((res) => {
-                if (res.hasError) {
+        if (username === "" || password === "") return;
+        setStartLogin(true);
+    };
+
+    useEffect(() => {
+        if (!startLogin) return;
+        if (username === "" || password === "") return;
+        setLoading(true);
+        ProcessLogin(username, password)
+            .then((res) => {
+                console.log(res);
+                if (!res.hasError) {
+                    setError(false);
+                    console.log("login Successful");
+                    sessionStorage.setItem("username", username);
+                    sessionStorage.setItem("access_token", res.accessToken);
+                    sessionStorage.setItem(
+                        "user_id",
+                        res.user.user_id.toString()
+                    );
+                    sessionStorage.setItem("user_email", res.user.email);
+                    router.push(transport_list_url);
+                } else {
+                    console.log("login failed");
                     setError(true);
                     setErrorMessage(res.errorMessage);
-                } else {
-                    setError(false);
-                    setErrorMessage("");
-                    sessionStorage.setItem("username", res.user.username);
-                    sessionStorage.setItem("userFullName", res.user.full_name);
-                    sessionStorage.setItem("userEmail", res.user.email);
-                    sessionStorage.setItem("accessToken", res.accessToken);
-                    router.push(transport_list_url);
                 }
+            })
+            .finally(() => {
+                setStartLogin(false);
+                setLoading(false);
             });
-        }
-    };
+    }, [startLogin]);
 
     return (
         <>
@@ -112,7 +130,8 @@ export default function Submit() {
                     source === "" ||
                     destination === "" ||
                     date === "" ||
-                    transport === null
+                    transport === null || 
+                    hasError
                 }
             >
                 Search Ticket
@@ -169,15 +188,28 @@ export default function Submit() {
                                     id="password"
                                     label="Password"
                                     variant="standard"
+                                    type="password"
                                     onChange={(e) =>
                                         setPassword(e.target.value)
                                     }
                                     value={password}
                                 />
                             </FormControl>
-                            <Button color="primary" variant="contained">
+                            <Button
+                                color="primary"
+                                variant="contained"
+                                onClick={handleLogin}
+                                disabled={
+                                    username === "" ||
+                                    password === "" ||
+                                    loading
+                                }
+                            >
                                 Log In
                             </Button>
+                            <Box sx={{ width: "100%" }}>
+                                {loading && <LinearProgress />}
+                            </Box>
                             <Typography variant="body1">
                                 {`Don't have an account?`}
                                 <Button

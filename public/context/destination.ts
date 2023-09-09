@@ -14,6 +14,8 @@ interface DestinationContextType {
     setHasReturn: (hasReturn: boolean) => void;
     transport: TransportType;
     setTransport: (transport: TransportType) => void;
+    hasError: boolean;
+    setHasError: (hasError: boolean) => void;
 }
 
 export const DestinationContext = createContext<DestinationContextType>({
@@ -29,4 +31,6 @@ export const DestinationContext = createContext<DestinationContextType>({
     setHasReturn: () => {},
     transport: TransportType.Bus,
     setTransport: () => {},
+    hasError: false,
+    setHasError: () => {},
 });

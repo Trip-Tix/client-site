@@ -1,7 +1,7 @@
 import { Paper, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DestinationContext } from "@public/context/destination";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SouthEastIcon from "@mui/icons-material/SouthEast";
@@ -24,6 +24,51 @@ export default function DateSelection() {
             setHasReturn(false);
         }
     }, [returnDate, setHasReturn]);
+
+    const [forwardDateError, setForwardDateError] = useState(false);
+    const [returnDateError, setReturnDateError] = useState(false);
+    const [forwardDateErrorMessage, setForwardDateErrorMessage] = useState("");
+    const [returnDateErrorMessage, setReturnDateErrorMessage] = useState("");
+    const {hasError, setHasError} = useContext(DestinationContext);
+
+    useEffect(() => {
+        if (date === "") return;
+        const today = new Date();
+        const forwardDate = new Date(date);
+        if (forwardDate < today) {
+            setHasError(true);
+            setForwardDateError(true);
+            setForwardDateErrorMessage("Date cannot be in the past");
+        } else {
+            setHasError(false);
+            setForwardDateError(false);
+            setForwardDateErrorMessage("");
+        }
+    }, [date]);
+
+    useEffect(() => {
+        if (returnDate === "") {
+            return;
+        }
+        const today = new Date();
+        const forwardDate = new Date(date);
+        const returnDateObj = new Date(returnDate);
+        if (returnDateObj < today) {
+            setHasError(true);
+            setReturnDateError(true);
+            setReturnDateErrorMessage("Date cannot be in the past");
+        } else if (returnDateObj < forwardDate) {
+            setHasError(true);
+            setReturnDateError(true);
+            setReturnDateErrorMessage(
+                "Return date cannot be before departure date"
+            );
+        } else {
+            setHasError(false);
+            setReturnDateError(false);
+            setReturnDateErrorMessage("");
+        }
+    }, [returnDate, date]);
 
     return (
         <Paper
@@ -49,6 +94,17 @@ export default function DateSelection() {
                 >
                     Select Date
                 </Typography>
+                {forwardDateError && (
+                    <Typography
+                        variant="body1"
+                        color="error"
+                        sx={{
+                            marginLeft: "5%",
+                        }}
+                    >
+                        {forwardDateErrorMessage}
+                    </Typography>
+                )}
                 <Stack
                     direction="row"
                     spacing={5}
@@ -85,6 +141,17 @@ export default function DateSelection() {
                 >
                     Select Return Date
                 </Typography>
+                {returnDateError && (
+                    <Typography
+                        variant="body1"
+                        color="error"
+                        sx={{
+                            marginLeft: "5%",
+                        }}
+                    >
+                        {returnDateErrorMessage}
+                    </Typography>
+                )}
                 <Stack
                     direction="row"
                     spacing={5}
