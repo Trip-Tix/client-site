@@ -12,12 +12,14 @@ import { processPurchase } from "@public/api-call/select-seat";
 import { useRouter } from "next/router";
 
 export default function TotalPrice() {
-    const { price, selectedSeats } = useContext(SeatSelectionContext);
+    const { price, selectedSeats, hasTempBooked } =
+        useContext(SeatSelectionContext);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const router = useRouter();
 
     useEffect(() => {
         setTotalPrice(price * selectedSeats.length);
+        console.log(selectedSeats);
     }, [selectedSeats, price]);
 
     const handleClick = () => {

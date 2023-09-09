@@ -10,6 +10,16 @@ import Image from "next/image";
 // custom
 import NavItem from "@components/landing-page/nav-item";
 import TripTixLogo from "@public/TripTixLogo.svg";
+import {
+    home_url,
+    login_url,
+    register_url,
+    logout_url,
+    about_us_url,
+    customer_care_url,
+    policy_url,
+    transportation_url,
+} from "@public/pagelinks";
 
 interface NavbarProps {
     name: string;
@@ -20,31 +30,31 @@ export default function Navbar() {
     const [pages, setPages] = useState<NavbarProps[]>([
         {
             name: "Home",
-            href: "/",
+            href: home_url,
         },
         {
             name: "About Us",
-            href: "/about",
+            href: about_us_url,
         },
         {
             name: "Customer Care",
-            href: "/customer-care",
+            href: customer_care_url,
         },
         {
             name: "Policy",
-            href: "/policy",
+            href: policy_url,
         },
         {
             name: "Transportation",
-            href: "/transportation",
+            href: transportation_url,
         },
         {
             name: "Sign In",
-            href: "/login",
+            href: login_url,
         },
         {
             name: "Sign Up",
-            href: "/register",
+            href: register_url,
         },
     ]);
 
@@ -53,14 +63,13 @@ export default function Navbar() {
         if (username) {
             const tempPages = [...pages];
             tempPages.filter((page) => {
-                if (page.name === "Sign In" ) {
+                if (page.name === "Sign In") {
                     page.name = "Log Out";
-                    page.href = "/log-out";
+                    page.href = logout_url;
                 }
             });
             //remove sign up
             tempPages.pop();
-
 
             setPages(tempPages);
         }

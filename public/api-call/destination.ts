@@ -1,3 +1,6 @@
+import axios from "axios";
+const main_url = "https://triptix-backend.onrender.com";
+
 export const getDistanceKm = async (
     source: string,
     destination: string
@@ -18,26 +21,32 @@ export interface LocationData {
     id: number;
 }
 
-const locations: LocationData[] = [
-    { label: "Dhaka", id: 1 },
-    { label: "Chittagong", id: 2 },
-    { label: "Sylhet", id: 3 },
-    { label: "Rajshahi", id: 4 },
-    { label: "Khulna", id: 5 },
-    { label: "Barishal", id: 6 },
-    { label: "Rangpur", id: 7 },
-    { label: "Mymensingh", id: 8 },
-];
+interface response_data {
+    location_id: number;
+    location_name: string;
+}
 
+const get_locations_api = main_url + "/api/getLocations";
 export const getLocations = async (
     transportType: TransportType
 ): Promise<LocationData[]> => {
-    console.log({
-        message: "getLocations() called",
-        sent: null,
-        received: locations,
-    });
-    return locations;
+    try {
+        const res = await axios.post(get_locations_api, {
+            transport_type: transportType,
+        });
+        const response_data: response_data[] = res.data;
+        const locations: LocationData[] = [];
+        response_data.forEach((location) => {
+            locations.push({
+                label: location.location_name,
+                id: location.location_id,
+            });
+        });
+        return locations;
+    } catch (err) {
+        console.log(err);
+        return [];
+    }
 };
 
 interface TicketStats {

@@ -8,7 +8,6 @@ import { useContext, useState } from "react";
 import { TransportType } from "@public/interface/transport";
 import Transportation from "@/components/destination/transportation";
 import Stack from "@mui/material/Stack";
-``;
 import Style from "@styles/destination/home.module.css";
 import { ColorContext } from "@public/context/global";
 

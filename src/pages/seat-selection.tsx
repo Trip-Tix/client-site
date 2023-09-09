@@ -16,6 +16,7 @@ import Styles from "@styles/list-transport/list-transport.module.css";
 import { ColorContext } from "@public/context/global";
 import { useContext } from "react";
 import { getSeatLayout } from "@public/api-call/select-seat";
+import TempBookWarning from "@/components/seat-selection/temp-book-warning";
 
 export default function SeatSelect() {
     const [layout, setLayout] = useState<number[][]>([
@@ -24,7 +25,7 @@ export default function SeatSelect() {
         [0, 1, 0, 1],
         [4, 5, 4, 5],
     ]);
-    const [seatName , setSeatName] = useState<string[][]>([
+    const [seatName, setSeatName] = useState<string[][]>([
         ["A1", "A2", "A3", "A4"],
         ["B1", "B2", "B3", "B4"],
         ["C1", "C2", "C3", "C4"],
@@ -45,25 +46,30 @@ export default function SeatSelect() {
     const [uniqueId, setUniqueId] = useState<string>("");
     const [scheduleId, setScheduleId] = useState<number>(0);
     const [transportId, setTransportId] = useState<number>(0);
-
-
+    const [hasTempBooked, setHasTempBooked] = useState<boolean>(false);
+    const [layoutLoading, setLayoutLoading] = useState<boolean>(true);
 
     const { mode } = useContext(ColorContext);
     useEffect(() => {
-        getSeatLayout().then((res) => {
-            console.log(res);
-            if (res) {
-                setLayout(res.layout.length === 0 ? layout : res.layout);
-                setSeatName(res.seatName);
-                setSeatId(res.SeatId);
-                setNumberOfSeats(res.numberOfSeats);
-                setAvailableSeatCount(res.availableSeatCount);
-                setPrice(res.price);
-                setUniqueId(res.uniqueId);
-                setScheduleId(res.scheduleId);
-                setTransportId(res.transportId);
-            }
-        });
+        setLayoutLoading(true);
+        getSeatLayout()
+            .then((res) => {
+                console.log(res);
+                if (res) {
+                    setLayout(res.layout.length === 0 ? layout : res.layout);
+                    setSeatName(res.seatName);
+                    setSeatId(res.SeatId);
+                    setNumberOfSeats(res.numberOfSeats);
+                    setAvailableSeatCount(res.availableSeatCount);
+                    setPrice(res.price);
+                    setUniqueId(res.uniqueId);
+                    setScheduleId(res.scheduleId);
+                    setTransportId(res.transportId);
+                }
+            })
+            .finally(() => {
+                setLayoutLoading(false);
+            });
     }, []);
 
     return (
@@ -89,7 +95,10 @@ export default function SeatSelect() {
                     scheduleId,
                     setScheduleId,
                     transportId,
-                    setTransportId, 
+                    setTransportId,
+                    hasTempBooked,
+                    setHasTempBooked,
+                    layoutLoading
                 }}
             >
                 <div
@@ -101,13 +110,30 @@ export default function SeatSelect() {
                 >
                     <Navbar />
                     <TransportationLocked />
-                    <Grid container spacing={2} sx={{
-                        padding: "1rem",
-                    }}>
-                        <Grid xs={4}><TotalPrice /></Grid>
-                        <Grid xs={8}><ExtraInformation /></Grid>
-                        <Grid xs={8}><SeatDetailsForm /></Grid>
-                        <Grid xs={4}><SeatAlignment /></Grid>
+                    <Grid
+                        container
+                        spacing={2}
+                        sx={{
+                            padding: "1rem",
+                        }}
+                    >
+                        <Grid xs={4}>
+                            <TotalPrice />
+                        </Grid>
+                        <Grid xs={8}>
+                            <ExtraInformation />
+                        </Grid>
+                        {hasTempBooked && (
+                            <Grid xs={12}>
+                                <TempBookWarning />
+                            </Grid>
+                        )}
+                        <Grid xs={8}>
+                            <SeatDetailsForm />
+                        </Grid>
+                        <Grid xs={4}>
+                            <SeatAlignment />
+                        </Grid>
                     </Grid>
                 </div>
             </SeatSelectionContext.Provider>

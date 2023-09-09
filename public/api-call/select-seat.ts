@@ -50,9 +50,9 @@ const getBusLayout = async (): Promise<layout_data> => {
                 numberOfSeats: responseData.numberOfSeats,
                 availableSeatCount: responseData.availableSeatCount,
                 price:
-                    sessionStorage.getItem("price") === null
+                    sessionStorage.getItem("transportPrice") === null
                         ? 0
-                        : parseInt(sessionStorage.getItem("price") as string),
+                        : parseInt(sessionStorage.getItem("transportPrice") as string),
                 uniqueId: sessionStorage.getItem("uniqueId") as string,
                 transportId:
                     sessionStorage.getItem("transportId") === null
@@ -155,6 +155,7 @@ export const processPurchase = async (
             seatDetails: purchasingSeats,
         };
         sessionStorage.setItem("returnTicket", JSON.stringify(returnTicket));
+        //call api
         return payment_url;
     } else if (hasReturn === "false") {
         // redirect to payment
@@ -166,6 +167,7 @@ export const processPurchase = async (
             date: sessionStorage.getItem("date"),
             seatDetails: purchasingSeats,
         };
+        //call api
         return payment_url;
     }
     return "";

@@ -11,6 +11,7 @@ import { Typography } from "@mui/material";
 import { DestinationContext } from "@public/context/destination";
 import { ColorContext } from "@public/context/global";
 import { getLocations, LocationData } from "@public/api-call/destination";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Location() {
     const animationStartTime = 500;
@@ -50,10 +51,13 @@ export default function Location() {
 
     const [locations, setLocations] = useState<LocationData[]>([]);
 
+    const [loading, setLoading] = useState(false);
     const { transport } = useContext(DestinationContext);
     useEffect(() => {
+        setLoading(true);
         getLocations(transport).then((res) => {
             setLocations(res);
+            setLoading(false);
         });
     }, [transport]);
 
@@ -76,8 +80,6 @@ export default function Location() {
         );
     }, [locations, destination]);
 
-    
-
     return (
         <Paper
             elevation={3}
@@ -96,70 +98,89 @@ export default function Location() {
                 >
                     Select Location
                 </Typography>
-                <Stack direction="row" justifyContent={"center"} spacing={5}>
-                    <animated.div style={sourceAnimation}>
-                        <Autocomplete
-                            id="combo-box-demo"
-                            options={filteredSource}
-                            sx={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField {...params} label="Source" />
-                            )}
-                            inputValue={source}
-                            onInputChange={(event, newInputValue) => {
-                                setSource(newInputValue);
-                            }}
-                        />
-                    </animated.div>
-
-                    <Box
-                        sx={{
-                            width: 1,
-                        }}
-                        ref={ref}
-                        className={Style.box}
+                {loading && (
+                    <Stack
+                        direction="row"
+                        justifyContent={"center"}
+                        spacing={5}
                     >
-                        <animated.div
-                            style={boxSlide}
-                            className={
-                                mode === "dark"
-                                    ? Style.slide_dark
-                                    : Style.slide_light
-                            }
-                        />
-                        <animated.div
-                            style={sourceSelectedAnimation}
-                            className={
-                                mode === "dark"
-                                    ? Style.startDot_dark
-                                    : Style.startDot_light
-                            }
-                        />
-                        <animated.div
-                            style={destinationSelectedAnimation}
-                            className={
-                                mode === "dark"
-                                    ? Style.endDot_dark
-                                    : Style.endDot_light
-                            }
-                        />
-                    </Box>
+                        <CircularProgress />
+                    </Stack>
+                )}
 
-                    <animated.div style={destinationAnimation}>
-                        <Autocomplete
-                            id="combo-box-demo"
-                            options={filteredDestination}
-                            sx={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField {...params} label="Destination" />
-                            )}
-                            inputValue={destination}
-                            onInputChange={(event, newInputValue) => {
-                                setDestination(newInputValue);
+                {!loading && (
+                    <Stack
+                        direction="row"
+                        justifyContent={"center"}
+                        spacing={5}
+                    >
+                        <animated.div style={sourceAnimation}>
+                            <Autocomplete
+                                id="combo-box-demo"
+                                options={filteredSource}
+                                sx={{ width: 300 }}
+                                renderInput={(params) => (
+                                    <TextField {...params} label="Source" />
+                                )}
+                                inputValue={source}
+                                onInputChange={(event, newInputValue) => {
+                                    setSource(newInputValue);
+                                }}
+                            />
+                        </animated.div>
+
+                        <Box
+                            sx={{
+                                width: 1,
                             }}
-                        />
-                    </animated.div>
-                </Stack>
+                            ref={ref}
+                            className={Style.box}
+                        >
+                            <animated.div
+                                style={boxSlide}
+                                className={
+                                    mode === "dark"
+                                        ? Style.slide_dark
+                                        : Style.slide_light
+                                }
+                            />
+                            <animated.div
+                                style={sourceSelectedAnimation}
+                                className={
+                                    mode === "dark"
+                                        ? Style.startDot_dark
+                                        : Style.startDot_light
+                                }
+                            />
+                            <animated.div
+                                style={destinationSelectedAnimation}
+                                className={
+                                    mode === "dark"
+                                        ? Style.endDot_dark
+                                        : Style.endDot_light
+                                }
+                            />
+                        </Box>
+
+                        <animated.div style={destinationAnimation}>
+                            <Autocomplete
+                                id="combo-box-demo"
+                                options={filteredDestination}
+                                sx={{ width: 300 }}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Destination"
+                                    />
+                                )}
+                                inputValue={destination}
+                                onInputChange={(event, newInputValue) => {
+                                    setDestination(newInputValue);
+                                }}
+                            />
+                        </animated.div>
+                    </Stack>
+                )}
             </Stack>
         </Paper>
     );
