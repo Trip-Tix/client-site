@@ -2,25 +2,39 @@ import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { DestinationContext } from "@public/context/destination";
 import { Button } from "@mui/material";
-import { useSpring, animated } from "@react-spring/web";
 import { useState } from "react";
-import { transport_list_url } from "@public/pagelinks";
+import { transport_list_url, register_url } from "@public/pagelinks";
 import { Height } from "@mui/icons-material";
 import { ColorContext } from "@public/context/global";
+import { Box, Typography } from "@mui/material";
+import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
+import Fade from "@mui/material/Fade";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import { ProcessLogin } from "@public/api-call/login";
+import Stack from "@mui/material/Stack";
+
+const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+};
 
 export default function Submit() {
     const { source, destination, date, returnDate, hasReturn, transport } =
         useContext(DestinationContext);
 
-    const [togglePageChange, setTogglePageChange] = useState(false);
     const router = useRouter();
-    useEffect(() => {
-        if (!togglePageChange) return;
+    const [open, setOpen] = useState(false);
 
-        window.setTimeout(() => {
-            router.push(transport_list_url);
-        }, 1000);
-    }, [togglePageChange, router]);
+    const handleClose = () => setOpen(false);
 
     const handleClick = () => {
         sessionStorage.setItem("source", source);
@@ -30,28 +44,55 @@ export default function Submit() {
         sessionStorage.setItem("hasReturn", hasReturn.toString());
         sessionStorage.setItem("transport", transport.toString());
         sessionStorage.setItem("processingReturn", "false");
+        const username = sessionStorage.getItem("username");
+        if (username === null) {
+            //open modal
+            setOpen(true);
+        } else {
+            //directly go to transport list
 
-        setTogglePageChange(true);
-
-        console.log({
-            source,
-            destination,
-            date,
-            returnDate,
-            hasReturn,
-            transport,
-        });
+            router.push(transport_list_url);
+        }
     };
 
-    const {mode} = useContext(ColorContext);
+    const { mode } = useContext(ColorContext);
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const handleLogin = () => {
+        if (username !== "" && password !== "") {
+            ProcessLogin(username, password).then((res) => {
+                if (res.hasError) {
+                    setError(true);
+                    setErrorMessage(res.errorMessage);
+                } else {
+                    setError(false);
+                    setErrorMessage("");
+                    sessionStorage.setItem("username", res.user.username);
+                    sessionStorage.setItem("userFullName", res.user.full_name);
+                    sessionStorage.setItem("userEmail", res.user.email);
+                    sessionStorage.setItem("accessToken", res.accessToken);
+                    router.push(transport_list_url);
+                }
+            });
+        }
+    };
+
     return (
+        <>
             <Button
                 color="primary"
                 variant="contained"
                 sx={{
                     width: "100%",
                     height: "100%",
-                    backgroundColor: mode === "dark" ? "rgb(255,255,255,0.05)" : "rgb(255,255,255,1)",
+                    backgroundColor:
+                        mode === "dark"
+                            ? "rgb(255,255,255,0.05)"
+                            : "rgb(255,255,255,1)",
                     color: "#008080",
                     fontWeight: "bold",
                     fontSize: "1.5rem",
@@ -67,10 +108,92 @@ export default function Submit() {
                     },
                 }}
                 onClick={handleClick}
-                disabled={source === "" || destination === "" || date === "" || transport === null}
+                disabled={
+                    source === "" ||
+                    destination === "" ||
+                    date === "" ||
+                    transport === null
+                }
             >
                 Search Ticket
             </Button>
-
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                slots={{ backdrop: Backdrop }}
+                slotProps={{
+                    backdrop: {
+                        timeout: 500,
+                    },
+                }}
+            >
+                <Fade in={open}>
+                    <Box sx={style}>
+                        <Stack
+                            spacing={2}
+                            direction="column"
+                            color={mode === "dark" ? "#FFFFFF" : "#000000"}
+                        >
+                            <Typography
+                                id="transition-modal-title"
+                                variant="h6"
+                                component="h2"
+                            >
+                                Please Log In to Continue
+                            </Typography>
+                            {error && (
+                                <Typography
+                                    variant="body1"
+                                    color="error"
+                                    sx={{ textAlign: "center" }}
+                                >
+                                    {errorMessage}
+                                </Typography>
+                            )}
+                            <FormControl>
+                                <TextField
+                                    id="username"
+                                    label="Username"
+                                    variant="standard"
+                                    onChange={(e) =>
+                                        setUsername(e.target.value)
+                                    }
+                                    value={username}
+                                />
+                            </FormControl>
+                            <FormControl>
+                                <TextField
+                                    id="password"
+                                    label="Password"
+                                    variant="standard"
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                    value={password}
+                                />
+                            </FormControl>
+                            <Button color="primary" variant="contained">
+                                Log In
+                            </Button>
+                            <Typography variant="body1">
+                                {`Don't have an account?`}
+                                <Button
+                                    variant="text"
+                                    color="primary"
+                                    onClick={() => {
+                                        router.push(register_url);
+                                    }}
+                                >
+                                    Register
+                                </Button>
+                            </Typography>
+                        </Stack>
+                    </Box>
+                </Fade>
+            </Modal>
+        </>
     );
 }

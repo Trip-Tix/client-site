@@ -38,3 +38,9 @@ sessionStorage.setItem("transportPrice", price.toString());
 sessionStorage.getItem('transportId');
 sessionStorage.getItem('transportPrice');
 
+// public/pages/login.tsx
+
+sessionStorage.setItem("username", username);
+sessionStorage.setItem("access_token", res.accessToken);
+sessionStorage.setItem("user_id", res.user.user_id.toString());
+sessionStorage.setItem("user_email", res.user.email);

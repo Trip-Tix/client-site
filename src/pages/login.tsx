@@ -13,9 +13,12 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import FormHelperText from "@mui/material/FormHelperText";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
+import LinearProgress from "@mui/material/LinearProgress";
+import Box from "@mui/material/Box";
 
 import { ProcessLogin } from "@public/api-call/login";
 import { home_url, register_url } from "@public/pagelinks";
+import axios from "axios";
 
 export default function Login() {
     const [username, setUsername] = useState("");
@@ -27,45 +30,38 @@ export default function Login() {
     const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [loginError, setLoginError] = useState(false);
-    const [loginErrorMessage, setLoginErrorMessage] = useState("");
+    const [loginErrorMessage, setLoginErrorMessage] = useState<string>("");
     const router = useRouter();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const [startLogin, setStartLogin] = useState(false);
 
-    const handleLogin = () => {
-        if (username === "") {
-            setUsernameError(true);
-            setUsernameErrorMessage("Username cannot be empty");
-        } else {
-            setUsernameError(false);
-            setUsernameErrorMessage("");
-        }
-        if (password === "") {
-            setPasswordError(true);
-            setPasswordErrorMessage("Password cannot be empty");
-        } else {
-            setPasswordError(false);
-            setPasswordErrorMessage("");
-        }
-        if (username !== "" && password !== "") {
-            setLoading(true);
-            ProcessLogin(username, password).then((res) => {
-                if (res.hasError) {
+    useEffect(() => {
+        if (!startLogin) return;
+        if (username === "" || password === "") return;
+        setLoading(true);
+        ProcessLogin(username, password)
+            .then((res) => {
+                console.log(res);
+                if (!res.hasError) {
+                    setLoginError(false);
+                    console.log("login Successful");
+                    sessionStorage.setItem("username", username);
+                    sessionStorage.setItem("access_token", res.accessToken);
+                    sessionStorage.setItem("user_id", res.user.user_id.toString());
+                    sessionStorage.setItem("user_email", res.user.email);
+                    // router.push(home_url);
+                } else {
+                    console.log("login failed");
                     setLoginError(true);
                     setLoginErrorMessage(res.errorMessage);
-                } else {
-                    setLoginError(false);
-                    setLoginErrorMessage("");
-                    sessionStorage.setItem("username", res.user.username);
-                    sessionStorage.setItem("userFullName", res.user.full_name);
-                    sessionStorage.setItem("userEmail", res.user.email);
-                    sessionStorage.setItem("accessToken", res.accessToken);
-                    router.push(home_url);
                 }
+            })
+            .finally(() => {
                 setLoading(false);
+                setStartLogin(false);
             });
-        }
-    };
+    }, [startLogin]);
 
     useEffect(() => {
         if (username !== "") {
@@ -95,9 +91,7 @@ export default function Login() {
                 sx={{
                     width: "50%",
                 }}
-            >
-                <Image src="/logo.png" alt="logo" width={200} height={200} />
-            </Stack>
+            ></Stack>
             <Stack
                 spacing={2}
                 direction="column"
@@ -161,10 +155,17 @@ export default function Login() {
                     sx={{
                         width: "30rem",
                     }}
-                    onClick={handleLogin}
+                    onClick={() => {
+                        setStartLogin(true);
+                    }}
+                    disabled={loading || username === "" || password === ""}
                 >
                     Login
                 </Button>
+                <Box sx={{ width: "100%" }}>
+                    {loading && <LinearProgress />}
+                </Box>
+
                 <Stack direction="column" spacing={0} alignItems={"center"}>
                     <Typography variant="body1">
                         {`Don't have an account?`}
