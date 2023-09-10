@@ -1,3 +1,6 @@
+import axios from "axios";
+const main_url = "https://triptix-backend.onrender.com";
+
 interface TicketInfo {
     ticketId: string;
     passengerIdArray: number[];
@@ -51,5 +54,56 @@ export async function parseResponseDataFromStorage(): Promise<ResponseData> {
         return JSON.parse(book_response) as ResponseData;
     } else {
         return responseData;
+    }
+}
+
+interface PaymentRequest {
+    userId: number;
+    ticketInfo: TicketInfo[];
+    grandTotalFare: number;
+}
+
+interface PaymentResponse {
+    status: number;
+    message: string;
+    data: any;
+    url: string;
+}
+
+const payment_url = main_url + "/paymentInit";
+export async function handlePayment(): Promise<string> {
+    console.log("Payment Initiated");
+
+    const book_response = sessionStorage.getItem("book_response");
+    if (book_response === null) return "/";
+
+    console.log(book_response);
+    const data = JSON.parse(book_response) as ResponseData;
+    if (data.ticketInfo.length <= 0) return "/";
+
+    console.log(data);
+    const paymentRequest: PaymentRequest = {
+        userId: data.userId,
+        ticketInfo: data.ticketInfo,
+        grandTotalFare: data.grandTotalFare,
+    };
+
+    console.log(paymentRequest);
+    try {
+        const res = await axios.post(
+            payment_url,
+            paymentRequest
+        );
+
+        const response: PaymentResponse = res.data;
+        console.log(response);
+        if (res.status === 200) {
+            return response.url;
+        } else {
+            return "/";
+        }
+    } catch (error) {
+        console.log(error);
+        return "/";
     }
 }

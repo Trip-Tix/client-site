@@ -130,9 +130,11 @@ const processPayment = async (): Promise<boolean> => {
                 console.log("Successfully booked");
                 const token = sessionStorage.getItem("access_token") as string;
                 const userId = sessionStorage.getItem("user_id") as string;
+                const username = sessionStorage.getItem("username") as string;
                 sessionStorage.clear();
                 sessionStorage.setItem("user_id", userId);
                 sessionStorage.setItem("access_token", token);
+                sessionStorage.setItem("username", username);
                 sessionStorage.setItem(
                     "book_response",
                     JSON.stringify(response.data)
