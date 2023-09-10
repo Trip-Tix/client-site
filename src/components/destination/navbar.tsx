@@ -81,7 +81,7 @@ import {
 interface NavbarProps {
     name: string;
     href: string;
-}
+}   
 
 export default function Navbar() {
     const [pages, setPages] = useState<NavbarProps[]>([

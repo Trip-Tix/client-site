@@ -75,14 +75,27 @@ export default function TransportCard({ transport }: TransportCardProps) {
                     console.log(err);
                 });
         }
-    }, [selectExtraOption, showDetails, extraOptions, setDetailsMessage, transport.unique_id]);
+    }, [
+        selectExtraOption,
+        showDetails,
+        extraOptions,
+        setDetailsMessage,
+        transport.unique_id,
+    ]);
 
     const router = useRouter();
-    const handleBookNow = (id: string, price: number, schedule_id: number, transport_id: number) => {
+    const handleBookNow = (
+        id: string,
+        price: number,
+        schedule_id: number,
+        transport_id: number,
+        coach_id: number
+    ) => {
         sessionStorage.setItem("uniqueId", id);
         sessionStorage.setItem("transportPrice", price.toString());
         sessionStorage.setItem("scheduleId", schedule_id.toString());
         sessionStorage.setItem("transportId", transport_id.toString());
+        sessionStorage.setItem("coachId", coach_id.toString());
         console.log("Transport ID: ", id);
         router.push(select_seat_url);
     };
@@ -286,6 +299,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                                         transport.fare,
                                         transport.schedule_id,
                                         transport.transport_id,
+                                        transport.coach_id
                                     )
                                 }
                                 startIcon={<BookIcon />}

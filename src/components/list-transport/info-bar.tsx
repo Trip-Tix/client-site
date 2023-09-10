@@ -62,8 +62,9 @@ export default function InfoBar() {
                                 </Icon>
                             </Stack>
                             <Typography
-                                variant="h4"
+                                variant="h6"
                                 sx={{ fontWeight: "light" }}
+                                maxWidth={"10rem"}
                             >
                                 {processingReturn ? destination : source}
                             </Typography>
@@ -91,8 +92,9 @@ export default function InfoBar() {
                                 </Icon>
                             </Stack>
                             <Typography
-                                variant="h4"
+                                variant="h6"
                                 sx={{ fontWeight: "light" }}
+                                maxWidth={"10rem"}
                             >
                                 {!processingReturn ? destination : source}
                             </Typography>

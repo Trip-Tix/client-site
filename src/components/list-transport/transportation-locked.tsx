@@ -4,18 +4,18 @@ import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import TrainIcon from "@mui/icons-material/Train";
 import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 import { TransportType } from "@public/interface/transport";
-import { useContext, useState } from "react";
-import { DestinationContext } from "@public/context/destination";
-import { TransportEntry } from "@public/interface/transport";
+import { useContext, useEffect, useState } from "react";
 import { ListTransportContext } from "@public/context/list-transport";
 import Paper from "@mui/material/Paper";
 import { ColorContext } from "@public/context/global";
 
 
 export default function Transportation() {
-    const { selectedTransportType } = useContext(ListTransportContext);
+    const [ selectedTransportType, setSelectedTransportType ] = useState<TransportType>(TransportType.Bus);
+    useEffect(() => {
+        setSelectedTransportType(sessionStorage.getItem("transport") as TransportType || TransportType.Bus);
+    }, []);
     const { mode } = useContext(ColorContext);
-    const { setTransport } = useContext(DestinationContext);
 
     return (
         <Paper elevation={3}>

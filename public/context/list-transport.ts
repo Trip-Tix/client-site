@@ -6,6 +6,7 @@ export interface TransportEntry {
     company_name: string;
     brand_name: string;
     coach_type: string;
+    coach_id: number;
     time: string;
     fare: number;
     number_of_seats: number;

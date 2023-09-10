@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const main_url = "https://triptix-backend.onrender.com";
-const layout_api = main_url + "/api/getUniqueBusDetails";
+const bus_layout_api = main_url + "/api/getUniqueBusDetails";
+const train_layout_api = main_url + "/api/getUniqueTrainDetails";
+const flight_layout_api = main_url + "/api/getUniqueAirDetails";
 
 interface layout_data {
     layout: number[][];
@@ -26,7 +28,7 @@ interface bus_response_data {
 const getBusLayout = async (): Promise<layout_data> => {
     try {
         const response = await axios.post(
-            layout_api,
+            bus_layout_api,
             {
                 uniqueBusId: sessionStorage.getItem("uniqueId"),
                 busId: sessionStorage.getItem("transportId"),
@@ -98,10 +100,152 @@ const getBusLayout = async (): Promise<layout_data> => {
     }
 };
 
+interface train_response_data {
+    layout: number[][];
+    seatName: string[][];
+    trainSeatId: number[][];
+    numberOfSeats: number;
+    availableSeatCount: number;
+}
+
+const getTrainLayout = async (): Promise<layout_data> => {
+    console.log("getTrainLayout Called");
+    const request = {
+        trainScheduleId: sessionStorage.getItem("scheduleId"),
+        uniqueTrainId: sessionStorage.getItem("uniqueId"),
+        coachId: sessionStorage.getItem("coachId"),
+        trainId: sessionStorage.getItem("transportId"),
+    };
+    console.log(JSON.stringify(request, null, 2));
+
+    try {
+        const response = await axios.post(train_layout_api, request, {
+            headers: {
+                token: sessionStorage.getItem("access_token"),
+            },
+        });
+        console.log(JSON.stringify(response.data, null, 2));
+
+        const responseData: train_response_data = response.data;
+        const layoutResponse: layout_data = {
+            layout: responseData.layout,
+            seatName: responseData.seatName,
+            SeatId: responseData.trainSeatId,
+            numberOfSeats: responseData.numberOfSeats,
+            availableSeatCount: responseData.availableSeatCount,
+            price:
+                sessionStorage.getItem("transportPrice") === null
+                    ? 0
+                    : parseInt(
+                          sessionStorage.getItem("transportPrice") as string
+                      ),
+            uniqueId: sessionStorage.getItem("uniqueId") as string,
+            transportId:
+                sessionStorage.getItem("transportId") === null
+                    ? 0
+                    : parseInt(sessionStorage.getItem("transportId") as string),
+            scheduleId:
+                sessionStorage.getItem("scheduleId") === null
+                    ? 0
+                    : parseInt(sessionStorage.getItem("scheduleId") as string),
+        };
+        console.log(JSON.stringify(layoutResponse, null, 2));
+
+        return layoutResponse;
+    } catch (error) {
+        console.log(error);
+        return {
+            layout: [],
+            seatName: [],
+            SeatId: [],
+            numberOfSeats: 0,
+            availableSeatCount: 0,
+            price: 0,
+            uniqueId: "",
+            transportId: 0,
+            scheduleId: 0,
+        };
+    }
+};
+
+interface flight_response_data {
+    layout: number[][];
+    seatName: string[][];
+    airSeatId: number[][];
+    numberOfSeats: number;
+    availableSeatCount: number;
+}
+
+const getFlightLayout = async (): Promise<layout_data> => {
+    console.log("getFlightLayout Called");
+    const request = {
+        uniqueAirId: sessionStorage.getItem("uniqueId"),
+        airId: sessionStorage.getItem("transportId"),
+        airScheduleId: sessionStorage.getItem("scheduleId"),
+        classId: sessionStorage.getItem("coachId"),
+    };
+    console.log(JSON.stringify(request, null, 2));
+
+    try {
+        const response = await axios.post(flight_layout_api, request, {
+            headers: {
+                token: sessionStorage.getItem("access_token"),
+            },
+        });
+        console.log(JSON.stringify(response.data, null, 2));
+
+        const responseData: flight_response_data = response.data;
+        const layoutResponse: layout_data = {
+            layout: responseData.layout,
+            seatName: responseData.seatName,
+            SeatId: responseData.airSeatId,
+            numberOfSeats: responseData.numberOfSeats,
+            availableSeatCount: responseData.availableSeatCount,
+            price:
+                sessionStorage.getItem("transportPrice") === null
+                    ? 0
+                    : parseInt(
+                          sessionStorage.getItem("transportPrice") as string
+                      ),
+            uniqueId: sessionStorage.getItem("uniqueId") as string,
+            transportId:
+                sessionStorage.getItem("transportId") === null
+                    ? 0
+                    : parseInt(sessionStorage.getItem("transportId") as string),
+            scheduleId:
+                sessionStorage.getItem("scheduleId") === null
+                    ? 0
+                    : parseInt(sessionStorage.getItem("scheduleId") as string),
+        };
+        console.log(JSON.stringify(layoutResponse, null, 2));
+
+        return layoutResponse;
+    } catch (error) {
+        console.log(error);
+        return {
+            layout: [],
+            seatName: [],
+            SeatId: [],
+            numberOfSeats: 0,
+            availableSeatCount: 0,
+            price: 0,
+            uniqueId: "",
+            transportId: 0,
+            scheduleId: 0,
+        };
+    }
+};
+
 export const getSeatLayout = async (): Promise<layout_data> => {
+    console.log("getSeatLayout Called");
+
     const transportType = sessionStorage.getItem("transport") as TransportType;
     if (transportType === TransportType.Bus) {
         return await getBusLayout();
+    } else if (transportType === TransportType.Train) {
+        return await getTrainLayout();
+    } else if (transportType === TransportType.Flight) {
+        return await getFlightLayout();
     } else {
         return {
             layout: [],
