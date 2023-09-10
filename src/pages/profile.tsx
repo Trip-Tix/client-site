@@ -35,22 +35,22 @@ export default function Profile() {
                     gap={2}
                     sx={{ height: "85vh" }}
                 >
-                    <Box gridColumn="span 4" gridRow="span 8">
-                        <Paper sx={{ height: "100%", width: "100%" }}>
+                    <Box gridColumn="span 3" gridRow="span 8">
+                        <Paper sx={{ height: "100%", width: "100%", overflow: "hidden"}}>
                             <AboutMe />
                         </Paper>
                     </Box>
-                    <Box gridColumn="span 8" gridRow="span 4">
+                    <Box gridColumn="span 9" gridRow="span 4">
                         <Paper sx={{ height: "100%", width: "100%" }}>
                             <PaymentInfo />
                         </Paper>
                     </Box>
-                    <Box gridColumn="span 8" gridRow="span 8">
+                    <Box gridColumn="span 9" gridRow="span 8">
                         <Paper sx={{ height: "100%", width: "100%" }}>
                             <TicketInfo />
                         </Paper>
                     </Box>
-                    <Box gridColumn="span 4" gridRow="span 4">
+                    <Box gridColumn="span 3" gridRow="span 4">
                         <Paper sx={{ height: "100%", width: "100%" }}>
                             <List />
                         </Paper>

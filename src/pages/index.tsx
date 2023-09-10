@@ -10,6 +10,9 @@ import CustomerReview from "@/components/landing-page/customer-review";
 import Blog from "@/components/landing-page/blog";
 import Footer from "@/components/landing-page/footer";
 import NoisyBackground from "@/components/landing-page/noisy-background";
+import Stack from "@mui/material/Stack";
+
+import Style from "@/styles/landing-page/home.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,10 +26,10 @@ export default function Home() {
                 </>
             </NoisyBackground>
             <ServiceDescription />
-            <CurrentStat />
             <NoisyBackground>
-                <CustomerReview />
+                <CurrentStat />
             </NoisyBackground>
+            <CustomerReview />
             <Blog />
             <NoisyBackground>
                 <Footer />
