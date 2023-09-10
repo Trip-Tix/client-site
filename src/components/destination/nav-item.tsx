@@ -1,6 +1,7 @@
 // essential reacts
 import Link from "next/link";
 import { useState, useEffect, useContext } from "react";
+import { useRouter } from "next/router";
 
 // pre-made component
 import Typography from "@mui/material/Typography";
@@ -21,6 +22,7 @@ export default function NavItem({ name, href }: NavItemProps) {
     const animationEnd = 1000;
     const animationDuration = 50;
     const { mode } = useContext(ColorContext);
+    const router = useRouter();
 
     const [props, set] = useSpring(() => ({
         textShadow: "0 0 0 rgba(0,0,0,0)",
@@ -34,7 +36,9 @@ export default function NavItem({ name, href }: NavItemProps) {
     useEffect(() => {
         set({
             textShadow: hovered
-                ? mode === "light" ? "0 0 0.5rem rgba(0,0,0,0.8)" : "0 0 0.5rem rgba(255,255,255,0.8)"
+                ? mode === "light"
+                    ? "0 0 0.5rem rgba(0,0,0,0.8)"
+                    : "0 0 0.5rem rgba(255,255,255,0.8)"
                 : "0 0 0 rgba(0,0,0,0)",
         });
     }, [hovered, set, mode]);
@@ -42,7 +46,7 @@ export default function NavItem({ name, href }: NavItemProps) {
     const trigger = () => {
         setHovered(true);
     };
-    
+
     useEffect(() => {
         if (!hovered) return;
 
@@ -61,6 +65,9 @@ export default function NavItem({ name, href }: NavItemProps) {
                 variant="body1"
                 sx={{
                     cursor: "pointer",
+                }}
+                onClick={() => {
+                    router.push(href);
                 }}
             >
                 {name}

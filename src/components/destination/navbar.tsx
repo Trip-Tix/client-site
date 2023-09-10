@@ -1,6 +1,7 @@
 // essential react imports
 import React from "react";
 import { useContext, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 // pre-made component
 import AppBar from "@mui/material/AppBar";
@@ -9,7 +10,8 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { styled } from "@mui/material/styles";
 import Switch, { SwitchProps } from "@mui/material/Switch";
-import { useRouter } from "next/router";
+import Avatar from "@mui/material/Avatar";
+import Badge from "@mui/material/Badge";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
@@ -73,6 +75,7 @@ import {
     customer_care_url,
     policy_url,
     transportation_url,
+    profile_url,
 } from "@public/pagelinks";
 
 interface NavbarProps {
@@ -111,20 +114,23 @@ export default function Navbar() {
             href: register_url,
         },
     ]);
+    const [username, setUsername] = useState<string>("");
+    const [showAvatar, setShowAvatar] = useState<boolean>(false);
     useEffect(() => {
         const username = sessionStorage.getItem("username");
         if (username) {
             const tempPages = [...pages];
-            tempPages.filter((page) => {
-                if (page.name === "Sign In") {
-                    page.name = "Log Out";
-                    page.href = logout_url;
-                }
+            tempPages.push({
+                name: "Sign Out",
+                href: logout_url,
             });
-            //remove sign up
-            tempPages.pop();
-
-            setPages(tempPages);
+            setUsername(username);
+            setShowAvatar(true);
+            setPages(
+                tempPages.filter((page) => {
+                    return page.name !== "Sign Up" && page.name !== "Sign In";
+                })
+            );
         }
     }, []);
     const { mode, setMode } = useContext(ColorContext);
@@ -152,11 +158,15 @@ export default function Navbar() {
                 alignItems={"center"}
             >
                 {/* Logo and Title */}
-                <Stack direction="row" spacing={1} alignItems={"center"} sx={{ cursor: "pointer" }}
+                <Stack
+                    direction="row"
+                    spacing={1}
+                    alignItems={"center"}
+                    sx={{ cursor: "pointer" }}
                     onClick={() => {
                         router.push(home_url);
-                    }
-                }>
+                    }}
+                >
                     <Image
                         src={mode === "dark" ? TripTixLogo : TripTixLogoBlack}
                         alt="TripTix Logo"
@@ -168,8 +178,13 @@ export default function Navbar() {
                 </Stack>
                 {/* Menu Options */}
 
-                <Stack direction={"row"} spacing={2} alignContent={"center"} alignItems={"center"}>
-                    <MaterialUISwitch 
+                <Stack
+                    direction={"row"}
+                    spacing={2}
+                    alignContent={"center"}
+                    alignItems={"center"}
+                >
+                    <MaterialUISwitch
                         checked={mode === "dark"}
                         onChange={() => {
                             if (mode === "dark") {
@@ -191,6 +206,18 @@ export default function Navbar() {
                                 href={page.href}
                             />
                         ))}
+                        {showAvatar && (
+                            <Badge
+                                color="primary"
+                                variant="dot"
+                                onClick={() => {
+                                    router.push(profile_url);
+                                }}
+                                sx={{ cursor: "pointer" }}
+                            >
+                                <Avatar sx={{ width: 24, height: 24 }}></Avatar>
+                            </Badge>
+                        )}
                     </Stack>
                 </Stack>
             </Stack>

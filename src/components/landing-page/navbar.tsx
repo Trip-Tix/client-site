@@ -1,17 +1,19 @@
 // react essentials
 import { use, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 // pre-made component
 import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
+import Avatar from "@mui/material/Avatar";
+import Badge from "@mui/material/Badge";
 
 // custom
 import NavItem from "@components/landing-page/nav-item";
 import TripTixLogo from "@public/TripTixLogo.svg";
 import {
-    home_url,
     login_url,
     register_url,
     logout_url,
@@ -19,6 +21,7 @@ import {
     customer_care_url,
     policy_url,
     transportation_url,
+    profile_url,
 } from "@public/pagelinks";
 
 interface NavbarProps {
@@ -28,10 +31,6 @@ interface NavbarProps {
 
 export default function Navbar() {
     const [pages, setPages] = useState<NavbarProps[]>([
-        {
-            name: "Home",
-            href: home_url,
-        },
         {
             name: "About Us",
             href: about_us_url,
@@ -57,21 +56,24 @@ export default function Navbar() {
             href: register_url,
         },
     ]);
-
+    const [username, setUsername] = useState<string>("");
+    const [showAvatar, setShowAvatar] = useState<boolean>(false);
+    const router = useRouter();
     useEffect(() => {
         const username = sessionStorage.getItem("username");
         if (username) {
             const tempPages = [...pages];
-            tempPages.filter((page) => {
-                if (page.name === "Sign In") {
-                    page.name = "Log Out";
-                    page.href = logout_url;
-                }
+            tempPages.push({
+                name: "Sign Out",
+                href: logout_url,
             });
-            //remove sign up
-            tempPages.pop();
-
-            setPages(tempPages);
+            setUsername(username);
+            setShowAvatar(true);
+            setPages(
+                tempPages.filter((page) => {
+                    return page.name !== "Sign Up" && page.name !== "Sign In";
+                })
+            );
         }
     }, []);
 
@@ -111,6 +113,18 @@ export default function Navbar() {
                             href={page.href}
                         />
                     ))}
+                    {showAvatar && (
+                        <Badge
+                            color="primary"
+                            variant="dot"
+                            onClick={() => {
+                                router.push(profile_url);
+                            }}
+                            sx ={{cursor: "pointer"}}
+                        >
+                            <Avatar sx={{ width: 24, height: 24 }}></Avatar>
+                        </Badge>
+                    )}
                 </Stack>
             </Stack>
         </AppBar>

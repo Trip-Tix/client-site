@@ -12,3 +12,4 @@ export const customer_care_url = '#';
 export const policy_url = '#';
 export const transportation_url = '#';
 export const payment_url = '/payment';
+export const profile_url = '/profile';
