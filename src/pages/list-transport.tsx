@@ -15,6 +15,8 @@ import { TransportType } from "@public/interface/transport";
 import Style from "@/styles/list-transport/list-transport.module.css";
 import { getTransportList } from "@public/api-call/list-transport";
 import { ColorContext } from "@public/context/global";
+import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
 
 export default function ListTransport() {
     const [filteringData, setFilteringData] = useState<FilteringData>({
@@ -31,6 +33,7 @@ export default function ListTransport() {
         minDepartureTime: "",
     });
 
+    const [loading, setLoading] = useState(false);
     const [transportList, setTransportList] = useState<TransportEntry[]>([]);
     const [selectedTransportType, setSelectedTransportType] =
         useState<TransportType>(TransportType.Bus);
@@ -41,10 +44,14 @@ export default function ListTransport() {
     }, []);
 
     useEffect(() => {
-        getTransportList().then((res) => {
-            console.log(res);
-            setTransportList(res);
-        });
+        setLoading(true);
+        getTransportList()
+            .then((res) => {
+                setTransportList(res);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [selectedTransportType]);
 
     const { mode } = useContext(ColorContext);
@@ -69,9 +76,29 @@ export default function ListTransport() {
                     <Navbar />
                     <TransportationLocked />
                     <InfoBar />
-                    <Stack direction="row" spacing={2} padding={2} className={Style.filterListContainer}>
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                        padding={2}
+                        className={Style.filterListContainer}
+                    >
                         <Filter />
-                        <List />
+                        {loading ? (
+                            <Stack
+                                spacing={2}
+                                sx={{
+                                    width: "100%",
+                                    height: "44.8rem",
+                                }}
+                                alignItems={"center"}
+                                justifyContent={"center"}
+                            >
+                                <CircularProgress sx={{ width: "70%" }} />
+                                <Typography variant={"h6"}>Loading</Typography>
+                            </Stack>
+                        ) : (
+                            <List />
+                        )}
                     </Stack>
                 </div>
             </ListTransportContext.Provider>

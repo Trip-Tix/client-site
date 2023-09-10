@@ -52,7 +52,9 @@ const getBusLayout = async (): Promise<layout_data> => {
                 price:
                     sessionStorage.getItem("transportPrice") === null
                         ? 0
-                        : parseInt(sessionStorage.getItem("transportPrice") as string),
+                        : parseInt(
+                              sessionStorage.getItem("transportPrice") as string
+                          ),
                 uniqueId: sessionStorage.getItem("uniqueId") as string,
                 transportId:
                     sessionStorage.getItem("transportId") === null
@@ -115,11 +117,21 @@ export const getSeatLayout = async (): Promise<layout_data> => {
     }
 };
 
+export interface ticketObject {
+    transportId: number;
+    transportType: string;
+    source: string;
+    destination: string;
+    date: string;
+    scheduleId: number;
+    seatDetails: SeatDetailsFormProps[];
+}
+
 import { SeatDetailsFormProps } from "@public/context/seat-selection";
 import {
     transport_list_url,
     select_seat_url,
-    payment_url,
+    payment_redirect_url,
 } from "@public/pagelinks";
 import { TransportType } from "@public/interface/transport";
 export const processPurchase = async (
@@ -132,12 +144,19 @@ export const processPurchase = async (
         sessionStorage.setItem("processingReturn", "true");
         // redirect to return Ticket
         // store forwardTicket in json format in session storage
-        const forwardTicket = {
-            transportId: sessionStorage.getItem("transportId"),
-            transportType: sessionStorage.getItem("transport"),
-            source: sessionStorage.getItem("source"),
-            destination: sessionStorage.getItem("destination"),
-            date: sessionStorage.getItem("date"),
+        const forwardTicket: ticketObject = {
+            transportId:
+                sessionStorage.getItem("transportId") === null
+                    ? 0
+                    : parseInt(sessionStorage.getItem("transportId") as string),
+            transportType: sessionStorage.getItem("transport") as string,
+            source: sessionStorage.getItem("source") as string,
+            destination: sessionStorage.getItem("destination") as string,
+            date: sessionStorage.getItem("date") as string,
+            scheduleId:
+                sessionStorage.getItem("scheduleId") === null
+                    ? 0
+                    : parseInt(sessionStorage.getItem("scheduleId") as string),
             seatDetails: purchasingSeats,
         };
         sessionStorage.setItem("forwardTicket", JSON.stringify(forwardTicket));
@@ -146,29 +165,44 @@ export const processPurchase = async (
         sessionStorage.setItem("processingReturn", "false");
         // redirect to payment
         // store returnTicket in json format in session storage
-        const returnTicket = {
-            transportId: sessionStorage.getItem("transportId"),
-            transportType: sessionStorage.getItem("transport"),
-            destination: sessionStorage.getItem("source"),
-            source: sessionStorage.getItem("destination"),
-            date: sessionStorage.getItem("returnDate"),
+        const returnTicket: ticketObject = {
+            transportId:
+                sessionStorage.getItem("transportId") === null
+                    ? 0
+                    : parseInt(sessionStorage.getItem("transportId") as string),
+            transportType: sessionStorage.getItem("transport") as string,
+            destination: sessionStorage.getItem("source") as string,
+            source: sessionStorage.getItem("destination") as string,
+            date: sessionStorage.getItem("returnDate") as string,
+            scheduleId:
+                sessionStorage.getItem("scheduleId") === null
+                    ? 0
+                    : parseInt(sessionStorage.getItem("scheduleId") as string),
             seatDetails: purchasingSeats,
         };
         sessionStorage.setItem("returnTicket", JSON.stringify(returnTicket));
         //call api
-        return payment_url;
+        return payment_redirect_url;
     } else if (hasReturn === "false") {
         // redirect to payment
-        const forwardTicket = {
-            transportId: sessionStorage.getItem("transportId"),
-            transportType: sessionStorage.getItem("transport"),
-            source: sessionStorage.getItem("source"),
-            destination: sessionStorage.getItem("destination"),
-            date: sessionStorage.getItem("date"),
+        const forwardTicket: ticketObject = {
+            transportId:
+                sessionStorage.getItem("transportId") === null
+                    ? 0
+                    : parseInt(sessionStorage.getItem("transportId") as string),
+            transportType: sessionStorage.getItem("transport") as string,
+            source: sessionStorage.getItem("source") as string,
+            destination: sessionStorage.getItem("destination") as string,
+            date: sessionStorage.getItem("date") as string,
+            scheduleId:
+                sessionStorage.getItem("scheduleId") === null
+                    ? 0
+                    : parseInt(sessionStorage.getItem("scheduleId") as string),
             seatDetails: purchasingSeats,
         };
+        sessionStorage.setItem("forwardTicket", JSON.stringify(forwardTicket));
         //call api
-        return payment_url;
+        return payment_redirect_url;
     }
     return "";
 };

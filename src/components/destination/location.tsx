@@ -30,9 +30,6 @@ export default function Location() {
         width: source === "" ? 0 : width,
         delay: animationStartTime,
     });
-    useEffect(() => {
-        console.log(source === "");
-    }, [source]);
 
     const destinationAnimation = useSpring({
         opacity: source === "" ? 0 : 1,

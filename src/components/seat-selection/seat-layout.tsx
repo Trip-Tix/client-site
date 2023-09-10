@@ -48,6 +48,7 @@ export default function SeatLayout() {
                 Gender: Gender.Male,
                 seatID: seatId[rowIndex][columnIndex],
                 seatName: seatName[rowIndex][columnIndex],
+                isTempBooked: false,
             });
             setSelectedSeats(tempSelectedSeats);
         } else if (
@@ -91,6 +92,7 @@ export default function SeatLayout() {
                 Gender: Gender.Male,
                 seatID: seatId[rowIndex][columnIndex],
                 seatName: seatName[rowIndex][columnIndex],
+                isTempBooked: true,
             });
             setSelectedSeats(tempSelectedSeats);
         } else if (
@@ -121,8 +123,8 @@ export default function SeatLayout() {
         layout.forEach((row) => {
             row.forEach((seat) => {
                 if (
-                    seat === SeatLabel.MaleTemporaryBooked ||
-                    seat === SeatLabel.FemaleTemporaryBooked
+                    seat === SeatLabel.BookingTemporaryMaleBooked ||
+                    seat === SeatLabel.BookingTemporaryFemaleBooked
                 ) {
                     tempHasTempBooked = true;
                 }
