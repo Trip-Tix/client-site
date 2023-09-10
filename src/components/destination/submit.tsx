@@ -29,7 +29,7 @@ const style = {
 };
 
 export default function Submit() {
-    const { source, destination, date, returnDate, hasReturn, transport, hasError } =
+    const { source, destination, date, returnDate, hasReturn, transport, hasError, sourceId, destinationId } =
         useContext(DestinationContext);
 
     const router = useRouter();
@@ -41,6 +41,8 @@ export default function Submit() {
     const handleClick = () => {
         sessionStorage.setItem("source", source);
         sessionStorage.setItem("destination", destination);
+        sessionStorage.setItem("sourceId", sourceId.toString());
+        sessionStorage.setItem("destinationId", destinationId.toString());
         sessionStorage.setItem("date", date);
         sessionStorage.setItem("returnDate", returnDate);
         sessionStorage.setItem("hasReturn", hasReturn.toString());

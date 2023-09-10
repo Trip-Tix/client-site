@@ -31,9 +31,13 @@ export const getLocations = async (
     transportType: TransportType
 ): Promise<LocationData[]> => {
     try {
-        const res = await axios.post(get_locations_api, {
+        const request = {
             transport_type: transportType,
-        });
+        }
+        console.log("getLocations called");
+        console.log(JSON.stringify(request, null, 2));
+        const res = await axios.post(get_locations_api, request);
+        console.log(JSON.stringify(res.data, null, 2));
         const response_data: response_data[] = res.data;
         const locations: LocationData[] = [];
         response_data.forEach((location) => {

@@ -246,10 +246,65 @@ export const getBusList = async (
     }
 };
 
+export const getTrainList = async (
+    sourceId: number,
+    destinationId: number,
+    date: string
+): Promise<TransportEntry[]> => {
+    try {
+        console.log({
+            source: sourceId,
+            destination: destinationId,
+            journeyDate: date,
+        });
+        const res = await axios.post(bus_api, {
+            source: sourceId,
+            destination: destinationId,
+            journeyDate: date,
+        });
+        const returningResponse: TransportEntry[] = [];
+        if (res.status === 200) {
+            console.log(res);
+            const busList: busListReturnType[] = res.data;
+            busList.forEach((bus) => {
+                const newEntry: TransportEntry = {
+                    unique_id: bus.unique_bus_id,
+                    company_name: bus.bus_company_name,
+                    brand_name: bus.brand_name,
+                    coach_type: bus.coach_name,
+                    time: bus.departure_time,
+                    fare: bus.fare,
+                    number_of_seats: bus.available_seat_count,
+                    fasilites: ["--"],
+                    transport_type: TransportType.Bus,
+                    company_logo: "companyA-logo.png",
+                    has_offer: false,
+                    is_refundable: false,
+                    schedule_id: bus.bus_schedule_id,
+                    transport_id: bus.bus_id,
+                };
+                returningResponse.push(newEntry);
+            });
+        } else {
+            console.log("Error in getBusList()");
+        }
+        return returningResponse;
+    } catch (err: any) {
+        console.log(err);
+        console.log("We got Error in getBusList()");
+        const returningResponse: TransportEntry[] = [];
+        return returningResponse;
+    }
+};
+
+
+
 export const getTransportList = async (): Promise<TransportEntry[]> => {
     const transport_type = sessionStorage.getItem("transport");
     const source = sessionStorage.getItem("source");
     const destination = sessionStorage.getItem("destination");
+    const sourceId = parseInt(sessionStorage.getItem("sourceId") || "0");
+    const destinationId = parseInt(sessionStorage.getItem("destinationId") || "0");
     const processingReturn = sessionStorage.getItem("processingReturn");
     const date = sessionStorage.getItem("date");
     const returnDate = sessionStorage.getItem("returnDate");

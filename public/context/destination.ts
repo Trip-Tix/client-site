@@ -6,6 +6,10 @@ interface DestinationContextType {
     setSource: (source: string) => void;
     destination: string;
     setDestination: (destination: string) => void;
+    sourceId: number;
+    setSourceId: (sourceId: number) => void;
+    destinationId: number;
+    setDestinationId: (destinationId: number) => void;
     date: string;
     setDate: (date: string) => void;
     returnDate: string;
@@ -23,6 +27,10 @@ export const DestinationContext = createContext<DestinationContextType>({
     setSource: () => {},
     destination: '',
     setDestination: () => {},
+    sourceId: 0,
+    setSourceId: () => {},
+    destinationId: 0,
+    setDestinationId: () => {},
     date: '',
     setDate: () => {},
     returnDate: '',

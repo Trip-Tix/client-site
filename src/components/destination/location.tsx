@@ -22,8 +22,16 @@ export default function Location() {
         delay: animationStartTime,
     });
 
-    const { source, setSource, destination, setDestination } =
-        useContext(DestinationContext);
+    const {
+        source,
+        setSource,
+        destination,
+        setDestination,
+        sourceId,
+        setSourceId,
+        destinationId,
+        setDestinationId,
+    } = useContext(DestinationContext);
 
     const [ref, { width }] = useMeasure();
     const boxSlide = useSpring({
@@ -122,6 +130,19 @@ export default function Location() {
                                 inputValue={source}
                                 onInputChange={(event, newInputValue) => {
                                     setSource(newInputValue);
+                                    newInputValue === "" ||
+                                    !locations.some(
+                                        (location) =>
+                                            location.label === newInputValue
+                                    )
+                                        ? setSourceId(0)
+                                        : setSourceId(
+                                              locations.filter(
+                                                  (location) =>
+                                                      location.label ===
+                                                      newInputValue
+                                              )[0].id
+                                          );
                                 }}
                             />
                         </animated.div>
@@ -173,6 +194,19 @@ export default function Location() {
                                 inputValue={destination}
                                 onInputChange={(event, newInputValue) => {
                                     setDestination(newInputValue);
+                                    newInputValue === "" ||
+                                    !locations.some(
+                                        (location) =>
+                                            location.label === newInputValue
+                                    )
+                                        ? setDestinationId(0)
+                                        : setDestinationId(
+                                              locations.filter(
+                                                  (location) =>
+                                                      location.label ===
+                                                      newInputValue
+                                              )[0].id
+                                          );
                                 }}
                             />
                         </animated.div>

@@ -21,6 +21,8 @@ export default function Destination() {
         TransportType.Bus
     );
     const [hasError, setHasError] = useState(false);
+    const [sourceId, setSourceId] = useState(0);
+    const [destinationId, setDestinationId] = useState(0);
     const { mode } = useContext(ColorContext);
 
     return (
@@ -31,6 +33,10 @@ export default function Destination() {
                     setSource,
                     destination,
                     setDestination,
+                    sourceId,
+                    setSourceId,
+                    destinationId,
+                    setDestinationId,
                     date,
                     setDate,
                     returnDate,
