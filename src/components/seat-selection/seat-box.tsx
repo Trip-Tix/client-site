@@ -24,12 +24,13 @@ export default function SeatBox({
     const available = seat !== SeatLabel.Unavailable;
     const booked =
         seat !== SeatLabel.Free && seat !== SeatLabel.TemporarySelection;
-    const gender = booked
-        ? seat === SeatLabel.MaleBooked ||
-          seat === SeatLabel.MaleTemporaryBooked
+    const gender =
+        seat === SeatLabel.MaleBooked || seat === SeatLabel.MaleTemporaryBooked
             ? "M"
-            : "F"
-        : "";
+            : seat === SeatLabel.FemaleBooked ||
+              seat === SeatLabel.FemaleTemporaryBooked
+            ? "F"
+            : "";
 
     return (
         <>

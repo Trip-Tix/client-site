@@ -122,15 +122,19 @@ export default function CurrentStat() {
 
     useEffect(() => {
         getBusCountUser().then((res) => {
+            console.log(res);
             setBusCount(res);
         });
         getTrainCountUser().then((res) => {
+            console.log(res);
             setTrainCount(res);
         });
         getFlightCountUser().then((res) => {
+            console.log(res)
             setFlightCount(res);
         });
         getUserCountUser().then((res) => {
+            console.log(res)
             setUserCount(res);
         });
     }, []);

@@ -178,10 +178,6 @@ const processPayment = async (): Promise<boolean> => {
                 const token = sessionStorage.getItem("access_token") as string;
                 const userId = sessionStorage.getItem("user_id") as string;
                 const username = sessionStorage.getItem("username") as string;
-                sessionStorage.clear();
-                sessionStorage.setItem("user_id", userId);
-                sessionStorage.setItem("access_token", token);
-                sessionStorage.setItem("username", username);
                 sessionStorage.setItem(
                     "book_response",
                     JSON.stringify(response.data)
@@ -304,10 +300,6 @@ const processPayment = async (): Promise<boolean> => {
                 const token = sessionStorage.getItem("access_token") as string;
                 const userId = sessionStorage.getItem("user_id") as string;
                 const username = sessionStorage.getItem("username") as string;
-                sessionStorage.clear();
-                sessionStorage.setItem("user_id", userId);
-                sessionStorage.setItem("access_token", token);
-                sessionStorage.setItem("username", username);
                 sessionStorage.setItem(
                     "book_response",
                     JSON.stringify(response.data)
@@ -427,14 +419,7 @@ const processPayment = async (): Promise<boolean> => {
                 const userId = sessionStorage.getItem("user_id") as string;
                 const username = sessionStorage.getItem("username") as string;
                 const user_email = sessionStorage.getItem("user_email") as string;
-                const mobile = sessionStorage.getItem("mobile") as string;
-                sessionStorage.clear();
-                sessionStorage.setItem("user_id", userId);
-                sessionStorage.setItem("access_token", token);
-                sessionStorage.setItem("username", username);
-                sessionStorage.setItem("user_email", user_email);
-                sessionStorage.setItem("mobile", mobile);
-                
+                const mobile = sessionStorage.getItem("mobile") as string;                
                 sessionStorage.setItem(
                     "book_response",
                     JSON.stringify(response.data)

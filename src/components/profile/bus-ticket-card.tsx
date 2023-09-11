@@ -20,12 +20,16 @@ interface BusTicketCardProps {
     ticket: BusTicket;
 }
 
+import axios from "axios";
+const cancleApi = "https://triptix-backend.onrender.com/cancelTicket";
+
 export default function BusTicketCard({ ticket }: BusTicketCardProps) {
     const [isJourneyDatePassed, setIsJourneyDatePassed] = useState(false);
     const [isReturnDatePassed, setIsReturnDatePassed] = useState(false);
     const [formattedDate, setFormattedDate] = useState("");
     const [showin24, setShowin24] = useState(true);
     const [formattedTime, setFormattedTime] = useState("");
+    const [cancelTicket, setCancelTicket] = useState(false);
     const router = useRouter();
 
     const [processPayment, setProcessPayment] = useState(false);
@@ -103,6 +107,22 @@ export default function BusTicketCard({ ticket }: BusTicketCardProps) {
         }
     }, [showin24, ticket.busInfo.departure_time]);
 
+    useEffect(() => {
+        if (!cancelTicket) return;
+        try {
+            console.log({
+                ticketId: ticket.ticket_id,
+            });
+
+            const res = axios.post(cancleApi, {
+                ticketId: ticket.ticket_id,
+            });
+            console.log(res);
+        } catch (err) {
+            console.log(err);
+        }
+    }, [cancelTicket]);
+
     return (
         <Paper
             sx={{
@@ -150,6 +170,18 @@ export default function BusTicketCard({ ticket }: BusTicketCardProps) {
                                         Download Ticket
                                     </Button>
                                 )}
+                                <Button
+                                    variant={"contained"}
+                                    sx={{
+                                        background:
+                                            mode === "dark"
+                                                ? "#b53535"
+                                                : "#8c1d1d",
+                                    }}
+                                    onClick={() => setCancelTicket(true)}
+                                >
+                                    Cancel
+                                </Button>
                             </>
                         )}
                     </Stack>
