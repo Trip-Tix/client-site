@@ -27,7 +27,7 @@ const Card: React.FC<CardProps> = ({ title, number }) => {
         }
         setCurrentNumber(0);
         const interval = setInterval(() => {
-            setCurrentNumber((prev) => prev + 10 > number ? number : prev + 10);
+            setCurrentNumber((prev) => prev + 1 > number ? number : prev + 1);
         }, 10);
         return () => clearInterval(interval);
     } ,[isHover]);
@@ -54,7 +54,7 @@ const Card: React.FC<CardProps> = ({ title, number }) => {
                     alignItems={"center"}
                 >
                     <Box sx={{ fontSize: "1rem", fontWeight: "bold" }}>
-                        Image
+                        
                     </Box>
                     <Stack
                         direction={"column"}

@@ -66,7 +66,7 @@ export default function Profile() {
                         gap={2}
                         sx={{ height: "85vh" }}
                     >
-                        <Box gridColumn="span 3" gridRow="span 8">
+                        <Box gridColumn="span 3" gridRow="span 12">
                             <Paper>
                                 <AboutMe />
                             </Paper>
@@ -79,11 +79,6 @@ export default function Profile() {
                         <Box gridColumn="span 9" gridRow="span 6">
                             <Paper>
                                 <TicketInfo />
-                            </Paper>
-                        </Box>
-                        <Box gridColumn="span 3" gridRow="span 4">
-                            <Paper>
-                                <List />
                             </Paper>
                         </Box>
                     </Box>

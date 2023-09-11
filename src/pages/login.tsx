@@ -20,6 +20,8 @@ import { ProcessLogin } from "@public/api-call/login";
 import { home_url, register_url } from "@public/pagelinks";
 import axios from "axios";
 
+import LoginImage from "@public/LoginPageImage.png";
+
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -91,7 +93,9 @@ export default function Login() {
                 sx={{
                     width: "50%",
                 }}
-            ></Stack>
+            >
+                <Image src={LoginImage} width={950} alt="Login Image" />
+            </Stack>
             <Stack
                 spacing={2}
                 direction="column"

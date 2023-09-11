@@ -29,11 +29,7 @@ export default function Home() {
             <NoisyBackground>
                 <CurrentStat />
             </NoisyBackground>
-            <CustomerReview />
-            <Blog />
-            <NoisyBackground>
-                <Footer />
-            </NoisyBackground>
+            <Footer />
         </>
     );
 }

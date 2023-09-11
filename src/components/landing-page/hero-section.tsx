@@ -70,9 +70,7 @@ export default function HeroSection() {
                     width={"50%"}
                 >
                     <Image src={image} alt="hero-section" />
-                    <Typography variant={"caption"}>
-                        {"image will be changed, Don't worry"}
-                    </Typography>
+                        
                 </Stack>
             </Stack>
         </Stack>

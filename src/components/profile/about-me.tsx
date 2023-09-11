@@ -26,7 +26,7 @@ export default function AboutMe() {
             direction={"column"}
             justifyContent={"space-between"}
             alignItems={"center"}
-            sx={{ height: "100%" }}
+            sx={{ height: "85vh" }}
         >
             <Stack
                 direction={"column"}

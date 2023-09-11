@@ -20,6 +20,7 @@ import Box from "@mui/material/Box";
 import { ProcessLogin } from "@public/api-call/login";
 import { home_url, login_url } from "@public/pagelinks";
 
+import LoginImage from "@public/LoginPageImage.png";
 interface RegisterProps {
     username: string;
     password: string;
@@ -111,7 +112,9 @@ export default function Register() {
                     width: "50%",
                     height: "100%",
                 }}
-            ></Stack>
+            >
+                <Image src={LoginImage} width={950} alt="Login Image" />
+            </Stack>
             <Stack
                 direction="column"
                 justifyContent="center"

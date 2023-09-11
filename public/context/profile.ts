@@ -44,16 +44,17 @@ export interface BusQueueTicket {
     busInfo: BusInfo;
 }
 
-interface TrainInfo {
-    train_id: string;
-    train_name: string;
+export interface TrainInfo {
+    unique_train_id: string;
     departure_time: string;
-    departure_station: string;
-    arrival_time: string;
-    arrival_station: string;
+    schedule_date: string;
+    train_id: number;
+    train_company_name: string;
+    coach_id: number;
+    coach_name: string;
 }
 
-interface TrainTicket {
+export interface TrainTicket {
     ticket_id: string;
     user_id: string;
     total_fare: number;
@@ -70,7 +71,7 @@ interface TrainTicket {
     isJourneyDatePassed: boolean;
 }
 
-interface TrainQueueTicket {
+export interface TrainQueueTicket {
     queue_ticket_id: string;
     user_id: string;
     total_fare: number;
