@@ -14,9 +14,10 @@ import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 
 import BusQueueTicketCard from "@/components/profile/queue-bus-ticket-card";
+import TrainQueueTicketCard from "@components/profile/queue-train-ticket-card";
+import PlaneQueueTicketCard from "@components/profile/queue-plane-ticket-card";
 
-
-export default function QueueTicket(){
+export default function QueueTicket() {
     const [selectedTransport, setSelectedTransport] = useState<TransportType>(
         TransportType.Bus
     );
@@ -72,20 +73,57 @@ export default function QueueTicket(){
                 </IconButton>
             </Stack>
             <Typography variant={"h5"}>Queue Ticket Info</Typography>
-            <Stack
-                direction={"column"}
-                sx={{
-                    maxHeight: "25vh",
-                    overflowY: "auto",
-                    width: "100%",
-                }}
-                spacing={2}
-            >
-                {ticketHistory.busQueueTicketInfo.map((ticket, index) => {
-                    return <BusQueueTicketCard key={index} ticket={ticket} />;
-                })}
-            </Stack>
-
+            {selectedTransport === TransportType.Bus && (
+                <Stack
+                    direction={"column"}
+                    sx={{
+                        maxHeight: "25vh",
+                        overflowY: "auto",
+                        width: "100%",
+                    }}
+                    spacing={2}
+                >
+                    {ticketHistory.busQueueTicketInfo.map((ticket, index) => {
+                        return (
+                            <BusQueueTicketCard key={index} ticket={ticket} />
+                        );
+                    })}
+                </Stack>
+            )}
+            {selectedTransport === TransportType.Train && (
+                <Stack
+                    direction={"column"}
+                    sx={{
+                        maxHeight: "25vh",
+                        overflowY: "auto",
+                        width: "100%",
+                    }}
+                    spacing={2}
+                >
+                    {ticketHistory.trainQueueTicketInfo.map((ticket, index) => {
+                        return (
+                            <TrainQueueTicketCard key={index} ticket={ticket} />
+                        );
+                    })}
+                </Stack>
+            )}
+            {selectedTransport === TransportType.Flight && (
+                <Stack
+                    direction={"column"}
+                    sx={{
+                        maxHeight: "25vh",
+                        overflowY: "auto",
+                        width: "100%",
+                    }}
+                    spacing={2}
+                >
+                    {ticketHistory.airQueueTicketInfo.map((ticket, index) => {
+                        return (
+                            <PlaneQueueTicketCard key={index} ticket={ticket} />
+                        );
+                    })}
+                </Stack>
+            )}
         </Stack>
     );
 }

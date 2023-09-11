@@ -20,7 +20,14 @@ export async function getTicketHistory(): Promise<TicketHistoryData> {
             }
         );
         console.log(JSON.stringify(response.data, null, 4));
-        return response.data as TicketHistoryData;
+        return {
+            busTicketInfo: response.data.busTicketInfo || [],
+            busQueueTicketInfo: response.data.busQueueTicketInfo || [],
+            trainTicketInfo: response.data.trainTicketInfo || [],
+            trainQueueTicketInfo: response.data.trainQueueTicketInfo || [],
+            airTicketInfo: response.data.airTicketInfo || [],
+            airQueueTicketInfo: response.data.airQueueTicketInfo || [], 
+        }
     } catch (error) {
         console.log(error);
         return {

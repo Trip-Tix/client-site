@@ -20,7 +20,7 @@ export interface BusTicket {
     number_of_tickets: number;
     passenger_info: number[];
     transaction_id: string;
-    payment_medium: string;
+    payment_medium: string| null;
     payment_status: number;
     date: string;
     source: string;
@@ -56,75 +56,77 @@ export interface TrainInfo {
 
 export interface TrainTicket {
     ticket_id: string;
-    user_id: string;
+    user_id: number;
     total_fare: number;
-    train_schedule_id: string;
+    train_schedule_id: number;
     number_of_tickets: number;
-    passenger_info: string[];
+    passenger_info: number[];
     transaction_id: string;
     payment_medium: string | null;
     payment_status: number;
     date: string;
-    source: string | null;
-    destination: string | null;
+    source: string;
+    destination: string;
     trainInfo: TrainInfo;
     isJourneyDatePassed: boolean;
 }
 
 export interface TrainQueueTicket {
     queue_ticket_id: string;
-    user_id: string;
+    user_id: number;
     total_fare: number;
-    train_schedule_id: string;
+    train_schedule_id: number;
     number_of_tickets: number;
-    passenger_info: string[];
-    train_seat_id: string[]; // Train-specific field
+    passenger_info: number[];
+    train_seat_id: number[]; // Train-specific field
     date: string;
     status: number;
-    source: string | null;
-    destination: string | null;
+    source: string;
+    destination: string;
     trainInfo: TrainInfo; // Replace TrainInfo with your actual TrainInfo interface
 }
 
-interface AirInfo {
-    flight_id: string;
-    airline_name: string;
+export interface AirInfo {
+    unique_air_id: string;
     departure_time: string;
-    departure_airport: string;
-    arrival_time: string;
-    arrival_airport: string;
+    schedule_date: string;
+    air_id: number;
+    air_company_name: string;
+    class_id: number;
+    class_name: string;
+    
 }
 
-interface AirTicket {
+export interface AirTicket {
     ticket_id: string;
-    user_id: string;
+    user_id: number;
     total_fare: number;
-    flight_schedule_id: string;
+    air_schedule_id: number;
     number_of_tickets: number;
-    passenger_info: string[];
+    passenger_info: number[];
     transaction_id: string;
     payment_medium: string | null;
     payment_status: number;
     date: string;
-    source: string | null;
-    destination: string | null;
+    source: string;
+    destination: string;
     airInfo: AirInfo;
     isJourneyDatePassed: boolean;
 }
 
-interface AirQueueTicket {
+export interface AirQueueTicket {
     queue_ticket_id: string;
-    user_id: string;
+    user_id: number;
     total_fare: number;
-    flight_schedule_id: string;
+    air_schedule_id: number;
     number_of_tickets: number;
-    passenger_info: string[];
-    air_seat_id: string[]; // Air-specific field
+    passenger_info: number[];
+    air_seat_id: number[]; // Air-specific field
     date: string;
     status: number;
-    source: string | null;
-    destination: string | null;
-    airInfo: AirInfo; // Replace AirInfo with your actual AirInfo interface
+    source: string;
+    destination: string;
+    airInfo: AirInfo;
 }
 
 export interface TicketHistoryData {

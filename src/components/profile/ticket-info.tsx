@@ -14,6 +14,8 @@ import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 
 import BusTicketCard from "@/components/profile/bus-ticket-card";
+import TrainTicketCard from "@components/profile/train-ticket-card";
+import PlaneTicketCard from "@components/profile/plane-ticket-card";
 
 export default function TicketInfo() {
     const [selectedTransport, setSelectedTransport] = useState<TransportType>(
@@ -71,19 +73,51 @@ export default function TicketInfo() {
                 </IconButton>
             </Stack>
             <Typography variant={"h5"}>Ticket Info</Typography>
-            <Stack
-                direction={"column"}
-                sx={{
-                    maxHeight: "28vh",
-                    overflowY: "auto",
-                    width: "100%",
-                }}
-                spacing={2}
-            >
-                {ticketHistory.busTicketInfo.map((ticket, index) => {
-                    return <BusTicketCard key={index} ticket={ticket} />;
-                })}
-            </Stack>
+            {selectedTransport === TransportType.Bus && (
+                <Stack
+                    direction={"column"}
+                    sx={{
+                        maxHeight: "28vh",
+                        overflowY: "auto",
+                        width: "100%",
+                    }}
+                    spacing={2}
+                >
+                    {ticketHistory.busTicketInfo.map((ticket, index) => {
+                        return <BusTicketCard key={index} ticket={ticket} />;
+                    })}
+                </Stack>
+            )}
+            {selectedTransport === TransportType.Train && (
+                <Stack
+                    direction={"column"}
+                    sx={{
+                        maxHeight: "28vh",
+                        overflowY: "auto",
+                        width: "100%",
+                    }}
+                    spacing={2}
+                >
+                    {ticketHistory.trainTicketInfo.map((ticket, index) => {
+                        return <TrainTicketCard key={index} ticket={ticket} />;
+                    })}
+                </Stack>
+            )}
+            {selectedTransport === TransportType.Flight && (
+                <Stack
+                    direction={"column"}
+                    sx={{
+                        maxHeight: "28vh",
+                        overflowY: "auto",
+                        width: "100%",
+                    }}
+                    spacing={2}
+                >
+                    {ticketHistory.airTicketInfo.map((ticket, index) => {
+                        return <PlaneTicketCard key={index} ticket={ticket} />;
+                    })}
+                </Stack>
+            )}
         </Stack>
     );
 }
