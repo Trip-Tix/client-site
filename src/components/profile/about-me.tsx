@@ -18,9 +18,28 @@ import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 
 import { ColorContext } from "@public/context/global";
+import { TicketHistoryContext } from "@public/context/profile";
 
 export default function AboutMe() {
     const { mode } = useContext(ColorContext);
+    const { ticketHistory } = useContext(TicketHistoryContext);
+    const [ cost, setCost ] = useState<number>(0);
+
+    useEffect(() => {
+        let totalCost = 0;
+        ticketHistory.busTicketInfo.forEach((ticket) => {
+            totalCost += ticket.total_fare;
+        });
+        ticketHistory.trainTicketInfo.forEach((ticket) => {
+            totalCost += ticket.total_fare;
+        });
+        ticketHistory.airTicketInfo.forEach((ticket) => {
+            totalCost += ticket.total_fare;
+        });
+        setCost(totalCost);
+    }, [ticketHistory]);
+
+
     return (
         <Stack
             direction={"column"}
@@ -44,7 +63,6 @@ export default function AboutMe() {
                     />
                     <Stack direction={"column"} spacing={0}>
                         <Typography variant={"h3"}>Name</Typography>
-                        <Typography variant={"body1"}>Email</Typography>
                     </Stack>
                 </Stack>
 
@@ -73,7 +91,11 @@ export default function AboutMe() {
                                 width: "3rem",
                             }}
                         />
-                        <Typography variant={"h4"}>0</Typography>
+                        <Typography variant={"h4"}>
+                            {ticketHistory.busTicketInfo.length +
+                                ticketHistory.airTicketInfo.length +
+                                ticketHistory.trainTicketInfo.length}
+                        </Typography>
                         <Typography variant={"h6"}>Tickets</Typography>
                     </Paper>
                     <Paper
@@ -94,7 +116,7 @@ export default function AboutMe() {
                                 width: "3rem",
                             }}
                         />
-                        <Typography variant={"h4"}>0</Typography>
+                        <Typography variant={"h4"}>{`${cost} Tk`}</Typography>
                         <Typography variant={"h6"}>Cost</Typography>
                     </Paper>
                 </Stack>

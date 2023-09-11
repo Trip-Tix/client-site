@@ -17,6 +17,23 @@ import totuse from "@public/image/stats/totuse.svg";
 import tottick from "@public/image/stats/tottick.svg";
 import totloc from "@public/image/stats/totloc.svg";
 
+function getRandomNumber(min: number, max: number): number {
+    if (min >= max) {
+        throw new Error("Minimum value must be less than maximum value");
+    }
+
+    // Generate a random number between 0 (inclusive) and 1 (exclusive)
+    const random = Math.random();
+
+    // Scale the random number to fit within the desired range
+    const scaledRandom = random * (max - min + 1);
+
+    // Offset the scaled random number to start from the minimum value
+    const result = Math.floor(scaledRandom) + min;
+
+    return result;
+}
+
 interface CardProps {
     title: string;
     number: number;
@@ -118,12 +135,12 @@ export default function CurrentStat() {
                 </Stack>
             </Stack>
             <Grid container spacing={10}>
-                <Card title={"Bus"} number={100} image={totbus} />
-                <Card title={"Train"} number={100} image={tottrain} />
-                <Card title={"Flight"} number={100} image={totplane} />
-                <Card title={"User"} number={100} image={totuse} />
-                <Card title={"Booked Ticket"} number={100} image={tottick} />
-                <Card title={"Location"} number={100} image={totloc} />
+                <Card title={"Bus"} number={getRandomNumber(10,400)} image={totbus} />
+                <Card title={"Train"} number={getRandomNumber(10,400)} image={tottrain} />
+                <Card title={"Flight"} number={getRandomNumber(10,400)} image={totplane} />
+                <Card title={"User"} number={getRandomNumber(10,400)} image={totuse} />
+                <Card title={"Booked Ticket"} number={getRandomNumber(10,400)} image={tottick} />
+                <Card title={"Location"} number={getRandomNumber(10,400)} image={totloc} />
             </Grid>
         </Stack>
     );
