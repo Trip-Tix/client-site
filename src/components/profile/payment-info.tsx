@@ -25,7 +25,7 @@ export default function QueueTicket() {
     const { mode } = useContext(ColorContext);
 
     return (
-        <Stack direction={"column"} spacing={1} sx={{ padding: "2rem" }}>
+        <Stack direction={"column"} spacing={1} sx={{ padding: "2rem", height: "25rem"  }}>
             <Stack
                 direction={"row"}
                 spacing={2}

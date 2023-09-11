@@ -52,6 +52,7 @@ export default function Login() {
                     sessionStorage.setItem("access_token", res.accessToken);
                     sessionStorage.setItem("user_id", res.user.user_id.toString());
                     sessionStorage.setItem("user_email", res.user.email);
+                    sessionStorage.setItem("mobile", res.user.mobile.toString());
                     router.push(home_url);
                 } else {
                     console.log("login failed");

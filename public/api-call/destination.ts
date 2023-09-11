@@ -5,7 +5,7 @@ export const getDistanceKm = async (
     source: string,
     destination: string
 ): Promise<number> => {
-    const distance = 100;
+    const distance = Math.random() * 1000;
     console.log({
         message: "getDistance() called",
         sent: { source, destination },

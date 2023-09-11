@@ -56,6 +56,8 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import IconButton from "@mui/material/IconButton";
 
 import { ColorContext } from "@public/context/global";
+import { useRouter } from "next/router";
+import { paymentInit } from "@public/api-call/profile";
 
 interface TrainTicketCardProps {
     ticket: TrainTicket;
@@ -67,6 +69,7 @@ export default function TrainTicketCard({ ticket }: TrainTicketCardProps) {
     const [formattedDate, setFormattedDate] = useState("");
     const [showin24, setShowin24] = useState(true);
     const [formattedTime, setFormattedTime] = useState("");
+    const router = useRouter();
 
     const { mode } = useContext(ColorContext);
 
@@ -116,6 +119,23 @@ export default function TrainTicketCard({ ticket }: TrainTicketCardProps) {
         }
     }, [showin24, ticket.trainInfo.departure_time]);
 
+    const [processPayment, setProcessPayment] = useState(false);
+
+    useEffect(() => {
+        if (!processPayment) return;
+        paymentInit(
+            ticket.ticket_id,
+            ticket.train_schedule_id,
+            ticket.total_fare
+        )
+            .then((res) => {
+                router.push(res);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }, [processPayment]);
+
     return (
         <Paper
             sx={{
@@ -131,19 +151,38 @@ export default function TrainTicketCard({ ticket }: TrainTicketCardProps) {
                         variant={"h6"}
                     >{`${ticket.source}-${ticket.destination}`}</Typography>
                     <Stack direction={"row"} spacing={1} alignItems={"center"}>
+                        {ticket.payment_status === 0 && (
+                            <Button
+                                variant={"contained"}
+                                sx={{
+                                    background:
+                                        mode === "dark" ? "#6cff3f" : "#47c72a",
+                                }}
+                                onClick={() => {
+                                    setProcessPayment(true);
+                                }}
+                            >
+                                Proceed To Payment
+                            </Button>
+                        )}
                         {!ticket.isJourneyDatePassed && (
                             <>
-                                <Button
-                                    variant={"contained"}
-                                    sx={{
-                                        background:
-                                            mode === "dark"
-                                                ? "#6cff3f"
-                                                : "#47c72a",
-                                    }}
-                                >
-                                    Download Ticket
-                                </Button>
+                                {ticket.payment_status === 1 && (
+                                    <Button
+                                        variant={"contained"}
+                                        sx={{
+                                            background:
+                                                mode === "dark"
+                                                    ? "#6cff3f"
+                                                    : "#47c72a",
+                                        }}
+                                        onClick={() => {
+                                            router.push(ticket.ticket_url);
+                                        }}
+                                    >
+                                        Download Ticket
+                                    </Button>
+                                )}
 
                                 <Button
                                     variant={"contained"}

@@ -25,7 +25,7 @@ export default function TicketInfo() {
     const { ticketHistory } = useContext(TicketHistoryContext);
 
     return (
-        <Stack direction={"column"} spacing={1} sx={{ padding: "2rem" }}>
+        <Stack direction={"column"} spacing={1} sx={{ padding: "2rem", height: "25rem" }}>
             <Stack
                 direction={"row"}
                 spacing={2}

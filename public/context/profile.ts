@@ -20,13 +20,14 @@ export interface BusTicket {
     number_of_tickets: number;
     passenger_info: number[];
     transaction_id: string;
-    payment_medium: string| null;
+    payment_medium: string | null;
     payment_status: number;
     date: string;
     source: string;
     destination: string;
     busInfo: BusInfo;
     isJourneyDatePassed: boolean;
+    ticket_url: string;
 }
 
 export interface BusQueueTicket {
@@ -69,6 +70,7 @@ export interface TrainTicket {
     destination: string;
     trainInfo: TrainInfo;
     isJourneyDatePassed: boolean;
+    ticket_url: string;
 }
 
 export interface TrainQueueTicket {
@@ -94,7 +96,6 @@ export interface AirInfo {
     air_company_name: string;
     class_id: number;
     class_name: string;
-    
 }
 
 export interface AirTicket {
@@ -112,6 +113,7 @@ export interface AirTicket {
     destination: string;
     airInfo: AirInfo;
     isJourneyDatePassed: boolean;
+    ticket_url: string;
 }
 
 export interface AirQueueTicket {
@@ -143,7 +145,7 @@ interface TicketHistoryContextProps {
     setTicketHistory: React.Dispatch<React.SetStateAction<TicketHistoryData>>;
 }
 
-export  const TicketHistoryContext = createContext<TicketHistoryContextProps>({
+export const TicketHistoryContext = createContext<TicketHistoryContextProps>({
     ticketHistory: {
         busTicketInfo: [],
         busQueueTicketInfo: [],

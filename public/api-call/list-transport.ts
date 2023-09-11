@@ -33,6 +33,7 @@ interface busListReturnType {
     number_of_seats: number;
     layout: number[][];
     seat_name: string[][];
+    facilities: string[];
 }
 
 export const getBusList = async (
@@ -68,7 +69,7 @@ export const getBusList = async (
                     time: bus.departure_time,
                     fare: bus.fare,
                     number_of_seats: bus.available_seat_count,
-                    fasilites: ["--"],
+                    fasilites: bus.facilities,
                     transport_type: TransportType.Bus,
                     company_logo: "companyA-logo.png",
                     has_offer: false,

@@ -24,6 +24,9 @@ export default function AboutMe() {
     const { mode } = useContext(ColorContext);
     const { ticketHistory } = useContext(TicketHistoryContext);
     const [ cost, setCost ] = useState<number>(0);
+    const [ user_email, setUserEmail ] = useState<string>("");
+    const [ user_mobile, setUserMobile ] = useState<string>("");
+    const [ username, setUsername ] = useState<string>("");
 
     useEffect(() => {
         let totalCost = 0;
@@ -38,6 +41,13 @@ export default function AboutMe() {
         });
         setCost(totalCost);
     }, [ticketHistory]);
+
+
+    useEffect(() => {
+        setUserEmail(sessionStorage.getItem("user_email") || "");
+        setUserMobile(sessionStorage.getItem("mobile") || "");
+        setUsername(sessionStorage.getItem("username") || "");
+    }, []);
 
 
     return (
@@ -62,7 +72,7 @@ export default function AboutMe() {
                         }}
                     />
                     <Stack direction={"column"} spacing={0}>
-                        <Typography variant={"h3"}>Name</Typography>
+                        <Typography variant={"h3"}>{username}</Typography>
                     </Stack>
                 </Stack>
 
@@ -124,9 +134,8 @@ export default function AboutMe() {
                     <Stack direction={"column"} spacing={0}>
                         <Typography variant={"h5"}>About Me</Typography>
                         <Typography variant={"body1"}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Quisquam, voluptatum. Quisquam, voluptatum.
-                            Quisquam,
+                            Elite User.
+                            Looking to travel the world
                         </Typography>
                     </Stack>
                     <Stack direction={"column"} spacing={1}>
@@ -150,7 +159,7 @@ export default function AboutMe() {
                                             : "#e9ebee",
                                 }}
                             >
-                                Email
+                                {user_email}
                             </Typography>
                         </Stack>
                         <Stack direction={"row"} spacing={2}>
@@ -173,7 +182,7 @@ export default function AboutMe() {
                                             : "#e9ebee",
                                 }}
                             >
-                                Phone
+                                {user_mobile}
                             </Typography>
                         </Stack>
                     </Stack>

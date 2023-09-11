@@ -40,3 +40,32 @@ export async function getTicketHistory(): Promise<TicketHistoryData> {
         };
     }
 }
+
+
+const payment_init_api = main_url + "/paymentInitProfile"
+interface PaymentInitRequest {
+    ticketId: string;
+    scheduleId: number;
+    totalFare: number;
+}
+
+export async function paymentInit(
+    ticketId: string,
+    scheduleId: number,
+    totalFare: number
+): Promise<string> {
+    const request: PaymentInitRequest = {
+        ticketId: ticketId,
+        scheduleId: scheduleId,
+        totalFare: totalFare,
+    };
+    console.log(JSON.stringify(request, null, 4));
+    try {
+        const response = await axios.post(payment_init_api, request);
+        console.log(JSON.stringify(response.data, null, 4));
+        return response.data.url;
+    } catch (error) {
+        console.log(error);
+        return '#';
+    }
+}

@@ -39,8 +39,10 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import IconButton from "@mui/material/IconButton";
+import { useRouter } from "next/router";
 
 import { ColorContext } from "@public/context/global";
+import { paymentInit } from "@public/api-call/profile";
 
 interface BusQueueTicketCardProps {
     ticket: BusQueueTicket;
