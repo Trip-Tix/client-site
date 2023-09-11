@@ -116,14 +116,7 @@ export default function TrainQueueTicketCard({
                     >
                         {ticket.status === 0 ? "Proceed to Pay" : "Still in queue" }
                     </Button>
-                    <Button
-                        variant={"contained"}
-                        sx={{
-                            background: mode === "dark" ? "#ff593f" : "#ff6f65",
-                        }}
-                    >
-                        Cancel
-                    </Button>
+                    
                     </Stack>
                 </Stack>
                 <Divider />

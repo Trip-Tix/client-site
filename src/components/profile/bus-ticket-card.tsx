@@ -150,18 +150,6 @@ export default function BusTicketCard({ ticket }: BusTicketCardProps) {
                                         Download Ticket
                                     </Button>
                                 )}
-
-                                <Button
-                                    variant={"contained"}
-                                    sx={{
-                                        background:
-                                            mode === "dark"
-                                                ? "#ff593f"
-                                                : "#ff6f65",
-                                    }}
-                                >
-                                    Cancel
-                                </Button>
                             </>
                         )}
                     </Stack>
