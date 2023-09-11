@@ -10,6 +10,7 @@ import CustomerReview from "@/components/landing-page/customer-review";
 import Blog from "@/components/landing-page/blog";
 import Footer from "@/components/landing-page/footer";
 import NoisyBackground from "@/components/landing-page/noisy-background";
+import UsBhaiUs from "@/components/landing-page/us-bhai-us";
 import Stack from "@mui/material/Stack";
 
 import Style from "@/styles/landing-page/home.module.css";
@@ -29,6 +30,7 @@ export default function Home() {
             <NoisyBackground>
                 <CurrentStat />
             </NoisyBackground>
+            <UsBhaiUs />
             <Footer />
         </>
     );

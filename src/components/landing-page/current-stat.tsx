@@ -6,17 +6,24 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Image from "next/image";
 
 import { motion, useAnimation } from "framer-motion";
 
+import totbus from "@public/image/stats/totbus.svg";
+import tottrain from "@public/image/stats/tottrain.svg";
+import totplane from "@public/image/stats/totplane.svg";
+import totuse from "@public/image/stats/totuse.svg";
+import tottick from "@public/image/stats/tottick.svg";
+import totloc from "@public/image/stats/totloc.svg";
 
 interface CardProps {
     title: string;
     number: number;
+    image: any;
 }
 
-const Card: React.FC<CardProps> = ({ title, number }) => {
-
+const Card: React.FC<CardProps> = ({ title, number, image }) => {
     const [isHover, setIsHover] = useState(false);
     const [currentNumber, setCurrentNumber] = useState(0);
 
@@ -27,10 +34,10 @@ const Card: React.FC<CardProps> = ({ title, number }) => {
         }
         setCurrentNumber(0);
         const interval = setInterval(() => {
-            setCurrentNumber((prev) => prev + 1 > number ? number : prev + 1);
+            setCurrentNumber((prev) => (prev + 1 > number ? number : prev + 1));
         }, 10);
         return () => clearInterval(interval);
-    } ,[isHover]);
+    }, [isHover]);
 
     return (
         <Grid xs={4}>
@@ -53,8 +60,21 @@ const Card: React.FC<CardProps> = ({ title, number }) => {
                     justifyContent={"space-between"}
                     alignItems={"center"}
                 >
-                    <Box sx={{ fontSize: "1rem", fontWeight: "bold" }}>
-                        
+                    <Box
+                        sx={{
+                            fontSize: "1rem",
+                            fontWeight: "bold",
+                            background: "white",
+                            borderRadius: "50%",
+                            padding: "1rem",
+                        }}
+                    >
+                        <Image
+                            src={image}
+                            alt={title}
+                            width={100}
+                            height={100}
+                        />
                     </Box>
                     <Stack
                         direction={"column"}
@@ -98,12 +118,12 @@ export default function CurrentStat() {
                 </Stack>
             </Stack>
             <Grid container spacing={10}>
-                <Card title={"Bus"} number={100} />
-                <Card title={"Train"} number={100} />
-                <Card title={"Flight"} number={100} />
-                <Card title={"User"} number={100} />
-                <Card title={"Booked Ticket"} number={100} />
-                <Card title={"Location"} number={100} />
+                <Card title={"Bus"} number={100} image={totbus} />
+                <Card title={"Train"} number={100} image={tottrain} />
+                <Card title={"Flight"} number={100} image={totplane} />
+                <Card title={"User"} number={100} image={totuse} />
+                <Card title={"Booked Ticket"} number={100} image={tottick} />
+                <Card title={"Location"} number={100} image={totloc} />
             </Grid>
         </Stack>
     );

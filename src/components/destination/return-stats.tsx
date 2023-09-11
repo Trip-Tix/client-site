@@ -78,7 +78,7 @@ export default function Stats() {
                             }}
                         />
                     </Icon>
-                    <Typography variant="body1">Total Seats</Typography>
+                    <Typography variant="body1">Total Booked</Typography>
                     <Typography variant="h4">{totalBooked}</Typography>
                 </Stack>
                 <Stack direction={"column"} spacing={1} alignItems="center">
@@ -95,7 +95,7 @@ export default function Stats() {
                             }}
                         />
                     </Icon>
-                    <Typography variant="body1">Total Seats</Typography>
+                    <Typography variant="body1">Average Cost</Typography>
                     <Typography variant="h4">{avgPrice}</Typography>
                 </Stack>
             </Stack>

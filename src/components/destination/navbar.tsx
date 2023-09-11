@@ -94,16 +94,8 @@ export default function Navbar() {
             href: about_us_url,
         },
         {
-            name: "Customer Care",
-            href: customer_care_url,
-        },
-        {
             name: "Policy",
             href: policy_url,
-        },
-        {
-            name: "Transportation",
-            href: transportation_url,
         },
         {
             name: "Sign In",
