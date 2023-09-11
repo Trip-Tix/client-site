@@ -109,7 +109,34 @@ const Card: React.FC<CardProps> = ({ title, number, image }) => {
     );
 };
 
+import { getBusCountUser, getTrainCountUser, getFlightCountUser, getUserCountUser } from "@public/api-call/home-page";
+
 export default function CurrentStat() {
+
+    const [busCount, setBusCount] = useState(0);
+    const [trainCount, setTrainCount] = useState(0);
+    const [flightCount, setFlightCount] = useState(0);
+    const [userCount, setUserCount] = useState(0);
+    const [ticketCount, setTicketCount] = useState(0);
+    const [locationCount, setLocationCount] = useState(0);
+
+    useEffect(() => {
+        getBusCountUser().then((res) => {
+            setBusCount(res);
+        });
+        getTrainCountUser().then((res) => {
+            setTrainCount(res);
+        });
+        getFlightCountUser().then((res) => {
+            setFlightCount(res);
+        });
+        getUserCountUser().then((res) => {
+            setUserCount(res);
+        });
+    }, []);
+
+
+
     return (
         <Stack direction={"column"} spacing={5} sx={{ padding: "2rem" }}>
             <Stack
@@ -135,10 +162,10 @@ export default function CurrentStat() {
                 </Stack>
             </Stack>
             <Grid container spacing={10}>
-                <Card title={"Bus"} number={getRandomNumber(10,400)} image={totbus} />
-                <Card title={"Train"} number={getRandomNumber(10,400)} image={tottrain} />
-                <Card title={"Flight"} number={getRandomNumber(10,400)} image={totplane} />
-                <Card title={"User"} number={getRandomNumber(10,400)} image={totuse} />
+                <Card title={"Bus"} number={busCount} image={totbus} />
+                <Card title={"Train"} number={trainCount} image={tottrain} />
+                <Card title={"Flight"} number={flightCount} image={totplane} />
+                <Card title={"User"} number={userCount} image={totuse} />
                 <Card title={"Booked Ticket"} number={getRandomNumber(10,400)} image={tottick} />
                 <Card title={"Location"} number={getRandomNumber(10,400)} image={totloc} />
             </Grid>
