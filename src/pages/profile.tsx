@@ -13,6 +13,7 @@ import QueueTicket from "@/components/profile/payment-info";
 import TicketInfo from "@/components/profile/ticket-info";
 import List from "@components/profile/list";
 import { ColorContext } from "@public/context/global";
+import Head from "next/head";
 
 import { getTicketHistory } from "@public/api-call/profile";
 import {
@@ -42,48 +43,55 @@ export default function Profile() {
     }, [ticketHistory]);
 
     return (
-        <TicketHistoryContext.Provider
-            value={{ ticketHistory, setTicketHistory }}
-        >
-            <Stack
-                direction={"column"}
-                spacing={0}
-                sx={{
-                    minHeight: "100vh",
-                    backgroundColor: mode === "light" ? "#f5f5f5" : "#121212",
-                }}
+        <>
+            <Head>
+                <title>Profile</title>
+                <link rel="icon" href="/TripTixFavicon.ico" />
+            </Head>
+            <TicketHistoryContext.Provider
+                value={{ ticketHistory, setTicketHistory }}
             >
-                <Navbar />
                 <Stack
                     direction={"column"}
-                    spacing={2}
-                    sx={{ padding: "1rem" }}
+                    spacing={0}
+                    sx={{
+                        minHeight: "100vh",
+                        backgroundColor:
+                            mode === "light" ? "#f5f5f5" : "#121212",
+                    }}
                 >
-                    <Typography variant={"h4"}>Profile</Typography>
-                    <Box
-                        display="grid"
-                        gridTemplateColumns="repeat(12, 1fr)"
-                        gap={2}
-                        sx={{ height: "85vh" }}
+                    <Navbar />
+                    <Stack
+                        direction={"column"}
+                        spacing={2}
+                        sx={{ padding: "1rem" }}
                     >
-                        <Box gridColumn="span 3" gridRow="span 12">
-                            <Paper>
-                                <AboutMe />
-                            </Paper>
+                        <Typography variant={"h4"}>Profile</Typography>
+                        <Box
+                            display="grid"
+                            gridTemplateColumns="repeat(12, 1fr)"
+                            gap={2}
+                            sx={{ height: "85vh" }}
+                        >
+                            <Box gridColumn="span 3" gridRow="span 12">
+                                <Paper>
+                                    <AboutMe />
+                                </Paper>
+                            </Box>
+                            <Box gridColumn="span 9" gridRow="span 6">
+                                <Paper>
+                                    <QueueTicket />
+                                </Paper>
+                            </Box>
+                            <Box gridColumn="span 9" gridRow="span 6">
+                                <Paper>
+                                    <TicketInfo />
+                                </Paper>
+                            </Box>
                         </Box>
-                        <Box gridColumn="span 9" gridRow="span 6">
-                            <Paper>
-                                <QueueTicket />
-                            </Paper>
-                        </Box>
-                        <Box gridColumn="span 9" gridRow="span 6">
-                            <Paper>
-                                <TicketInfo />
-                            </Paper>
-                        </Box>
-                    </Box>
+                    </Stack>
                 </Stack>
-            </Stack>
-        </TicketHistoryContext.Provider>
+            </TicketHistoryContext.Provider>
+        </>
     );
 }

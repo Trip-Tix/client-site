@@ -23,6 +23,7 @@ import {
 } from "@public/api-call/payment";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import { useState, useEffect, useContext } from "react";
 export default function Payment() {
@@ -61,23 +62,29 @@ export default function Payment() {
     useEffect(() => {
         if (startPayment) {
             setLoading(true);
-            handlePayment().then((res) => {
-                if (res) {
-                    console.log(res);
-                    router.push(res);
-                } else {
+            handlePayment()
+                .then((res) => {
+                    if (res) {
+                        console.log(res);
+                        router.push(res);
+                    } else {
+                        alert("Payment Failed");
+                    }
+                    setLoading(false);
+                })
+                .catch((err) => {
                     alert("Payment Failed");
-                }
-                setLoading(false);
-            }).catch((err) => {
-                alert("Payment Failed");
-                setLoading(false);
-            });
+                    setLoading(false);
+                });
         }
     }, [startPayment]);
 
     return (
         <>
+            <Head>
+                <title>Payment</title>
+                <link rel="icon" href="/TripTixFavicon.ico" />
+            </Head>
             <Stack
                 direction={"column"}
                 spacing={2}

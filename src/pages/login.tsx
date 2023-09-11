@@ -21,6 +21,7 @@ import { home_url, register_url } from "@public/pagelinks";
 import axios from "axios";
 
 import LoginImage from "@public/LoginPageImage.png";
+import Head from "next/head";
 
 export default function Login() {
     const [username, setUsername] = useState("");
@@ -50,9 +51,15 @@ export default function Login() {
                     console.log("login Successful");
                     sessionStorage.setItem("username", username);
                     sessionStorage.setItem("access_token", res.accessToken);
-                    sessionStorage.setItem("user_id", res.user.user_id.toString());
+                    sessionStorage.setItem(
+                        "user_id",
+                        res.user.user_id.toString()
+                    );
                     sessionStorage.setItem("user_email", res.user.email);
-                    sessionStorage.setItem("mobile", res.user.mobile.toString());
+                    sessionStorage.setItem(
+                        "mobile",
+                        res.user.mobile.toString()
+                    );
                     router.push(home_url);
                 } else {
                     console.log("login failed");
@@ -81,116 +88,122 @@ export default function Login() {
     }, [password]);
 
     return (
-        <Stack
-            spacing={2}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            sx={{ height: "100vh" }}
-        >
+        <>
+            <Head>
+                <title>Login</title>
+                <link rel="icon" href="/TripTixFavicon.ico" />
+            </Head>
             <Stack
                 spacing={2}
-                direction="column"
-                sx={{
-                    width: "50%",
-                }}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ height: "100vh" }}
             >
-                <Image src={LoginImage} width={950} alt="Login Image" />
-            </Stack>
-            <Stack
-                spacing={2}
-                direction="column"
-                justifyContent={"center"}
-                alignItems={"center"}
-                sx={{
-                    width: "50%",
-                    padding: "2rem",
-                }}
-            >
-                <Typography variant="h4">Login</Typography>
-                {loginError && (
-                    <Typography variant="body1" color="error">
-                        {loginErrorMessage}
-                    </Typography>
-                )}
-                <FormControl>
-                    <FormLabel>Username</FormLabel>
-                    <TextField
-                        variant="outlined"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        type="text"
-                        sx={{ width: "30rem" }}
-                        error={usernameError}
-                        helperText={usernameErrorMessage}
-                    />
-                </FormControl>
-                <FormControl>
-                    <FormLabel>Password</FormLabel>
-                    <OutlinedInput
-                        id="outlined-adornment-password"
-                        type={showPassword ? "text" : "password"}
-                        sx={{ width: "30rem" }}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    edge="end"
-                                >
-                                    {showPassword ? (
-                                        <VisibilityOff />
-                                    ) : (
-                                        <Visibility />
-                                    )}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        label="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        error={passwordError}
-                    />
-                    <FormHelperText error={passwordError}>
-                        {passwordErrorMessage}
-                    </FormHelperText>
-                </FormControl>
-                <Button
-                    variant="contained"
+                <Stack
+                    spacing={2}
+                    direction="column"
                     sx={{
-                        width: "30rem",
+                        width: "50%",
                     }}
-                    onClick={() => {
-                        setStartLogin(true);
-                    }}
-                    disabled={loading || username === "" || password === ""}
                 >
-                    Login
-                </Button>
-                <Box sx={{ width: "30rem" }}>
-                    {loading && <LinearProgress />}
-                </Box>
+                    <Image src={LoginImage} width={950} alt="Login Image" />
+                </Stack>
+                <Stack
+                    spacing={2}
+                    direction="column"
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    sx={{
+                        width: "50%",
+                        padding: "2rem",
+                    }}
+                >
+                    <Typography variant="h4">Login</Typography>
+                    {loginError && (
+                        <Typography variant="body1" color="error">
+                            {loginErrorMessage}
+                        </Typography>
+                    )}
+                    <FormControl>
+                        <FormLabel>Username</FormLabel>
+                        <TextField
+                            variant="outlined"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            type="text"
+                            sx={{ width: "30rem" }}
+                            error={usernameError}
+                            helperText={usernameErrorMessage}
+                        />
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel>Password</FormLabel>
+                        <OutlinedInput
+                            id="outlined-adornment-password"
+                            type={showPassword ? "text" : "password"}
+                            sx={{ width: "30rem" }}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            label="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            error={passwordError}
+                        />
+                        <FormHelperText error={passwordError}>
+                            {passwordErrorMessage}
+                        </FormHelperText>
+                    </FormControl>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            width: "30rem",
+                        }}
+                        onClick={() => {
+                            setStartLogin(true);
+                        }}
+                        disabled={loading || username === "" || password === ""}
+                    >
+                        Login
+                    </Button>
+                    <Box sx={{ width: "30rem" }}>
+                        {loading && <LinearProgress />}
+                    </Box>
 
-                <Stack direction="column" spacing={0} alignItems={"center"}>
-                    <Typography variant="body1">
-                        {`Don't have an account?`}
-                        <Button
-                            variant="text"
-                            color="primary"
-                            onClick={() => router.push(register_url)}
-                        >
-                            {`Sign up`}
-                        </Button>
-                    </Typography>
+                    <Stack direction="column" spacing={0} alignItems={"center"}>
+                        <Typography variant="body1">
+                            {`Don't have an account?`}
+                            <Button
+                                variant="text"
+                                color="primary"
+                                onClick={() => router.push(register_url)}
+                            >
+                                {`Sign up`}
+                            </Button>
+                        </Typography>
 
-                    <Typography variant="body1">
-                        {`Forgot your password?`}
-                        <Button variant="text" color="primary">
-                            {`Reset password`}
-                        </Button>
-                    </Typography>
+                        <Typography variant="body1">
+                            {`Forgot your password?`}
+                            <Button variant="text" color="primary">
+                                {`Reset password`}
+                            </Button>
+                        </Typography>
+                    </Stack>
                 </Stack>
             </Stack>
-        </Stack>
+        </>
     );
 }

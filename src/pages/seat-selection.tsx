@@ -17,6 +17,7 @@ import { ColorContext } from "@public/context/global";
 import { useContext } from "react";
 import { getSeatLayout } from "@public/api-call/select-seat";
 import TempBookWarning from "@/components/seat-selection/temp-book-warning";
+import Head from "next/head";
 
 export default function SeatSelect() {
     const [layout, setLayout] = useState<number[][]>([
@@ -74,6 +75,10 @@ export default function SeatSelect() {
 
     return (
         <>
+            <Head>
+                <title>Seat Selection | Price: {price}</title>
+                <link rel="icon" href="/TripTixFavicon.ico" />
+            </Head>
             <SeatSelectionContext.Provider
                 value={{
                     layout,

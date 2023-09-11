@@ -17,6 +17,7 @@ import { getTransportList } from "@public/api-call/list-transport";
 import { ColorContext } from "@public/context/global";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
+import Head from "next/head";
 
 export default function ListTransport() {
     const [filteringData, setFilteringData] = useState<FilteringData>({
@@ -57,6 +58,10 @@ export default function ListTransport() {
     const { mode } = useContext(ColorContext);
     return (
         <>
+            <Head>
+                <title>Available {selectedTransportType}</title>
+                <link rel="icon" href="/TripTixFavicon.ico" />
+            </Head>
             <ListTransportContext.Provider
                 value={{
                     selectedTransportType,

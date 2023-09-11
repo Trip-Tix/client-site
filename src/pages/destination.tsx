@@ -10,6 +10,7 @@ import Transportation from "@/components/destination/transportation";
 import Stack from "@mui/material/Stack";
 import Style from "@styles/destination/home.module.css";
 import { ColorContext } from "@public/context/global";
+import Head from "next/head";
 
 export default function Destination() {
     const [source, setSource] = useState("");
@@ -27,6 +28,10 @@ export default function Destination() {
 
     return (
         <>
+            <Head>
+                <title>Buy Ticket</title>
+                <link rel="icon" href="/TripTixFavicon.ico" />
+            </Head>
             <DestinationContext.Provider
                 value={{
                     source,

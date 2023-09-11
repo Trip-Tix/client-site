@@ -14,12 +14,17 @@ import UsBhaiUs from "@/components/landing-page/us-bhai-us";
 import Stack from "@mui/material/Stack";
 
 import Style from "@/styles/landing-page/home.module.css";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
     return (
         <>
+            <Head>
+                <title>Home | TripTix</title>
+                <link rel="icon" href="/TripTixFavicon.ico" />
+            </Head>
             <NoisyBackground>
                 <>
                     <Navbar />

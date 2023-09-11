@@ -434,6 +434,7 @@ const processPayment = async (): Promise<boolean> => {
                 sessionStorage.setItem("username", username);
                 sessionStorage.setItem("user_email", user_email);
                 sessionStorage.setItem("mobile", mobile);
+                
                 sessionStorage.setItem(
                     "book_response",
                     JSON.stringify(response.data)
