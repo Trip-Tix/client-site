@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 
 import Shamit from "@public/shamit.jpg";
 import Zeeon from "@public/zeeon.jpg";
-import Fahmid from "@public/fahmid.jpg";
+import Fahmid from "@public/fahmid.png";
 
 export default function UsBhaiUs() {
     return (
