@@ -1,8 +1,11 @@
-const main_url = "https://triptix-backend.onrender.com";
-const get_ticket_history_url = main_url + "/api/user/ticketHistory";
 
 import axios from "axios";
 import { TicketHistoryData } from "@public/context/profile";
+import { main_url } from "./constant";
+
+// const main_url = "https://triptix-backend.onrender.com";
+const get_ticket_history_url = main_url + "/api/user/ticketHistory";
+
 
 export async function getTicketHistory(): Promise<TicketHistoryData> {
     const user_id = sessionStorage.getItem("user_id");

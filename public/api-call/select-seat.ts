@@ -1,6 +1,7 @@
 import axios from "axios";
+import { main_url } from "./constant";
 
-const main_url = "https://triptix-backend.onrender.com";
+// const main_url = "https://triptix-backend.onrender.com";
 const bus_layout_api = main_url + "/api/getUniqueBusDetails";
 const train_layout_api = main_url + "/api/getUniqueTrainDetails";
 const flight_layout_api = main_url + "/api/getUniqueAirDetails";

@@ -1,6 +1,7 @@
 // /api/admin/getAll{User}CountUser
 import axios from "axios";
-const main_url = "https://triptix-backend.onrender.com";
+import { main_url } from "./constant";
+// const main_url = "https://triptix-backend.onrender.com";
 
 export const getBusCount = main_url + "/api/admin/getAllBusCountUser";
 export const getTrainCount = main_url + "/api/admin/getAllTrainCountUser";

@@ -1,5 +1,6 @@
 import { TransportType } from "@public/interface/transport";
 import { TransportEntry } from "@public/context/list-transport";
+import { main_url } from "./constant";
 import axios from "axios";
 
 interface GetTransportListProps {
@@ -12,7 +13,7 @@ interface GetTransportListProps {
     processingReturn: boolean;
 }
 
-const main_url = "https://triptix-backend.onrender.com";
+// const main_url = "https://triptix-backend.onrender.com";
 const bus_api = main_url + "/api/getScheduleWiseBusDetails";
 const train_api = main_url + "/api/getScheduleWiseTrainDetails";
 const plane_api = main_url + "/api/getScheduleWiseAirDetails";

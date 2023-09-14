@@ -1,5 +1,7 @@
 import axios from "axios";
-const main_url = "https://triptix-backend.onrender.com";
+import { main_url } from "./constant";
+// const main_url = "https://triptix-backend.onrender.com";
+
 const register_api = main_url + "/api/user/signup";
 
 export interface RegisterProps {
