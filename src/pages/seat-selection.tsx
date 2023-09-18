@@ -71,7 +71,7 @@ export default function SeatSelect() {
             .finally(() => {
                 setLayoutLoading(false);
             });
-    }, []);
+    }, [layout]);
 
     return (
         <>

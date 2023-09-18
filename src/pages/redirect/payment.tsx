@@ -189,7 +189,6 @@ const processPayment = async (): Promise<boolean> => {
             return false;
         }
 
-        return true;
     } else if (transportType === TransportType.Train) {
         const forwardObject: train_booking_request_object = {
             trainScheduleId: forwardTicket.scheduleId,
@@ -478,7 +477,7 @@ export default function Payment() {
                 }
             }, 2000);
         }
-    }, [triggerPageChange]);
+    }, [router, success, triggerPageChange]);
 
     return (
         <Stack spacing={2} alignContent={"center"} direction={"column"}>

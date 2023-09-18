@@ -77,7 +77,7 @@ export default function Payment() {
                     setLoading(false);
                 });
         }
-    }, [startPayment]);
+    }, [router, startPayment]);
 
     return (
         <>

@@ -2,18 +2,35 @@ import axios from "axios";
 import { main_url } from "./constant";
 // const main_url = "https://triptix-backend.onrender.com";
 
+const get_distance_api = main_url + "/api/getDistance";
 export const getDistanceKm = async (
     source: string,
     destination: string
 ): Promise<number> => {
-    const distance = Math.random() * 1000;
-    console.log({
-        message: "getDistance() called",
-        sent: { source, destination },
-        received: distance,
-    });
-    return distance;
+    try {
+        const request = {
+            source: source,
+            destination: destination,
+        }
+        console.log("getDistanceKm called");
+        console.log(JSON.stringify(request, null, 2));
+        const res = await axios.post(get_distance_api, request);
+        console.log(JSON.stringify(res.data, null, 2));
+        const distance: number = res.data.distance;
+        return distance;
+    } catch (err) {
+        console.log(err);
+        return 0;
+    }
 };
+//     const distance = Math.random() * 1000;
+//     console.log({
+//         message: "getDistance() called",
+//         sent: { source, destination },
+//         received: distance,
+//     });
+//     return distance;
+// };
 
 import { TransportType } from "@public/interface/transport";
 
