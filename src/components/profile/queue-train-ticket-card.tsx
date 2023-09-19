@@ -14,10 +14,13 @@ import IconButton from "@mui/material/IconButton";
 
 import { ColorContext } from "@public/context/global";
 
+import axios from "axios";
+
 interface TrainQueueTicketCardProps {
     ticket: TrainQueueTicket;
 }
 
+const cancleApi = "https://triptix-backend.onrender.com/cancelTicketTrain";
 export default function TrainQueueTicketCard({
     ticket,
 }: TrainQueueTicketCardProps) {
@@ -26,6 +29,7 @@ export default function TrainQueueTicketCard({
     const [formattedDate, setFormattedDate] = useState("");
     const [showin24, setShowin24] = useState(true);
     const [formattedTime, setFormattedTime] = useState("");
+    const [cancelTicket, setCancelTicket] = useState(false);
 
     const { mode } = useContext(ColorContext);
 
@@ -89,6 +93,21 @@ export default function TrainQueueTicketCard({
         }
     }, [showin24, ticket.trainInfo.departure_time]);
 
+    useEffect(() => {
+        if (cancelTicket) {
+            axios
+                .post(cancleApi, {
+                    ticketId: ticket.queue_ticket_id,
+                })
+                .then((res) => {
+                    console.log(res);
+                    setCancelTicket(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, [cancelTicket]);
 
     return (
         <Paper
@@ -106,17 +125,28 @@ export default function TrainQueueTicketCard({
                     >{`${ticket.source}-${ticket.destination}`}</Typography>
 
                     <Stack direction={"row"} spacing={2} alignItems={"center"}>
-                    
                         <Button
-                        variant={"contained"}
-                        sx={{
-                            background: mode === "dark" ? "#6cff3f" : "#47c72a",
-                        }}
-                        disabled={ticket.status !== 0}
-                    >
-                        {ticket.status === 0 ? "Proceed to Pay" : "Still in queue" }
-                    </Button>
-                    
+                            variant={"contained"}
+                            sx={{
+                                background:
+                                    mode === "dark" ? "#6cff3f" : "#47c72a",
+                            }}
+                            disabled={ticket.status !== 0}
+                        >
+                            {ticket.status === 0
+                                ? "Proceed to Pay"
+                                : "Still in queue"}
+                        </Button>
+                        <Button
+                            variant={"contained"}
+                            sx={{
+                                background:
+                                    mode === "dark" ? "#b53535" : "#8c1d1d",
+                            }}
+                            onClick={() => setCancelTicket(true)}
+                        >
+                            Cancel
+                        </Button>
                     </Stack>
                 </Stack>
                 <Divider />

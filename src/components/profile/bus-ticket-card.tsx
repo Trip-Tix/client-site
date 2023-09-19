@@ -177,18 +177,7 @@ export default function BusTicketCard({ ticket, showPast }: BusTicketCardProps) 
                                         Download Ticket
                                     </Button>
                                 )}
-                                <Button
-                                    variant={"contained"}
-                                    sx={{
-                                        background:
-                                            mode === "dark"
-                                                ? "#b53535"
-                                                : "#8c1d1d",
-                                    }}
-                                    onClick={() => setCancelTicket(true)}
-                                >
-                                    Cancel
-                                </Button>
+                                
                             </>
                         )}
                     </Stack>
