@@ -109,10 +109,14 @@ const Card: React.FC<CardProps> = ({ title, number, image }) => {
     );
 };
 
-import { getBusCountUser, getTrainCountUser, getFlightCountUser, getUserCountUser } from "@public/api-call/home-page";
+import {
+    getBusCountUser,
+    getTrainCountUser,
+    getFlightCountUser,
+    getUserCountUser,
+} from "@public/api-call/home-page";
 
 export default function CurrentStat() {
-
     const [busCount, setBusCount] = useState(0);
     const [trainCount, setTrainCount] = useState(0);
     const [flightCount, setFlightCount] = useState(0);
@@ -130,16 +134,14 @@ export default function CurrentStat() {
             setTrainCount(res);
         });
         getFlightCountUser().then((res) => {
-            console.log(res)
+            console.log(res);
             setFlightCount(res);
         });
         getUserCountUser().then((res) => {
-            console.log(res)
+            console.log(res);
             setUserCount(res);
         });
     }, []);
-
-
 
     return (
         <Stack direction={"column"} spacing={5} sx={{ padding: "2rem" }}>
@@ -170,8 +172,6 @@ export default function CurrentStat() {
                 <Card title={"Train"} number={trainCount} image={tottrain} />
                 <Card title={"Flight"} number={flightCount} image={totplane} />
                 <Card title={"User"} number={userCount} image={totuse} />
-                <Card title={"Booked Ticket"} number={getRandomNumber(10,400)} image={tottick} />
-                <Card title={"Location"} number={getRandomNumber(10,400)} image={totloc} />
             </Grid>
         </Stack>
     );
