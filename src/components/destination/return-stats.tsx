@@ -8,21 +8,26 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import { useState, useContext, useEffect } from "react";
 import { getTicketStats } from "@public/api-call/destination";
 import { DestinationContext } from "@public/context/destination";
+import LinearProgress from "@mui/material/LinearProgress";
 export default function Stats() {
 
     const [totalSeats, setTotalSeats] = useState(0);
     const [totalBooked, setTotalBooked] = useState(0);
     const [avgPrice, setAvgPrice] = useState(0);
 
-    const { source, destination, returnDate, transport } =
+    const { source, destination, returnDate, transport, sourceId, destinationId } =
         useContext(DestinationContext);
 
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (source === "" || destination === "" || returnDate === "") return;
-        getTicketStats(transport, destination, source, returnDate).then((res) => {
+        setLoading(true);
+        getTicketStats(transport, destination, destinationId, source, sourceId, returnDate).then((res) => {
             setTotalSeats(res.total);
             setTotalBooked(res.sold);
             setAvgPrice(res.avgPrice);
+        }).finally(() => {
+            setLoading(false);
         });
     }, [source, destination, returnDate, transport]);
 
@@ -41,6 +46,7 @@ export default function Stats() {
             }}
         >
             <Typography variant="body1" sx={{marginBottom: "1.5rem"}}>Return Ticket Stats</Typography>
+            {loading && <LinearProgress sx={{width: "100%", marginBottom: "1.5rem"}}/>}
             <Stack
                 direction={"row"}
                 spacing={5}
@@ -96,7 +102,7 @@ export default function Stats() {
                         />
                     </Icon>
                     <Typography variant="body1">Average Cost</Typography>
-                    <Typography variant="body1">{avgPrice}</Typography>
+                    <Typography variant="body1">{avgPrice.toFixed(2)}</Typography>
                 </Stack>
             </Stack>
         </Paper>
