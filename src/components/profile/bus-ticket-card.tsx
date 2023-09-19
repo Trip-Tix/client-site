@@ -18,12 +18,13 @@ import { paymentInit } from "@public/api-call/profile";
 
 interface BusTicketCardProps {
     ticket: BusTicket;
+    showPast: boolean;
 }
 
 import axios from "axios";
 const cancleApi = "https://triptix-backend.onrender.com/cancelTicket";
 
-export default function BusTicketCard({ ticket }: BusTicketCardProps) {
+export default function BusTicketCard({ ticket, showPast }: BusTicketCardProps) {
     const [isJourneyDatePassed, setIsJourneyDatePassed] = useState(false);
     const [isReturnDatePassed, setIsReturnDatePassed] = useState(false);
     const [formattedDate, setFormattedDate] = useState("");
@@ -36,7 +37,7 @@ export default function BusTicketCard({ ticket }: BusTicketCardProps) {
 
     useEffect(() => {
         if (!processPayment) return;
-        paymentInit(ticket.ticket_id, ticket.bus_schedule_id, ticket.total_fare)
+        paymentInit(ticket.ticket_id, ticket.bus_schedule_id, ticket.total_fare, "bus")
             .then((res) => {
                 router.push(res);
             })
@@ -123,7 +124,7 @@ export default function BusTicketCard({ ticket }: BusTicketCardProps) {
         }
     }, [cancelTicket]);
 
-    return (
+    return showPast !== ticket.isJourneyDatePassed  ? null : (
         <Paper
             sx={{
                 width: "100%",

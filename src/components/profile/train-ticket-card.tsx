@@ -61,9 +61,10 @@ import { paymentInit } from "@public/api-call/profile";
 
 interface TrainTicketCardProps {
     ticket: TrainTicket;
+    showPast: boolean;
 }
 
-export default function TrainTicketCard({ ticket }: TrainTicketCardProps) {
+export default function TrainTicketCard({ ticket, showPast }: TrainTicketCardProps) {
     const [isJourneyDatePassed, setIsJourneyDatePassed] = useState(false);
     const [isReturnDatePassed, setIsReturnDatePassed] = useState(false);
     const [formattedDate, setFormattedDate] = useState("");
@@ -86,6 +87,14 @@ export default function TrainTicketCard({ ticket }: TrainTicketCardProps) {
         const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
             inputDate
         );
+
+        //if date passed then change is journey date
+        const today = new Date();
+        const journeyDate = new Date(ticket.date);
+        
+        if (today > journeyDate) {
+            setIsJourneyDatePassed(true);
+        }
 
         setFormattedDate(formattedDate);
     }, []);
@@ -126,7 +135,8 @@ export default function TrainTicketCard({ ticket }: TrainTicketCardProps) {
         paymentInit(
             ticket.ticket_id,
             ticket.train_schedule_id,
-            ticket.total_fare
+            ticket.total_fare,
+            "train"
         )
             .then((res) => {
                 router.push(res);
@@ -136,7 +146,7 @@ export default function TrainTicketCard({ ticket }: TrainTicketCardProps) {
             });
     }, [processPayment]);
 
-    return (
+    return showPast !== ticket.isJourneyDatePassed  ? null : (
         <Paper
             sx={{
                 width: "100%",

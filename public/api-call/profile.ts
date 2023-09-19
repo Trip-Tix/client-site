@@ -2,6 +2,7 @@
 import axios from "axios";
 import { TicketHistoryData } from "@public/context/profile";
 import { main_url } from "./constant";
+import { TransportType } from "@public/interface/transport";
 
 // const main_url = "https://triptix-backend.onrender.com";
 const get_ticket_history_url = main_url + "/api/user/ticketHistory";
@@ -50,17 +51,20 @@ interface PaymentInitRequest {
     ticketId: string;
     scheduleId: number;
     totalFare: number;
+    transportType: "air" | "bus" | "train";
 }
 
 export async function paymentInit(
     ticketId: string,
     scheduleId: number,
-    totalFare: number
+    totalFare: number,
+    TransportType: "air" | "bus" | "train"
 ): Promise<string> {
     const request: PaymentInitRequest = {
         ticketId: ticketId,
         scheduleId: scheduleId,
         totalFare: totalFare,
+        transportType: TransportType,
     };
     console.log(JSON.stringify(request, null, 4));
     try {

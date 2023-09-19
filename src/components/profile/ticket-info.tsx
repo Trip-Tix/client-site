@@ -84,7 +84,7 @@ export default function TicketInfo() {
                     spacing={2}
                 >
                     {ticketHistory.busTicketInfo.map((ticket, index) => {
-                        return <BusTicketCard key={index} ticket={ticket} />;
+                        return <BusTicketCard key={index} ticket={ticket} showPast={false}/>;
                     })}
                 </Stack>
             )}
@@ -99,7 +99,7 @@ export default function TicketInfo() {
                     spacing={2}
                 >
                     {ticketHistory.trainTicketInfo.map((ticket, index) => {
-                        return <TrainTicketCard key={index} ticket={ticket} />;
+                        return <TrainTicketCard key={index} ticket={ticket} showPast={false}/>;
                     })}
                 </Stack>
             )}
@@ -114,7 +114,7 @@ export default function TicketInfo() {
                     spacing={2}
                 >
                     {ticketHistory.airTicketInfo.map((ticket, index) => {
-                        return <PlaneTicketCard key={index} ticket={ticket} />;
+                        return <PlaneTicketCard key={index} ticket={ticket} showPast={false}/>;
                     })}
                 </Stack>
             )}

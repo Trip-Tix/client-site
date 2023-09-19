@@ -18,9 +18,13 @@ import { paymentInit } from "@public/api-call/profile";
 
 interface AirTicketCardProps {
     ticket: AirTicket;
+    showPast: boolean;
 }
 
-export default function AirTicketCard({ ticket }: AirTicketCardProps) {
+export default function AirTicketCard({
+    ticket,
+    showPast,
+}: AirTicketCardProps) {
     const [isJourneyDatePassed, setIsJourneyDatePassed] = useState(false);
     const [isReturnDatePassed, setIsReturnDatePassed] = useState(false);
     const [formattedDate, setFormattedDate] = useState("");
@@ -59,6 +63,14 @@ export default function AirTicketCard({ ticket }: AirTicketCardProps) {
         );
 
         setFormattedDate(formattedDate);
+
+        const today = new Date();
+        const journeyDate = new Date(ticket.date);
+        
+        if (today > journeyDate) {
+            setIsJourneyDatePassed(true);
+        }
+
     }, []);
 
     useEffect(() => {
@@ -94,7 +106,7 @@ export default function AirTicketCard({ ticket }: AirTicketCardProps) {
 
     useEffect(() => {
         if (!processPayment) return;
-        paymentInit(ticket.ticket_id, ticket.air_schedule_id, ticket.total_fare)
+        paymentInit(ticket.ticket_id, ticket.air_schedule_id, ticket.total_fare, "air")
             .then((res) => {
                 router.push(res);
             })
@@ -103,7 +115,7 @@ export default function AirTicketCard({ ticket }: AirTicketCardProps) {
             });
     }, [processPayment]);
 
-    return (
+    return  showPast !== ticket.isJourneyDatePassed  ? null : (
         <Paper
             sx={{
                 width: "100%",
@@ -150,8 +162,6 @@ export default function AirTicketCard({ ticket }: AirTicketCardProps) {
                                         Download Ticket
                                     </Button>
                                 )}
-
-                                
                             </>
                         )}
                     </Stack>
