@@ -40,7 +40,7 @@ export default function Stats() {
                 alignItems: "center",
             }}
         >
-            <Typography variant="h4" sx={{marginBottom: "1.5rem"}}>Forward Ticket Stats</Typography>
+            <Typography variant="body1" sx={{marginBottom: "1.5rem"}}>Forward Ticket Stats</Typography>
             <Stack
                 direction={"row"}
                 spacing={5}
@@ -62,7 +62,7 @@ export default function Stats() {
                         />
                     </Icon>
                     <Typography variant="body1">Total Seats</Typography>
-                    <Typography variant="h4">{totalSeats}</Typography>
+                    <Typography variant="body1">{totalSeats}</Typography>
                 </Stack>
                 <Stack direction={"column"} spacing={1} alignItems="center">
                     <Icon
@@ -79,7 +79,7 @@ export default function Stats() {
                         />
                     </Icon>
                     <Typography variant="body1">Total Booked</Typography>
-                    <Typography variant="h4">{totalBooked}</Typography>
+                    <Typography variant="body1">{totalBooked}</Typography>
                 </Stack>
                 <Stack direction={"column"} spacing={1} alignItems="center">
                     <Icon
@@ -96,7 +96,7 @@ export default function Stats() {
                         />
                     </Icon>
                     <Typography variant="body1">Average Cost</Typography>
-                    <Typography variant="h4">{avgPrice}</Typography>
+                    <Typography variant="body1">{avgPrice}</Typography>
                 </Stack>
             </Stack>
         </Paper>

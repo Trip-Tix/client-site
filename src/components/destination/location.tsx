@@ -12,6 +12,7 @@ import { DestinationContext } from "@public/context/destination";
 import { ColorContext } from "@public/context/global";
 import { getLocations, LocationData } from "@public/api-call/destination";
 import CircularProgress from "@mui/material/CircularProgress";
+  
 
 export default function Location() {
     const animationStartTime = 500;
@@ -90,15 +91,18 @@ export default function Location() {
             elevation={3}
             sx={{
                 padding: "2rem",
+                height: "12rem",
             }}
+            
         >
-            <Stack spacing={2}>
+            <Stack spacing={2} direction="column" justifyContent={"center"}>
                 <Typography
-                    variant="h5"
+                    variant="body1"
                     sx={{
                         fontWeight: "bold",
                         textAlign: "left",
                         marginTop: "5%",
+
                     }}
                 >
                     Select Location
@@ -115,7 +119,7 @@ export default function Location() {
 
                 {!loading && (
                     <Stack
-                        direction="row"
+                        direction={{ xs: "column", md: "row" }}
                         justifyContent={"center"}
                         spacing={5}
                     >
@@ -153,6 +157,8 @@ export default function Location() {
                             }}
                             ref={ref}
                             className={Style.box}
+                            display={{ xs: "none", md: "block" }}
+                            
                         >
                             <animated.div
                                 style={boxSlide}

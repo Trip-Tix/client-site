@@ -33,29 +33,29 @@ export default function Form() {
                     padding: "1rem",
                 }}
             >
-                <Grid xs={8}>
+                <Grid md={8} xs={12}>
                     <Location />
                 </Grid>
-                <Grid xs={4}>
+                <Grid md={4} xs={12}>
                     <Distance />
                 </Grid>
 
-                <Grid xs={4}>
+                <Grid md={4} xs={12}>
                     <DateSelection />
                 </Grid>
 
-                <Grid xs={4}>
+                <Grid md={4} xs={12}>
                     <ForwardStats />
                 </Grid>
 
-                <Grid xs={4}>
+                <Grid md={4} xs={12}>
                     <ReturnStats />
                 </Grid>
 
-                <Grid xs={8}>
+                <Grid md={8} xs={12}>
                     <SponserMessage />
                 </Grid>
-                <Grid xs={4}>
+                <Grid md={4} xs={12}>
                     <Submit />
                 </Grid>
             </Grid>

@@ -59,7 +59,7 @@ export default function Destination() {
                         width: "100%",
                         backgroundColor:
                             mode === "dark" ? "#121212" : "#dfdfdf",
-                        height: "100vh",
+                        minHeight: "100vh",
                     }}
                     direction={"column"}
                     justifyContent="space-between"

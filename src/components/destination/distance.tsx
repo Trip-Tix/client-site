@@ -13,15 +13,14 @@ import { getDistanceKm } from "@public/api-call/destination";
 
 export default function Distance() {
     const [distance, setDistance] = useState(0);
-    const {source, destination } = useContext(DestinationContext);
+    const { source, destination } = useContext(DestinationContext);
     const [toggleMile, setToggleMile] = useState(false);
     const [distanceData, setDistanceData] = useState(distance);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (source === "" || destination === ""){
+        if (source === "" || destination === "") {
             setDistance(0);
-            setLoading(true);
             return;
         }
         setLoading(true);
@@ -33,14 +32,6 @@ export default function Distance() {
                 setLoading(false);
             });
     }, [source, destination]);
-
-    useEffect(() => {
-        if (distance === 0) {
-            setLoading(true);
-            return;
-        }
-        setLoading(false);
-    }, [distance]);
 
     useEffect(() => {
         if (toggleMile) {
@@ -56,12 +47,13 @@ export default function Distance() {
                 width: "100%",
                 height: "100%",
                 padding: "2rem",
-                display: "flex",
+                display: {xs: "none", md: "flex"},
                 justifyContent: "space-between",
                 alignItems: "center",
                 flexDirection: "row",
             }}
             elevation={3}
+            
         >
             <Stack
                 direction="column"
@@ -77,12 +69,12 @@ export default function Distance() {
                     <Icon>
                         <RouteIcon />
                     </Icon>
-                    <Typography variant="h5">Distance</Typography>
+                    <Typography variant="body1">Distance</Typography>
                 </Stack>
                 {loading ? (
                     <CircularProgress />
                 ) : (
-                    <Typography variant="h2">{`${distanceData.toFixed(2)} ${
+                    <Typography variant="h4">{`${distanceData.toFixed(2)} ${
                         toggleMile ? "Mile" : "Km"
                     }`}</Typography>
                 )}

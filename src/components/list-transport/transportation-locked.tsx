@@ -60,12 +60,14 @@ export default function Transportation() {
                         >
                             <transport.transportIcon
                                 sx={{
-                                    height: "2.5rem",
-                                    width: "2.5rem",
+                                    height: "1.5rem",
+                                    width: "1.5rem",
                                 }}
                             />
                         </Icon>
-                        <Typography variant="body1">
+                        <Typography variant="body1" sx={{
+                            paddingBottom: "0.5rem",
+                        }}>
                             {transport.transportName}
                         </Typography>
                     </Stack>

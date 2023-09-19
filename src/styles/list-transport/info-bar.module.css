@@ -4,9 +4,9 @@
 
 .circle_light{
     position: absolute;
-    top: calc(50% - 2.5rem);
-    left: calc(50% - 2.5rem);
-    width: 5rem;
+    top: calc(50% - 1.25rem);
+    left: calc(50% - 1.25rem);
+    width: 2.5rem;
     aspect-ratio: 1;
     border-radius: 50%;
     background-color: #ffffff;
@@ -15,9 +15,9 @@
 
 .circle_dark{
     position: absolute;
-    top: calc(50% - 2.5rem);
-    left: calc(50% - 2.5rem);
-    width: 5rem;
+    top: calc(50% - 1.25rem);
+    left: calc(50% - 1.25rem);
+    width: 2.5rem;
     aspect-ratio: 1;
     border-radius: 50%;
     background-color: #00000036;
@@ -26,6 +26,6 @@
 
 .icon{
     position: absolute;
-    top: calc(50% - 1.25rem);
-    left: calc(50% - 1.25rem);
+    top: calc(50% - 1rem);
+    left: calc(50% - 1rem);
 }

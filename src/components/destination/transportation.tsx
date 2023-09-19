@@ -33,6 +33,7 @@ export default function Transportation() {
                         spacing={1}
                         justifyContent={"center"}
                         alignItems={"center"}
+                        alignContent={"center"}
                         sx={{
                             color:
                                 transport.transportId ===
@@ -45,8 +46,8 @@ export default function Transportation() {
                                     ? "rgba(0,128,128,0.1)"
                                     : "transparent",
                             paddingTop: "0.5rem",
-                            paddingRight: "10rem",
-                            paddingLeft: "10rem",
+                            paddingRight: "5rem",
+                            paddingLeft: "5rem",
                             borderBottom:
                                 transport.transportId ===
                                 selectedTransport.transportId
@@ -75,12 +76,14 @@ export default function Transportation() {
                         >
                             <transport.transportIcon
                                 sx={{
-                                    height: "2.5rem",
-                                    width: "2.5rem",
+                                    height: "1.5rem",
+                                    width: "1.5rem",
                                 }}
                             />
                         </Icon>
-                        <Typography variant="body1">
+                        <Typography variant="body1" sx={{
+                            paddingBottom: "0.5rem",
+                        }}>
                             {transport.transportName}
                         </Typography>
                     </Stack>

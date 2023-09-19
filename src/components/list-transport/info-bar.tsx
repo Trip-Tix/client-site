@@ -62,7 +62,7 @@ export default function InfoBar() {
                                 </Icon>
                             </Stack>
                             <Typography
-                                variant="h6"
+                                variant="body1"
                                 sx={{ fontWeight: "light" }}
                                 maxWidth={"10rem"}
                             >
@@ -92,7 +92,7 @@ export default function InfoBar() {
                                 </Icon>
                             </Stack>
                             <Typography
-                                variant="h6"
+                                variant="body1"
                                 sx={{ fontWeight: "light" }}
                                 maxWidth={"10rem"}
                             >
@@ -113,8 +113,8 @@ export default function InfoBar() {
                     >
                         <CompareArrowsIcon
                             sx={{
-                                height: "2.5rem",
-                                width: "2.5rem",
+                                height: "2rem",
+                                width: "2rem",
                             }}
                         />
                     </Icon>
@@ -171,7 +171,7 @@ export default function InfoBar() {
                                     Departure Date
                                 </Typography>
                                 <Typography
-                                    variant="h4"
+                                    variant="body1"
                                     sx={{
                                         fontWeight: "light",
                                         color: !processingReturn
@@ -228,7 +228,7 @@ export default function InfoBar() {
                                     Return Date
                                 </Typography>
                                 <Typography
-                                    variant="h4"
+                                    variant="body1"
                                     sx={{
                                         fontWeight: "light",
                                         color: processingReturn
@@ -256,7 +256,7 @@ export default function InfoBar() {
                         }}
                     >
                         <Typography variant="body2">Duration</Typography>
-                        <Typography variant="h4" sx={{ fontWeight: "light" }}>
+                        <Typography variant="body1" sx={{ fontWeight: "light" }}>
                             --h --m
                         </Typography>
                     </Stack>

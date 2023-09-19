@@ -84,7 +84,7 @@ export default function DateSelection() {
                 }}
             >
                 <Typography
-                    variant="h5"
+                    variant="body1"
                     sx={{
                         fontWeight: "bold",
                         textAlign: "left",
@@ -131,7 +131,7 @@ export default function DateSelection() {
                 </Stack>
 
                 <Typography
-                    variant="h5"
+                    variant="body1"
                     sx={{
                         fontWeight: "bold",
                         textAlign: "left",
@@ -176,7 +176,7 @@ export default function DateSelection() {
                         <SouthEastIcon />
                     </Icon>
                     <Typography
-                        variant="h5"
+                        variant="body1"
                         display={hasReturn ? "none" : "block"}
                     >
                         *Optional
