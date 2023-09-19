@@ -5,23 +5,41 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import RouteIcon from "@mui/icons-material/Route";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
+import CircularProgress from "@mui/material/CircularProgress";
 
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, use } from "react";
 import { DestinationContext } from "@public/context/destination";
 import { getDistanceKm } from "@public/api-call/destination";
 
 export default function Distance() {
     const [distance, setDistance] = useState(0);
-    const { source, destination } = useContext(DestinationContext);
+    const {source, destination } = useContext(DestinationContext);
     const [toggleMile, setToggleMile] = useState(false);
+    const [distanceData, setDistanceData] = useState(distance);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (source === "" || destination === "") return;
-        getDistanceKm(source, destination).then((res) => {
-            const tempDistance = toggleMile ? res * 0.621371 : res;
-            setDistance(tempDistance);
-        });
-    }, [source, destination, toggleMile]);
+        if (source === "" || destination === ""){
+            setDistance(0);
+            return;
+        }
+        setLoading(true);
+        getDistanceKm(source, destination)
+            .then((res) => {
+                setDistance(res);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, [source, destination]);
+
+    useEffect(() => {
+        if (toggleMile) {
+            setDistanceData(distance * 0.621371);
+        } else {
+            setDistanceData(distance);
+        }
+    }, [toggleMile, distance]);
 
     return (
         <Paper
@@ -52,9 +70,13 @@ export default function Distance() {
                     </Icon>
                     <Typography variant="h5">Distance</Typography>
                 </Stack>
-                <Typography variant="h2">{`${distance.toFixed(2)} ${
-                    toggleMile ? "Mile" : "Km"
-                }`}</Typography>
+                {loading ? (
+                    <CircularProgress />
+                ) : (
+                    <Typography variant="h2">{`${distanceData.toFixed(2)} ${
+                        toggleMile ? "Mile" : "Km"
+                    }`}</Typography>
+                )}
             </Stack>
             <IconButton
                 sx={{
