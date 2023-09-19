@@ -477,7 +477,7 @@ export default function Payment() {
                 }
             }, 2000);
         }
-    }, [router, success, triggerPageChange]);
+    }, [router, triggerPageChange]);
 
     return (
         <Stack spacing={2} alignContent={"center"} direction={"column"}>

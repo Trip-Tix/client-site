@@ -61,6 +61,10 @@ export default function TotalPrice() {
                         height: "100%",
                     }}
                     onClick={handleClick}
+                    disabled={
+                        selectedSeats.length === 0 ||
+                        selectedSeats.some((seat) => seat.isValid === false)
+                    }
                 >
                     Confirm
                 </Button>

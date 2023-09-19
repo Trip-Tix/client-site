@@ -32,6 +32,7 @@ export interface SeatDetailsFormProps {
     seatID: number;
     seatName: string;
     isTempBooked: boolean;
+    isValid: boolean;
 }
 
 export enum SeatLabel {
