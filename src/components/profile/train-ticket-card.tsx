@@ -59,12 +59,17 @@ import { ColorContext } from "@public/context/global";
 import { useRouter } from "next/router";
 import { paymentInit } from "@public/api-call/profile";
 
+import CircularProgress from "@mui/material/CircularProgress";
+
 interface TrainTicketCardProps {
     ticket: TrainTicket;
     showPast: boolean;
 }
 
-export default function TrainTicketCard({ ticket, showPast }: TrainTicketCardProps) {
+export default function TrainTicketCard({
+    ticket,
+    showPast,
+}: TrainTicketCardProps) {
     const [isJourneyDatePassed, setIsJourneyDatePassed] = useState(false);
     const [isReturnDatePassed, setIsReturnDatePassed] = useState(false);
     const [formattedDate, setFormattedDate] = useState("");
@@ -91,7 +96,7 @@ export default function TrainTicketCard({ ticket, showPast }: TrainTicketCardPro
         //if date passed then change is journey date
         const today = new Date();
         const journeyDate = new Date(ticket.date);
-        
+
         if (today > journeyDate) {
             setIsJourneyDatePassed(true);
         }
@@ -129,6 +134,7 @@ export default function TrainTicketCard({ ticket, showPast }: TrainTicketCardPro
     }, [showin24, ticket.trainInfo.departure_time]);
 
     const [processPayment, setProcessPayment] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (!processPayment) return;
@@ -146,7 +152,7 @@ export default function TrainTicketCard({ ticket, showPast }: TrainTicketCardPro
             });
     }, [processPayment]);
 
-    return showPast !== ticket.isJourneyDatePassed  ? null : (
+    return showPast !== ticket.isJourneyDatePassed ? null : (
         <Paper
             sx={{
                 width: "100%",
@@ -171,10 +177,12 @@ export default function TrainTicketCard({ ticket, showPast }: TrainTicketCardPro
                                 onClick={() => {
                                     setProcessPayment(true);
                                 }}
+                                disabled={loading}
                             >
                                 Proceed To Payment
                             </Button>
                         )}
+                        {loading && <CircularProgress />}
                         {!ticket.isJourneyDatePassed && (
                             <>
                                 {ticket.payment_status === 1 && (
@@ -193,8 +201,6 @@ export default function TrainTicketCard({ ticket, showPast }: TrainTicketCardPro
                                         Download Ticket
                                     </Button>
                                 )}
-
-                                
                             </>
                         )}
                     </Stack>

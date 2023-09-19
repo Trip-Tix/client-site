@@ -16,6 +16,8 @@ import { ColorContext } from "@public/context/global";
 import { useRouter } from "next/router";
 import { paymentInit } from "@public/api-call/profile";
 
+import CircularProgress from "@mui/material/CircularProgress";
+
 interface BusTicketCardProps {
     ticket: BusTicket;
     showPast: boolean;
@@ -34,6 +36,8 @@ export default function BusTicketCard({ ticket, showPast }: BusTicketCardProps) 
     const router = useRouter();
 
     const [processPayment, setProcessPayment] = useState(false);
+
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (!processPayment) return;
@@ -149,10 +153,12 @@ export default function BusTicketCard({ ticket, showPast }: BusTicketCardProps) 
                                 onClick={() => {
                                     setProcessPayment(true);
                                 }}
+                                disabled={loading}
                             >
                                 Proceed To Payment
                             </Button>
                         )}
+                        {loading && <CircularProgress />}
                         {!ticket.isJourneyDatePassed && (
                             <>
                                 {ticket.payment_status === 1 && (

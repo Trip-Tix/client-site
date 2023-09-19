@@ -49,6 +49,7 @@ export default function SeatLayout() {
                 seatID: seatId[rowIndex][columnIndex],
                 seatName: seatName[rowIndex][columnIndex],
                 isTempBooked: false,
+                isValid: false,
             });
             setSelectedSeats(tempSelectedSeats);
         } else if (
@@ -93,6 +94,7 @@ export default function SeatLayout() {
                 seatID: seatId[rowIndex][columnIndex],
                 seatName: seatName[rowIndex][columnIndex],
                 isTempBooked: true,
+                isValid: false,
             });
             setSelectedSeats(tempSelectedSeats);
         } else if (

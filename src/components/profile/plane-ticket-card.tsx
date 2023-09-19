@@ -16,6 +16,8 @@ import { ColorContext } from "@public/context/global";
 import { useRouter } from "next/router";
 import { paymentInit } from "@public/api-call/profile";
 
+import CircularProgress from "@mui/material/CircularProgress";
+
 interface AirTicketCardProps {
     ticket: AirTicket;
     showPast: boolean;
@@ -103,6 +105,7 @@ export default function AirTicketCard({
     }, [showin24, ticket.airInfo.departure_time]);
 
     const [processPayment, setProcessPayment] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (!processPayment) return;
@@ -140,10 +143,12 @@ export default function AirTicketCard({
                                 onClick={() => {
                                     setProcessPayment(true);
                                 }}
+                                disabled={loading}
                             >
                                 Proceed To Payment
                             </Button>
                         )}
+                        {loading && <CircularProgress />}
                         {!ticket.isJourneyDatePassed && (
                             <>
                                 {ticket.payment_status === 1 && (

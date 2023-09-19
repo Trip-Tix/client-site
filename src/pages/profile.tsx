@@ -78,7 +78,7 @@ export default function Dashboard() {
 
     const [selectedOption, setSelectedOption] = useState<
         "queue" | "active" | "history"
-    >("queue");
+    >("active");
 
     return (
         <>
