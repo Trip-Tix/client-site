@@ -116,7 +116,7 @@ export default function Payment() {
                                         <TableRow>
                                             <TableCell>Ticket ID</TableCell>
                                             <TableCell align="right">
-                                                Bus Schedule ID
+                                                Schedule ID
                                             </TableCell>
                                             <TableCell align="right">
                                                 Total Fare
@@ -144,7 +144,9 @@ export default function Payment() {
                                                     {row.ticketId}
                                                 </TableCell>
                                                 <TableCell align="right">
-                                                    {row.busScheduleId}
+                                                    {row.busScheduleId +
+                                                        row.trainScheduleId +
+                                                        row.airScheduleId}
                                                 </TableCell>
                                                 <TableCell align="right">
                                                     {row.totalFare}
@@ -241,7 +243,7 @@ export default function Payment() {
                                         <TableRow>
                                             <TableCell>Ticket ID</TableCell>
                                             <TableCell align="right">
-                                                Bus Schedule ID
+                                                Schedule ID
                                             </TableCell>
                                             <TableCell align="right">
                                                 Total Fare
@@ -270,7 +272,9 @@ export default function Payment() {
                                                         {row.ticketId}
                                                     </TableCell>
                                                     <TableCell align="right">
-                                                        {row.busScheduleId}
+                                                        {row.busScheduleId +
+                                                            row.trainScheduleId +
+                                                            row.airScheduleId}
                                                     </TableCell>
                                                     <TableCell align="right">
                                                         {row.totalFare}

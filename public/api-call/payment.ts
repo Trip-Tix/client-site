@@ -6,6 +6,8 @@ interface TicketInfo {
     ticketId: string;
     passengerIdArray: number[];
     busScheduleId: number;
+    trainScheduleId: number;
+    airScheduleId: number;
     totalFare: number;
     numberOfTickets: number;
 }
@@ -18,43 +20,18 @@ export interface ResponseData {
     tempTotalFare: number;
 }
 
-const responseData: ResponseData = {
-    ticketInfo: [
-        {
-            ticketId: "914461281570339",
-            passengerIdArray: [101, 102, 103],
-            busScheduleId: 124,
-            totalFare: 100.5,
-            numberOfTickets: 3,
-        },
-        {
-            ticketId: "888019318576150",
-            passengerIdArray: [101, 102, 103],
-            busScheduleId: 125,
-            totalFare: 100.5,
-            numberOfTickets: 3,
-        },
-    ],
-    tempTicketInfo: [
-        {
-            ticketId: "888019318576152",
-            passengerIdArray: [101, 102, 103],
-            busScheduleId: 125,
-            totalFare: 100.5,
-            numberOfTickets: 3,
-        },
-    ], // Structure is same as ticket info
-    userId: 100,
-    grandTotalFare: 201,
-    tempTotalFare: 100.5,
-};
-
 export async function parseResponseDataFromStorage(): Promise<ResponseData> {
     const book_response = sessionStorage.getItem("book_response");
     if (book_response) {
         return JSON.parse(book_response) as ResponseData;
     } else {
-        return responseData;
+        return {
+            ticketInfo: [],
+            tempTicketInfo: [],
+            userId: 0,
+            grandTotalFare: 0,
+            tempTotalFare: 0,
+        };
     }
 }
 
@@ -62,6 +39,7 @@ interface PaymentRequest {
     userId: number;
     ticketInfo: TicketInfo[];
     grandTotalFare: number;
+    transportType: "air" | "bus" | "train";
 }
 
 interface PaymentResponse {
@@ -83,18 +61,22 @@ export async function handlePayment(): Promise<string> {
     if (data.ticketInfo.length <= 0) return "/";
 
     console.log(data);
+    const transportType =
+        sessionStorage.getItem("transport") === "Flight"
+            ? "air"
+            : sessionStorage.getItem("transport") === "Bus"
+            ? "bus"
+            : "train";
     const paymentRequest: PaymentRequest = {
         userId: data.userId,
         ticketInfo: data.ticketInfo,
         grandTotalFare: data.grandTotalFare,
+        transportType: transportType,
     };
 
     console.log(paymentRequest);
     try {
-        const res = await axios.post(
-            payment_url,
-            paymentRequest
-        );
+        const res = await axios.post(payment_url, paymentRequest);
 
         const response: PaymentResponse = res.data;
         console.log(response);
