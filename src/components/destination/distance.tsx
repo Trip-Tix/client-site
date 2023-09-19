@@ -21,6 +21,7 @@ export default function Distance() {
     useEffect(() => {
         if (source === "" || destination === ""){
             setDistance(0);
+            setLoading(true);
             return;
         }
         setLoading(true);
@@ -32,6 +33,14 @@ export default function Distance() {
                 setLoading(false);
             });
     }, [source, destination]);
+
+    useEffect(() => {
+        if (distance === 0) {
+            setLoading(true);
+            return;
+        }
+        setLoading(false);
+    }, [distance]);
 
     useEffect(() => {
         if (toggleMile) {

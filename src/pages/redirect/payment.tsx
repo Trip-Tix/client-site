@@ -175,9 +175,25 @@ const processPayment = async (): Promise<boolean> => {
 
             if (response.status === 200) {
                 console.log("Successfully booked");
+
                 const token = sessionStorage.getItem("access_token") as string;
                 const userId = sessionStorage.getItem("user_id") as string;
                 const username = sessionStorage.getItem("username") as string;
+                const mobile = sessionStorage.getItem("mobile") as string;
+                const user_email = sessionStorage.getItem(
+                    "user_email"
+                ) as string;
+                const transport = sessionStorage.getItem("transport") as string;
+
+                sessionStorage.clear();
+
+                sessionStorage.setItem("access_token", token);
+                sessionStorage.setItem("user_id", userId);
+                sessionStorage.setItem("username", username);
+                sessionStorage.setItem("mobile", mobile);
+                sessionStorage.setItem("user_email", user_email);
+                sessionStorage.setItem("transport", transport);
+
                 sessionStorage.setItem(
                     "book_response",
                     JSON.stringify(response.data)
@@ -186,9 +202,21 @@ const processPayment = async (): Promise<boolean> => {
             return true;
         } catch (error) {
             console.log(error);
+            const token = sessionStorage.getItem("access_token") as string;
+            const userId = sessionStorage.getItem("user_id") as string;
+            const username = sessionStorage.getItem("username") as string;
+            const mobile = sessionStorage.getItem("mobile") as string;
+            const user_email = sessionStorage.getItem("user_email") as string;
+
+            sessionStorage.clear();
+
+            sessionStorage.setItem("access_token", token);
+            sessionStorage.setItem("user_id", userId);
+            sessionStorage.setItem("username", username);
+            sessionStorage.setItem("mobile", mobile);
+            sessionStorage.setItem("user_email", user_email);
             return false;
         }
-
     } else if (transportType === TransportType.Train) {
         const forwardObject: train_booking_request_object = {
             trainScheduleId: forwardTicket.scheduleId,
@@ -296,9 +324,25 @@ const processPayment = async (): Promise<boolean> => {
 
             if (response.status === 200) {
                 console.log("Successfully booked");
+
                 const token = sessionStorage.getItem("access_token") as string;
                 const userId = sessionStorage.getItem("user_id") as string;
                 const username = sessionStorage.getItem("username") as string;
+                const mobile = sessionStorage.getItem("mobile") as string;
+                const user_email = sessionStorage.getItem(
+                    "user_email"
+                ) as string;
+                const transport = sessionStorage.getItem("transport") as string;
+
+                sessionStorage.clear();
+
+                sessionStorage.setItem("access_token", token);
+                sessionStorage.setItem("user_id", userId);
+                sessionStorage.setItem("username", username);
+                sessionStorage.setItem("mobile", mobile);
+                sessionStorage.setItem("user_email", user_email);
+                sessionStorage.setItem("transport", transport);
+
                 sessionStorage.setItem(
                     "book_response",
                     JSON.stringify(response.data)
@@ -307,6 +351,19 @@ const processPayment = async (): Promise<boolean> => {
             return true;
         } catch (error) {
             console.log(error);
+            const token = sessionStorage.getItem("access_token") as string;
+            const userId = sessionStorage.getItem("user_id") as string;
+            const username = sessionStorage.getItem("username") as string;
+            const mobile = sessionStorage.getItem("mobile") as string;
+            const user_email = sessionStorage.getItem("user_email") as string;
+
+            sessionStorage.clear();
+
+            sessionStorage.setItem("access_token", token);
+            sessionStorage.setItem("user_id", userId);
+            sessionStorage.setItem("username", username);
+            sessionStorage.setItem("mobile", mobile);
+            sessionStorage.setItem("user_email", user_email);
             return false;
         }
     } else if (transportType === TransportType.Flight) {
@@ -414,11 +471,25 @@ const processPayment = async (): Promise<boolean> => {
 
             if (response.status === 200) {
                 console.log("Successfully booked");
+
                 const token = sessionStorage.getItem("access_token") as string;
                 const userId = sessionStorage.getItem("user_id") as string;
                 const username = sessionStorage.getItem("username") as string;
-                const user_email = sessionStorage.getItem("user_email") as string;
-                const mobile = sessionStorage.getItem("mobile") as string;                
+                const mobile = sessionStorage.getItem("mobile") as string;
+                const user_email = sessionStorage.getItem(
+                    "user_email"
+                ) as string;
+                const transport = sessionStorage.getItem("transport") as string;
+
+                sessionStorage.clear();
+
+                sessionStorage.setItem("access_token", token);
+                sessionStorage.setItem("user_id", userId);
+                sessionStorage.setItem("username", username);
+                sessionStorage.setItem("mobile", mobile);
+                sessionStorage.setItem("user_email", user_email);
+                sessionStorage.setItem("transport", transport);
+
                 sessionStorage.setItem(
                     "book_response",
                     JSON.stringify(response.data)
@@ -427,6 +498,21 @@ const processPayment = async (): Promise<boolean> => {
             return true;
         } catch (error) {
             console.log(error);
+
+            const token = sessionStorage.getItem("access_token") as string;
+            const userId = sessionStorage.getItem("user_id") as string;
+            const username = sessionStorage.getItem("username") as string;
+            const mobile = sessionStorage.getItem("mobile") as string;
+            const user_email = sessionStorage.getItem("user_email") as string;
+
+            sessionStorage.clear();
+
+            sessionStorage.setItem("access_token", token);
+            sessionStorage.setItem("user_id", userId);
+            sessionStorage.setItem("username", username);
+            sessionStorage.setItem("mobile", mobile);
+            sessionStorage.setItem("user_email", user_email);
+
             return false;
         }
     } else {

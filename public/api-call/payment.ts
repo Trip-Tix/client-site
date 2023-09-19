@@ -22,6 +22,8 @@ export interface ResponseData {
 
 export async function parseResponseDataFromStorage(): Promise<ResponseData> {
     const book_response = sessionStorage.getItem("book_response");
+    console.log(book_response);
+
     if (book_response) {
         return JSON.parse(book_response) as ResponseData;
     } else {
@@ -67,6 +69,9 @@ export async function handlePayment(): Promise<string> {
             : sessionStorage.getItem("transport") === "Bus"
             ? "bus"
             : "train";
+    
+    sessionStorage.removeItem("book_response");
+    sessionStorage.removeItem("transport");
     const paymentRequest: PaymentRequest = {
         userId: data.userId,
         ticketInfo: data.ticketInfo,

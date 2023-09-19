@@ -39,19 +39,22 @@ export default function Payment() {
     });
 
     useEffect(() => {
-        parseResponseDataFromStorage().then((res) => {
-            setResponseData(res);
-            setTotalTicket(
-                res.ticketInfo.reduce((acc, cur) => {
-                    return acc + cur.numberOfTickets;
-                }, 0)
-            );
-            setTotalReturnTicket(
-                res.tempTicketInfo.reduce((acc, cur) => {
-                    return acc + cur.numberOfTickets;
-                }, 0)
-            );
-        });
+        parseResponseDataFromStorage()
+            .then((res) => {
+                setResponseData(res);
+                setTotalTicket(
+                    res.ticketInfo.reduce((acc, cur) => {
+                        return acc + cur.numberOfTickets;
+                    }, 0)
+                );
+                setTotalReturnTicket(
+                    res.tempTicketInfo.reduce((acc, cur) => {
+                        return acc + cur.numberOfTickets;
+                    }, 0)
+                );
+                console.log(JSON.stringify(res, null, 2));
+            })
+            
     }, []);
 
     const { mode } = useContext(ColorContext);
@@ -144,9 +147,7 @@ export default function Payment() {
                                                     {row.ticketId}
                                                 </TableCell>
                                                 <TableCell align="right">
-                                                    {row.busScheduleId +
-                                                        row.trainScheduleId +
-                                                        row.airScheduleId}
+                                                    0
                                                 </TableCell>
                                                 <TableCell align="right">
                                                     {row.totalFare}
@@ -272,9 +273,7 @@ export default function Payment() {
                                                         {row.ticketId}
                                                     </TableCell>
                                                     <TableCell align="right">
-                                                        {row.busScheduleId +
-                                                            row.trainScheduleId +
-                                                            row.airScheduleId}
+                                                        0
                                                     </TableCell>
                                                     <TableCell align="right">
                                                         {row.totalFare}
