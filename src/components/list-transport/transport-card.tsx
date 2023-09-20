@@ -316,7 +316,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                         padding: 1,
                         paddingLeft: 5,
                         width: "100%",
-                        borderBottom: "2px solid #00000020",
+                        paddingBottom: 2,
                     }}
                     alignContent={"center"}
                     alignItems={"center"}
@@ -342,48 +342,6 @@ export default function TransportCard({ transport }: TransportCardProps) {
                             {facility}
                         </Typography>
                     ))}
-                </Stack>
-                <Stack direction={"column"} spacing={1}>
-                    <Stack
-                        direction={"row"}
-                        justifyContent={"flex-end"}
-                        spacing={1}
-                        sx={{
-                            padding: "5px 5px 5px 5px",
-                        }}
-                    >
-                        {extraOptions.map((option) => (
-                            <Button
-                                variant="text"
-                                key={option.name}
-                                sx={{
-                                    color: "#008080",
-                                    fontWeight: "bold",
-                                    padding: 1,
-                                }}
-                                onClick={() => {
-                                    setShowDetails(!showDetails);
-                                    setSelectExtraOption(
-                                        extraOptions.indexOf(option)
-                                    );
-                                }}
-                            >
-                                {option.name}
-                            </Button>
-                        ))}
-                    </Stack>
-
-                    <Stack
-                        direction={"column"}
-                        spacing={1}
-                        sx={{
-                            background: "#00000010",
-                            padding: 2,
-                            display: showDetails ? "flex" : "none",
-                        }}
-                    >
-                        <Typography>{detailsMessage}</Typography>
-                    </Stack>
                 </Stack>
             </Stack>
         </Paper>

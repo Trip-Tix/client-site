@@ -9,6 +9,8 @@ import TransportCard from "@components/list-transport/transport-card";
 import Style from "@/styles/list-transport/list-transport.module.css";
 import { Container } from "@mui/material";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 export default function ListTransport() {
     const { transportList, filteringData } = useContext(ListTransportContext);
     const [filteredTransportList, setFilteredTransportList] = useState<
@@ -78,12 +80,19 @@ export default function ListTransport() {
                 spacing={2}
                 sx={{ width: "100%", height: "44.8rem", overflowY: "scroll" }}
             >
-                {filteredTransportList.map((transport, index) => (
-                    <TransportCard
-                        key={index}
-                        transport={transport}   
-                    />
-                ))}
+                <AnimatePresence>
+                    {filteredTransportList.map((transport, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, x: 100 }} // Initial state for the entering element
+                            animate={{ opacity: 1, x: 0 }} // Animate to this state
+                            exit={{ opacity: 0, x: 100 }} // Animate to this state when exiting
+                            transition={{ duration: 0.5 }} // Animation duration
+                        >
+                            <TransportCard key={index} transport={transport} />
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
             </Stack>
         </>
     );

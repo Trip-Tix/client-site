@@ -41,28 +41,110 @@ const AboutUsPage: React.FC = () => {
                     sx={{
                         padding: "1rem",
                         backgroundColor: mode === "dark" ? "#333" : "#fff",
-                        color : mode === "dark" ? "#fff" : "#000"
+                        color: mode === "dark" ? "#fff" : "#000",
                     }}
                 >
-                    <Typography variant="h2" gutterBottom>
+                    <Typography
+                        variant="h3"
+                        gutterBottom
+                        sx={{ fontWeight: "light" }}
+                    >
                         About Us
                     </Typography>
 
                     <Stack direction="column" spacing={2}>
-                        <Paper elevation={3} style={{ padding: "20px" }}>
-                            <Typography variant="h4" gutterBottom>
+                        <Paper elevation={3} style={{ padding: "20px" }} >
+                            <Typography
+                                variant="h4"
+                                gutterBottom
+                                sx={{ fontWeight: "light" }}
+                            >
                                 Our Story
                             </Typography>
                             <Typography paragraph>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nulla auctor, justo a suscipit
-                                malesuada, est nisl ultricies eros, id tristique
-                                libero lorem at justo.
+                                {`In the bustling corridors of the renowned
+                                Bangladesh University of Engineering and
+                                Technology (BUET), where dreams were forged and
+                                friendships were born, the story of Triptix
+                                began. Three close-knit friends, all graduates
+                                of BUET's prestigious Computer Science and
+                                Engineering department, embarked on a remarkable
+                                journey that would ultimately transform the way
+                                people manage ticket purchases and transport
+                                logistics.`}
                             </Typography>
                             <Typography paragraph>
-                                Sed ac semper quam. Morbi interdum, metus eu
-                                convallis varius, odio purus venenatis quam, at
-                                iaculis sapien nulla sed justo.
+                                {`It all started as a term assignment, a mere
+                                academic endeavor, during their final year at
+                                BUET. Little did they know that this project
+                                would become the cornerstone of their
+                                entrepreneurial dreams. The friends, who shared
+                                a passion for technology and a common vision for
+                                simplifying complex transportation processes,
+                                joined forces to tackle the challenges presented
+                                by the assignment.`}
+                            </Typography>
+                            <Typography paragraph>
+                                {`As they delved deeper into the project, a spark
+                                ignited within them. They realized that the
+                                conventional ticket purchase and transport
+                                management systems were riddled with
+                                inefficiencies and complexities. The process of
+                                booking tickets, coordinating travel plans, and
+                                ensuring seamless journeys often left travelers
+                                frustrated and confused.`}
+                            </Typography>
+                            <Typography paragraph>
+                                {`This revelation marked the beginning of
+                                Triptix's journey towards revolutionizing the
+                                transportation industry. They were determined to
+                                create a platform that would not only simplify
+                                ticket purchasing but also provide a
+                                comprehensive solution for managing transport
+                                logistics. With their backgrounds in computer
+                                science and engineering, they possessed the
+                                technical prowess required to turn this vision
+                                into a reality.`}
+                            </Typography>
+                            <Typography paragraph>
+                                {`Triptix became more than just a term assignment;
+                                it became a mission. They poured their hearts
+                                and souls into developing a user-friendly
+                                platform that would cater to the needs of both
+                                travelers and transport service providers.
+                                Countless late nights and rigorous brainstorming
+                                sessions fueled their determination.`}
+                            </Typography>
+                            <Typography paragraph>
+                                {`What sets Triptix apart is the deep-rooted
+                                friendship and camaraderie that binds the
+                                founders together. Their shared experiences at
+                                BUET not only strengthened their friendship but
+                                also instilled in them the values of integrity,
+                                excellence, and innovation. These principles
+                                became the foundation of Triptix's core values.`}
+                            </Typography>
+                            <Typography paragraph>
+                                {`Today, Triptix is more than just a company; it's
+                                a testament to the power of friendship and
+                                determination. The platform they created has
+                                evolved to become a game-changer in the world of
+                                ticket purchase and transport management. With
+                                Triptix, travelers can book tickets with ease,
+                                plan their journeys seamlessly, and experience
+                                stress-free travel like never before.`}
+                            </Typography>
+                            <Typography paragraph>
+                                {`As they reflect on their journey, the founders
+                                of Triptix are proud to have come full circle,
+                                from BUET's hallowed halls to the forefront of
+                                transportation innovation. They are excited to
+                                share their vision and passion with the world,
+                                and their story serves as a reminder that with
+                                dedication, friendship, and a shared dream,
+                                anything is possible. Join us on our journey,
+                                and together, let's redefine the future of
+                                transportation.`}
                             </Typography>
                         </Paper>
 
@@ -79,7 +161,12 @@ const AboutUsPage: React.FC = () => {
                                     <Typography variant="subtitle1">
                                         Zeeon
                                     </Typography>
-                                    <Typography variant="body2">Backend Developer</Typography>
+                                    <Typography variant="body2">
+                                        Backend Developer
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        System Engineer
+                                    </Typography>
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={4}>
                                     <Avatar
@@ -89,7 +176,12 @@ const AboutUsPage: React.FC = () => {
                                     <Typography variant="subtitle1">
                                         Shamit
                                     </Typography>
-                                    <Typography variant="body2">Frontend Developer</Typography>
+                                    <Typography variant="body2">
+                                        Frontend Developer
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        Community Manager
+                                    </Typography>
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={4}>
                                     <Avatar
@@ -99,7 +191,12 @@ const AboutUsPage: React.FC = () => {
                                     <Typography variant="subtitle1">
                                         Fahmid
                                     </Typography>
-                                    <Typography variant="body2">FullStack Developer</Typography>
+                                    <Typography variant="body2">
+                                        FullStack Developer
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        System Analytics
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         </Paper>

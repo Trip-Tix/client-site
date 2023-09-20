@@ -46,7 +46,14 @@ export default function TotalPrice() {
                     spacing={1}
                     justifyContent={"flex-start"}
                 >
-                    <Typography variant={"h4"}>Total Price</Typography>
+                    <Typography
+                        variant={"h4"}
+                        sx={{
+                            fontWeight: "light",
+                        }}
+                    >
+                        Total Price
+                    </Typography>
                     <Typography
                         variant={"h6"}
                         sx={{

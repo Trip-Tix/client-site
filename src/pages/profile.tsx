@@ -35,9 +35,11 @@ import BusQueueTicketCard from "@/components/profile/queue-bus-ticket-card";
 import TrainQueueTicketCard from "@components/profile/queue-train-ticket-card";
 import PlaneQueueTicketCard from "@components/profile/queue-plane-ticket-card";
 
-import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
-import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import HistoryIcon from '@mui/icons-material/History';
+import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
+import LocalActivityIcon from "@mui/icons-material/LocalActivity";
+import HistoryIcon from "@mui/icons-material/History";
+
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Dashboard() {
     const { mode } = useContext(ColorContext);
@@ -182,357 +184,454 @@ export default function Dashboard() {
                                 </Grid>
 
                                 <Grid item xs={10}>
-                                    <Stack
-                                        direction={"column"}
-                                        spacing={2}
-                                        sx={{ padding: "1rem" }}
-                                    >
+                                    <AnimatePresence>
                                         <Stack
-                                            direction={"row"}
+                                            direction={"column"}
                                             spacing={2}
-                                            sx={{
-                                                justifyContent: "space-between",
-                                                color:
-                                                    mode === "dark"
-                                                        ? "#dfdfdf"
-                                                        : "#121212",
-                                            }}
+                                            sx={{ padding: "1rem" }}
                                         >
-                                            <Typography variant={"h4"}>
-                                                Profile
-                                            </Typography>
-                                            <Typography variant={"h6"}>
-                                                {username}
-                                            </Typography>
-                                        </Stack>
-                                        <Stack
-                                            direction={"row"}
-                                            spacing={2}
-                                            alignItems={"center"}
-                                            justifyContent={"center"}
-                                        >
-                                            <IconButton
-                                                onClick={() =>
-                                                    setSelectedTransport(
-                                                        TransportType.Bus
-                                                    )
-                                                }
+                                            <Stack
+                                                direction={"row"}
+                                                spacing={2}
                                                 sx={{
-                                                    backgroundColor:
-                                                        selectedTransport ===
-                                                        TransportType.Bus
-                                                            ? "#ff593f"
-                                                            : mode === "dark"
-                                                            ? "#121212"
-                                                            : "#dfdfdf",
+                                                    justifyContent:
+                                                        "space-between",
+                                                    color:
+                                                        mode === "dark"
+                                                            ? "#dfdfdf"
+                                                            : "#121212",
                                                 }}
                                             >
-                                                <DirectionsBusIcon />
-                                            </IconButton>
-                                            <IconButton
-                                                onClick={() =>
-                                                    setSelectedTransport(
-                                                        TransportType.Train
-                                                    )
-                                                }
-                                                sx={{
-                                                    backgroundColor:
-                                                        selectedTransport ===
-                                                        TransportType.Train
-                                                            ? "#3f95ff"
-                                                            : mode === "dark"
-                                                            ? "#121212"
-                                                            : "#dfdfdf",
-                                                }}
+                                                <Typography variant={"h4"}>
+                                                    Profile
+                                                </Typography>
+                                                <Typography variant={"h6"}>
+                                                    {username}
+                                                </Typography>
+                                            </Stack>
+                                            <Stack
+                                                direction={"row"}
+                                                spacing={2}
+                                                alignItems={"center"}
+                                                justifyContent={"center"}
                                             >
-                                                <SubwayIcon />
-                                            </IconButton>
-                                            <IconButton
-                                                onClick={() =>
-                                                    setSelectedTransport(
-                                                        TransportType.Flight
-                                                    )
-                                                }
-                                                sx={{
-                                                    backgroundColor:
-                                                        selectedTransport ===
-                                                        TransportType.Flight
-                                                            ? "#6cff3f"
-                                                            : mode === "dark"
-                                                            ? "#121212"
-                                                            : "#dfdfdf",
-                                                }}
-                                            >
-                                                <AirplanemodeActiveIcon />
-                                            </IconButton>
-                                        </Stack>
-                                        {selectedOption === "active" && (
-                                            <>
-                                                {selectedTransport ===
-                                                    TransportType.Bus && (
-                                                    <Stack
-                                                        direction={"column"}
-                                                        spacing={2}
-                                                        sx={{
-                                                            maxHeight: "80vh",
-                                                            overflowY: "auto",
+                                                <IconButton
+                                                    onClick={() =>
+                                                        setSelectedTransport(
+                                                            TransportType.Bus
+                                                        )
+                                                    }
+                                                    sx={{
+                                                        backgroundColor:
+                                                            selectedTransport ===
+                                                            TransportType.Bus
+                                                                ? "#ff593f"
+                                                                : mode ===
+                                                                  "dark"
+                                                                ? "#121212"
+                                                                : "#dfdfdf",
+                                                    }}
+                                                >
+                                                    <DirectionsBusIcon />
+                                                </IconButton>
+                                                <IconButton
+                                                    onClick={() =>
+                                                        setSelectedTransport(
+                                                            TransportType.Train
+                                                        )
+                                                    }
+                                                    sx={{
+                                                        backgroundColor:
+                                                            selectedTransport ===
+                                                            TransportType.Train
+                                                                ? "#3f95ff"
+                                                                : mode ===
+                                                                  "dark"
+                                                                ? "#121212"
+                                                                : "#dfdfdf",
+                                                    }}
+                                                >
+                                                    <SubwayIcon />
+                                                </IconButton>
+                                                <IconButton
+                                                    onClick={() =>
+                                                        setSelectedTransport(
+                                                            TransportType.Flight
+                                                        )
+                                                    }
+                                                    sx={{
+                                                        backgroundColor:
+                                                            selectedTransport ===
+                                                            TransportType.Flight
+                                                                ? "#6cff3f"
+                                                                : mode ===
+                                                                  "dark"
+                                                                ? "#121212"
+                                                                : "#dfdfdf",
+                                                    }}
+                                                >
+                                                    <AirplanemodeActiveIcon />
+                                                </IconButton>
+                                            </Stack>
+                                            
+                                                {selectedOption ===
+                                                    "active" && (
+                                                        <motion.div
+                                                        initial={{ opacity: 0, x: 100 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        exit={{ opacity: 0, x: 100 }}
+                                                        transition={{
+                                                            duration: 0.2,
                                                         }}
                                                     >
-                                                        {ticketHistory.busTicketInfo.map(
-                                                            (ticket, index) => {
-                                                                return (
-                                                                    <BusTicketCard
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        ticket={
-                                                                            ticket
-                                                                        }
-                                                                        showPast={
-                                                                            false
-                                                                        }
-                                                                    />
-                                                                );
-                                                            }
+                                                        {selectedTransport ===
+                                                            TransportType.Bus && (
+                                                            <Stack
+                                                                direction={
+                                                                    "column"
+                                                                }
+                                                                spacing={2}
+                                                                sx={{
+                                                                    maxHeight:
+                                                                        "80vh",
+                                                                    overflowY:
+                                                                        "auto",
+                                                                }}
+                                                            >
+                                                                {ticketHistory.busTicketInfo.map(
+                                                                    (
+                                                                        ticket,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <BusTicketCard
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                ticket={
+                                                                                    ticket
+                                                                                }
+                                                                                showPast={
+                                                                                    false
+                                                                                }
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )}
+                                                            </Stack>
                                                         )}
-                                                    </Stack>
-                                                )}
-                                                {selectedTransport ===
-                                                    TransportType.Train && (
-                                                    <Stack
-                                                        direction={"column"}
-                                                        spacing={2}
-                                                        sx={{
-                                                            maxHeight: "80vh",
-                                                            overflowY: "auto",
-                                                        }}
-                                                    >
-                                                        {ticketHistory.trainTicketInfo.map(
-                                                            (ticket, index) => {
-                                                                return (
-                                                                    <TrainTicketCard
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        ticket={
-                                                                            ticket
-                                                                        }
-                                                                        showPast={
-                                                                            false
-                                                                        }
-                                                                    />
-                                                                );
-                                                            }
+                                                        {selectedTransport ===
+                                                            TransportType.Train && (
+                                                            <Stack
+                                                                direction={
+                                                                    "column"
+                                                                }
+                                                                spacing={2}
+                                                                sx={{
+                                                                    maxHeight:
+                                                                        "80vh",
+                                                                    overflowY:
+                                                                        "auto",
+                                                                }}
+                                                            >
+                                                                {ticketHistory.trainTicketInfo.map(
+                                                                    (
+                                                                        ticket,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <TrainTicketCard
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                ticket={
+                                                                                    ticket
+                                                                                }
+                                                                                showPast={
+                                                                                    false
+                                                                                }
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )}
+                                                            </Stack>
                                                         )}
-                                                    </Stack>
-                                                )}
-                                                {selectedTransport ===
-                                                    TransportType.Flight && (
-                                                    <Stack
-                                                        direction={"column"}
-                                                        spacing={2}
-                                                        sx={{
-                                                            maxHeight: "80vh",
-                                                            overflowY: "auto",
-                                                        }}
-                                                    >
-                                                        {ticketHistory.airTicketInfo.map(
-                                                            (ticket, index) => {
-                                                                return (
-                                                                    <PlaneTicketCard
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        ticket={
-                                                                            ticket
-                                                                        }
-                                                                        showPast={
-                                                                            false
-                                                                        }
-                                                                    />
-                                                                );
-                                                            }
+                                                        {selectedTransport ===
+                                                            TransportType.Flight && (
+                                                            <Stack
+                                                                direction={
+                                                                    "column"
+                                                                }
+                                                                spacing={2}
+                                                                sx={{
+                                                                    maxHeight:
+                                                                        "80vh",
+                                                                    overflowY:
+                                                                        "auto",
+                                                                }}
+                                                            >
+                                                                {ticketHistory.airTicketInfo.map(
+                                                                    (
+                                                                        ticket,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <PlaneTicketCard
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                ticket={
+                                                                                    ticket
+                                                                                }
+                                                                                showPast={
+                                                                                    false
+                                                                                }
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )}
+                                                            </Stack>
                                                         )}
-                                                    </Stack>
+                                                    </motion.div>
                                                 )}
-                                            </>
-                                        )}
+                                            
+                                            
+                                                {selectedOption === "queue" && (
+                                                    <motion.div
+                                                    initial={{ opacity: 0, x: 100 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    exit={{ opacity: 0, x: 100 }}
+                                                    transition={{
+                                                        duration: 0.2,
+                                                    }}
+                                                >
+                                                        {selectedTransport ===
+                                                            TransportType.Bus && (
+                                                            <Stack
+                                                                direction={
+                                                                    "column"
+                                                                }
+                                                                spacing={2}
+                                                                sx={{
+                                                                    maxHeight:
+                                                                        "80vh",
+                                                                    overflowY:
+                                                                        "auto",
+                                                                }}
+                                                            >
+                                                                {ticketHistory.busQueueTicketInfo.map(
+                                                                    (
+                                                                        ticket,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <BusQueueTicketCard
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                ticket={
+                                                                                    ticket
+                                                                                }
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )}
+                                                            </Stack>
+                                                        )}
+                                                        {selectedTransport ===
+                                                            TransportType.Train && (
+                                                            <Stack
+                                                                direction={
+                                                                    "column"
+                                                                }
+                                                                spacing={2}
+                                                                sx={{
+                                                                    maxHeight:
+                                                                        "80vh",
+                                                                    overflowY:
+                                                                        "auto",
+                                                                }}
+                                                            >
+                                                                {ticketHistory.trainQueueTicketInfo.map(
+                                                                    (
+                                                                        ticket,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <TrainQueueTicketCard
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                ticket={
+                                                                                    ticket
+                                                                                }
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )}
+                                                            </Stack>
+                                                        )}
+                                                        {selectedTransport ===
+                                                            TransportType.Flight && (
+                                                            <Stack
+                                                                direction={
+                                                                    "column"
+                                                                }
+                                                                spacing={2}
+                                                                sx={{
+                                                                    maxHeight:
+                                                                        "80vh",
+                                                                    overflowY:
+                                                                        "auto",
+                                                                }}
+                                                            >
+                                                                {ticketHistory.airQueueTicketInfo.map(
+                                                                    (
+                                                                        ticket,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <PlaneQueueTicketCard
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                ticket={
+                                                                                    ticket
+                                                                                }
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )}
+                                                            </Stack>
+                                                        )}
+                                                    </motion.div>
+                                                )}
+                                            
 
-                                        {selectedOption === "queue" && (
-                                            <>
-                                                {selectedTransport ===
-                                                    TransportType.Bus && (
-                                                    <Stack
-                                                        direction={"column"}
-                                                        spacing={2}
-                                                        sx={{
-                                                            maxHeight: "80vh",
-                                                            overflowY: "auto",
+                                            
+                                                {selectedOption ===
+                                                    "history" && (
+                                                        <motion.div
+                                                        initial={{ opacity: 0, x: 100 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        exit={{ opacity: 0, x: 100 }}
+                                                        transition={{
+                                                            duration: 0.2,
                                                         }}
                                                     >
-                                                        {ticketHistory.busQueueTicketInfo.map(
-                                                            (ticket, index) => {
-                                                                return (
-                                                                    <BusQueueTicketCard
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        ticket={
-                                                                            ticket
-                                                                        }
-                                                                    />
-                                                                );
-                                                            }
+                                                        {selectedTransport ===
+                                                            TransportType.Bus && (
+                                                            <Stack
+                                                                direction={
+                                                                    "column"
+                                                                }
+                                                                spacing={2}
+                                                                sx={{
+                                                                    maxHeight:
+                                                                        "80vh",
+                                                                    overflowY:
+                                                                        "auto",
+                                                                }}
+                                                            >
+                                                                {ticketHistory.busTicketInfo.map(
+                                                                    (
+                                                                        ticket,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <BusTicketCard
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                ticket={
+                                                                                    ticket
+                                                                                }
+                                                                                showPast={
+                                                                                    true
+                                                                                }
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )}
+                                                            </Stack>
                                                         )}
-                                                    </Stack>
-                                                )}
-                                                {selectedTransport ===
-                                                    TransportType.Train && (
-                                                    <Stack
-                                                        direction={"column"}
-                                                        spacing={2}
-                                                        sx={{
-                                                            maxHeight: "80vh",
-                                                            overflowY: "auto",
-                                                        }}
-                                                    >
-                                                        {ticketHistory.trainQueueTicketInfo.map(
-                                                            (ticket, index) => {
-                                                                return (
-                                                                    <TrainQueueTicketCard
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        ticket={
-                                                                            ticket
-                                                                        }
-                                                                    />
-                                                                );
-                                                            }
+                                                        {selectedTransport ===
+                                                            TransportType.Train && (
+                                                            <Stack
+                                                                direction={
+                                                                    "column"
+                                                                }
+                                                                spacing={2}
+                                                                sx={{
+                                                                    maxHeight:
+                                                                        "80vh",
+                                                                    overflowY:
+                                                                        "auto",
+                                                                }}
+                                                            >
+                                                                {ticketHistory.trainTicketInfo.map(
+                                                                    (
+                                                                        ticket,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <TrainTicketCard
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                ticket={
+                                                                                    ticket
+                                                                                }
+                                                                                showPast={
+                                                                                    true
+                                                                                }
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )}
+                                                            </Stack>
                                                         )}
-                                                    </Stack>
-                                                )}
-                                                {selectedTransport ===
-                                                    TransportType.Flight && (
-                                                    <Stack
-                                                        direction={"column"}
-                                                        spacing={2}
-                                                        sx={{
-                                                            maxHeight: "80vh",
-                                                            overflowY: "auto",
-                                                        }}
-                                                    >
-                                                        {ticketHistory.airQueueTicketInfo.map(
-                                                            (ticket, index) => {
-                                                                return (
-                                                                    <PlaneQueueTicketCard
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        ticket={
-                                                                            ticket
-                                                                        }
-                                                                    />
-                                                                );
-                                                            }
+                                                        {selectedTransport ===
+                                                            TransportType.Flight && (
+                                                            <Stack
+                                                                direction={
+                                                                    "column"
+                                                                }
+                                                                spacing={2}
+                                                                sx={{
+                                                                    maxHeight:
+                                                                        "80vh",
+                                                                    overflowY:
+                                                                        "auto",
+                                                                }}
+                                                            >
+                                                                {ticketHistory.airTicketInfo.map(
+                                                                    (
+                                                                        ticket,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <PlaneTicketCard
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                ticket={
+                                                                                    ticket
+                                                                                }
+                                                                                showPast={
+                                                                                    true
+                                                                                }
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )}
+                                                            </Stack>
                                                         )}
-                                                    </Stack>
+                                                    </motion.div>
                                                 )}
-                                            </>
-                                        )}
-
-                                        {selectedOption === "history" && (
-                                            <>
-                                                {selectedTransport ===
-                                                    TransportType.Bus && (
-                                                    <Stack
-                                                        direction={"column"}
-                                                        spacing={2}
-                                                        sx={{
-                                                            maxHeight: "80vh",
-                                                            overflowY: "auto",
-                                                        }}
-                                                    >
-                                                        {ticketHistory.busTicketInfo.map(
-                                                            (ticket, index) => {
-                                                                return (
-                                                                    <BusTicketCard
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        ticket={
-                                                                            ticket
-                                                                        }
-                                                                        showPast={
-                                                                            true
-                                                                        }
-                                                                    />
-                                                                );
-                                                            }
-                                                        )}
-                                                    </Stack>
-                                                )}
-                                                {selectedTransport ===
-                                                    TransportType.Train && (
-                                                    <Stack
-                                                        direction={"column"}
-                                                        spacing={2}
-                                                        sx={{
-                                                            maxHeight: "80vh",
-                                                            overflowY: "auto",
-                                                        }}
-                                                    >
-                                                        {ticketHistory.trainTicketInfo.map(
-                                                            (ticket, index) => {
-                                                                return (
-                                                                    <TrainTicketCard
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        ticket={
-                                                                            ticket
-                                                                        }
-                                                                        showPast={
-                                                                            true
-                                                                        }
-                                                                    />
-                                                                );
-                                                            }
-                                                        )}
-                                                    </Stack>
-                                                )}
-                                                {selectedTransport ===
-                                                    TransportType.Flight && (
-                                                    <Stack
-                                                        direction={"column"}
-                                                        spacing={2}
-                                                        sx={{
-                                                            maxHeight: "80vh",
-                                                            overflowY: "auto",
-                                                        }}
-                                                    >
-                                                        {ticketHistory.airTicketInfo.map(
-                                                            (ticket, index) => {
-                                                                return (
-                                                                    <PlaneTicketCard
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        ticket={
-                                                                            ticket
-                                                                        }
-                                                                        showPast={
-                                                                            true
-                                                                        }
-                                                                    />
-                                                                );
-                                                            }
-                                                        )}
-                                                    </Stack>
-                                                )}
-                                            </>
-                                        )}
-                                    </Stack>
+                                            
+                                        </Stack>
+                                    </AnimatePresence>
                                 </Grid>
                             </Grid>
                         </>

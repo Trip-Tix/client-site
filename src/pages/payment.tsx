@@ -97,17 +97,11 @@ export default function Payment() {
                 }}
             >
                 <Navbar />
-                <Stack sx={{ padding: "2rem" }}>
-                    <Typography variant={"h3"}>Payment Confirmation</Typography>
-                    <Typography variant={"body1"}>
-                        User ID: {responseData.userId}
-                    </Typography>
+                <Stack sx={{ padding: "2rem" }} spacing={2}>
+                    <Typography variant={"h5"}>Payment Confirmation</Typography>
 
                     {responseData.ticketInfo.length > 0 && (
                         <Paper sx={{ padding: "1rem" }}>
-                            <Typography variant={"h6"}>
-                                Confirm Ticket Info
-                            </Typography>
 
                             <Typography variant={"body1"}>
                                 Grand Total Fare: {responseData.grandTotalFare}
@@ -117,9 +111,7 @@ export default function Payment() {
                                     <TableHead>
                                         <TableRow>
                                             <TableCell>Ticket ID</TableCell>
-                                            <TableCell align="right">
-                                                Schedule ID
-                                            </TableCell>
+                                            
                                             <TableCell align="right">
                                                 Total Fare
                                             </TableCell>
@@ -145,9 +137,7 @@ export default function Payment() {
                                                 >
                                                     {row.ticketId}
                                                 </TableCell>
-                                                <TableCell align="right">
-                                                    0
-                                                </TableCell>
+                                                
                                                 <TableCell align="right">
                                                     {row.totalFare}
                                                 </TableCell>
@@ -159,7 +149,7 @@ export default function Payment() {
                                     </TableBody>
                                     <TableFooter>
                                         <TableRow>
-                                            <TableCell />
+                                            
                                             <TableCell align="right">
                                                 Total:
                                             </TableCell>

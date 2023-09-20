@@ -8,7 +8,16 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Image from "next/image";
 
-import { motion, useAnimation } from "framer-motion";
+import {
+    motion,
+    useAnimation,
+    useScroll,
+    useSpring,
+    useTransform,
+    useMotionValue,
+    useVelocity,
+    useAnimationFrame,
+} from "framer-motion";
 
 import totbus from "@public/image/stats/totbus.svg";
 import tottrain from "@public/image/stats/tottrain.svg";
@@ -36,76 +45,81 @@ function getRandomNumber(min: number, max: number): number {
 
 interface CardProps {
     title: string;
-    number: number;
+    total: number;
     image: any;
+    setHoveringCard: React.Dispatch<
+        React.SetStateAction<"bus" | "train" | "flight" | "user">
+    >;
 }
 
-const Card: React.FC<CardProps> = ({ title, number, image }) => {
-    const [isHover, setIsHover] = useState(false);
-    const [currentNumber, setCurrentNumber] = useState(0);
-
-    useEffect(() => {
-        if (!isHover) {
-            setCurrentNumber(number);
-            return;
-        }
-        setCurrentNumber(0);
-        const interval = setInterval(() => {
-            setCurrentNumber((prev) => (prev + 1 > number ? number : prev + 1));
-        }, 10);
-        return () => clearInterval(interval);
-    }, [isHover]);
-
+const Card: React.FC<CardProps> = ({
+    title,
+    total,
+    image,
+    setHoveringCard,
+}) => {
     return (
-        <Grid xs={4}>
-            <Paper
-                sx={{
-                    padding: "2rem",
-                    textAlign: "center",
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    height: "20rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                }}
-                onMouseEnter={() => setIsHover(true)}
-                onMouseLeave={() => setIsHover(false)}
-            >
-                <Stack
-                    direction={"row-reverse"}
-                    spacing={6}
-                    justifyContent={"space-between"}
-                    alignItems={"center"}
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <Grid xs={4}>
+                <Paper
+                    sx={{
+                        padding: "2rem",
+                        textAlign: "center",
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        height: "20rem",
+                        width: "40rem",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                    }}
+                    onMouseEnter={() => {
+                        setHoveringCard(
+                            title === "Bus"
+                                ? "bus"
+                                : title === "Train"
+                                ? "train"
+                                : title === "Flight"
+                                ? "flight"
+                                : "user"
+                        );
+                    }}
                 >
-                    <Box
-                        sx={{
-                            fontSize: "1rem",
-                            fontWeight: "bold",
-                            background: "white",
-                            borderRadius: "50%",
-                            padding: "1rem",
-                        }}
-                    >
-                        <Image
-                            src={image}
-                            alt={title}
-                            width={100}
-                            height={100}
-                        />
-                    </Box>
                     <Stack
-                        direction={"column"}
-                        spacing={0}
-                        alignItems={"flex-start"}
+                        direction={"row-reverse"}
+                        spacing={6}
+                        justifyContent={"space-between"}
+                        alignItems={"center"}
                     >
-                        <Typography
-                            variant={"h4"}
-                        >{`Total ${title}`}</Typography>
-                        <Typography variant={"h2"}>{currentNumber}</Typography>
+                        <Box
+                            sx={{
+                                fontSize: "1rem",
+                                fontWeight: "bold",
+                                background: "white",
+                                borderRadius: "50%",
+                                padding: "1rem",
+                            }}
+                        >
+                            <Image
+                                src={image}
+                                alt={title}
+                                width={100}
+                                height={100}
+                            />
+                        </Box>
+                        <Stack
+                            direction={"column"}
+                            spacing={0}
+                            alignItems={"flex-start"}
+                        >
+                            <Typography
+                                variant={"h4"}
+                            >{`Total ${title}`}</Typography>
+                            <Typography variant={"h2"}>{total}</Typography>
+                        </Stack>
                     </Stack>
-                </Stack>
-            </Paper>
-        </Grid>
+                </Paper>
+            </Grid>
+        </motion.div>
     );
 };
 
@@ -123,6 +137,13 @@ export default function CurrentStat() {
     const [userCount, setUserCount] = useState(0);
     const [ticketCount, setTicketCount] = useState(0);
     const [locationCount, setLocationCount] = useState(0);
+    const [hoveringCard, setHoveringCard] = useState<
+        "bus" | "train" | "flight" | "user"
+    >("bus");
+
+    useEffect(() => {
+        console.log(hoveringCard);
+    }, [hoveringCard]);
 
     useEffect(() => {
         getBusCountUser().then((res) => {
@@ -167,12 +188,54 @@ export default function CurrentStat() {
                     </Typography>
                 </Stack>
             </Stack>
-            <Grid container spacing={10}>
-                <Card title={"Bus"} number={busCount} image={totbus} />
-                <Card title={"Train"} number={trainCount} image={tottrain} />
-                <Card title={"Flight"} number={flightCount} image={totplane} />
-                <Card title={"User"} number={userCount} image={totuse} />
-            </Grid>
+            <motion.div
+                initial={{ x: -400 }}
+                whileInView={{ x: 0 }}
+                whileHover={{
+                    x:
+                        hoveringCard === "bus"
+                            ? 50
+                            : hoveringCard === "train"
+                            ? -400
+                            : hoveringCard === "flight"
+                            ? -800
+                            : -1200,
+                }}
+                transition={{ duration: 0.9 }}
+            >
+                <Stack
+                    spacing={5}
+                    direction={"row"}
+                    sx={{
+                        width: "250rem",
+                    }}
+                >
+                    <Card
+                        title={"Bus"}
+                        total={busCount}
+                        image={totbus}
+                        setHoveringCard={setHoveringCard}
+                    />
+                    <Card
+                        title={"Train"}
+                        total={trainCount}
+                        image={tottrain}
+                        setHoveringCard={setHoveringCard}
+                    />
+                    <Card
+                        title={"Flight"}
+                        total={flightCount}
+                        image={totplane}
+                        setHoveringCard={setHoveringCard}
+                    />
+                    <Card
+                        title={"User"}
+                        total={userCount}
+                        image={totuse}
+                        setHoveringCard={setHoveringCard}
+                    />
+                </Stack>
+            </motion.div>
         </Stack>
     );
 }

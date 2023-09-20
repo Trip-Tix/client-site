@@ -566,18 +566,29 @@ export default function Payment() {
     }, [router, triggerPageChange]);
 
     return (
-        <Stack spacing={2} alignContent={"center"} direction={"column"}>
+        <Stack
+            spacing={2}
+            alignContent={"center"}
+            direction={"column"}
+            sx={{
+                margin: "5rem",
+            }}
+        >
             {isProcessing ? (
                 <>
-                    <Typography variant="h2">
+                    <Typography variant="h6" sx={{ fontWeight: "light" }}>
                         Please wait while we process your booking
                     </Typography>
                     <CircularProgress />
                 </>
             ) : (
                 <>
-                    <Typography variant="h2">{message}</Typography>
-                    <Typography variant="h3">Redirecting You</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: "light" }}>
+                        {message}
+                    </Typography>
+                    <Typography variant="h6" sx={{ fontWeight: "light" }}>
+                        Redirecting You
+                    </Typography>
                     <CircularProgress />
                 </>
             )}

@@ -15,6 +15,8 @@ import Divider from "@mui/material/Divider";
 import { ValidationNumber, Gender } from "@public/context/seat-selection";
 import FormHelperText from "@mui/material/FormHelperText";
 
+import { motion, useAnimation, useScroll } from "framer-motion";
+
 interface SeatFormEntryProps {
     row: number;
     column: number;
@@ -31,6 +33,14 @@ export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
         useContext(SeatSelectionContext);
     const [selectedId, setSelectedId] = useState<ValidationNumber>(
         ValidationNumber.NID
+    );
+
+    const [seatName, sth] = useState(
+        selectedSeats.find(
+            (seat) =>
+                seat.selectedSeat.row === row &&
+                seat.selectedSeat.column === column
+        )?.seatName
     );
 
     const [name, setName] = useState<string>("");
@@ -324,9 +334,14 @@ export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
 
     return (
         <Stack direction={"column"} spacing={1}>
-            <Typography variant={"h6"}>{`Seat ${row + 1} : ${
-                column + 1
-            }`}</Typography>
+            <Typography
+                variant={"h6"}
+                sx={{
+                    fontWeight: "light",
+                }}
+            >
+                {seatName}
+            </Typography>
             <Stack direction={"row"} spacing={2}>
                 <FormControl>
                     <FormLabel id="name">Name</FormLabel>
