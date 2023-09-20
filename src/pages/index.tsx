@@ -1,4 +1,7 @@
-// Note: Home page
+// Last Commit: 2021-September-20 10:58:00
+// Shamit Fatin
+// Signing Off
+// Thank you everyone
 
 import { Inter } from "next/font/google";
 
