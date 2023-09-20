@@ -16,6 +16,17 @@ export default function InfoBar() {
     const [returnDate, setReturnDate] = useState<string>("");
     const [hasReturn, setHasReturn] = useState<boolean>(false);
     const [processingReturn, setProcessingReturn] = useState<boolean>(false);
+    const [hours, setHours] = useState<number>(0);
+    const [minutes, setMinutes] = useState<number>(0);
+
+    useEffect(() => {
+        setHours(
+            sessionStorage.getItem("hours") ? Number(sessionStorage.getItem("hours")) : 0
+        );
+        setMinutes(
+            sessionStorage.getItem("minutes") ? Number(sessionStorage.getItem("minutes")) : 0
+        );
+    }, []);
 
     useEffect(() => {
         setDestination(sessionStorage.getItem("destination") as string);
@@ -257,7 +268,7 @@ export default function InfoBar() {
                     >
                         <Typography variant="body2">Duration</Typography>
                         <Typography variant="body1" sx={{ fontWeight: "light" }}>
-                            --h --m
+                            {`${hours}h ${minutes}m`}
                         </Typography>
                     </Stack>
                 </Grid>

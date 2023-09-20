@@ -17,6 +17,8 @@ export const getDistanceKm = async (
         const res = await axios.post(get_distance_api, request);
         console.log(JSON.stringify(res.data, null, 2));
         const distance: number = res.data.distance;
+        sessionStorage.setItem("hours", res.data.hours)
+        sessionStorage.setItem("minutes", res.data.minutes)
         return distance;
     } catch (err) {
         console.log(err);
