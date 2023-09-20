@@ -17,7 +17,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 
 import { ProcessLogin } from "@public/api-call/login";
-import { home_url, register_url } from "@public/pagelinks";
+import { home_url, profile_url, register_url } from "@public/pagelinks";
 import axios from "axios";
 
 import LoginImage from "@public/LoginPageImage.png";
@@ -60,7 +60,7 @@ export default function Login() {
                         "mobile",
                         res.user.mobile.toString()
                     );
-                    router.push(home_url);
+                    router.push(profile_url);
                 } else {
                     console.log("login failed");
                     setLoginError(true);

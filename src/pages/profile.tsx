@@ -40,9 +40,12 @@ import LocalActivityIcon from "@mui/icons-material/LocalActivity";
 import HistoryIcon from "@mui/icons-material/History";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/router";
+import { login_url } from "@public/pagelinks";
 
 export default function Dashboard() {
     const { mode } = useContext(ColorContext);
+    const router = useRouter();
     const [ticketHistory, setTicketHistory] = useState<TicketHistoryData>({
         busTicketInfo: [],
         busQueueTicketInfo: [],
@@ -52,6 +55,13 @@ export default function Dashboard() {
         airQueueTicketInfo: [],
     });
     const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const username = sessionStorage.getItem("username");
+        if (username === null) {
+            router.push(login_url);
+        }
+    }, []);
 
     useEffect(() => {
         setLoading(true);
