@@ -27,13 +27,13 @@ const Footer: React.FC = () => {
                     spacing={2}
                 >
                     <Typography variant="body2" align="center">
-                        <Link color="inherit" href="#">
+                        <Link color="inherit" href="/privacy-policy">
                             Privacy Policy
                         </Link>
                     </Typography>
                     <Divider orientation="vertical" flexItem variant="middle" />
                     <Typography variant="body2" align="center">
-                        <Link color="inherit" href="#">
+                        <Link color="inherit" href="/privacy-policy">
                             Terms & Conditions
                         </Link>
                     </Typography>

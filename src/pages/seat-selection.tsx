@@ -122,21 +122,21 @@ export default function SeatSelect() {
                             padding: "1rem",
                         }}
                     >
-                        <Grid xs={4}>
+                        <Grid md={4} xs={12}>
                             <TotalPrice />
                         </Grid>
-                        <Grid xs={8}>
+                        <Grid md={8}  xs={12}>
                             <ExtraInformation />
                         </Grid>
                         {hasTempBooked && (
-                            <Grid xs={12}>
+                            <Grid md={12}  xs={12}>
                                 <TempBookWarning />
                             </Grid>
                         )}
-                        <Grid xs={8}>
+                        <Grid md={8}  xs={12}>
                             <SeatDetailsForm />
                         </Grid>
-                        <Grid xs={4}>
+                        <Grid md={4}  xs={12}>
                             <SeatAlignment />
                         </Grid>
                     </Grid>

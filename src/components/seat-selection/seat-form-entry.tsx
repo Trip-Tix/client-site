@@ -342,7 +342,9 @@ export default function SeatFormEntry({ row, column }: SeatFormEntryProps) {
             >
                 {seatName}
             </Typography>
-            <Stack direction={"row"} spacing={2}>
+            <Stack direction={"row"} spacing={2} sx={{
+                flexWrap: "wrap"
+            }}>
                 <FormControl>
                     <FormLabel id="name">Name</FormLabel>
                     <TextField

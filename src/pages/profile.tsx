@@ -112,14 +112,14 @@ export default function Dashboard() {
                     ) : (
                         <>
                             <Grid container spacing={2}>
-                                <Grid item xs={2}>
+                                <Grid item md={2} xs={12}>
                                     {/* Menu */}
                                     <Paper
                                         sx={{
                                             padding: "1rem",
-                                            minHeight: "95vh",
+                                            minHeight: {xs: "5vh", md: "95vh"},
                                             display: "flex",
-                                            flexDirection: "column",
+                                            flexDirection: {xs : "row", md : "column"},
                                             justifyContent: "center",
                                         }}
                                     >
@@ -130,7 +130,7 @@ export default function Dashboard() {
                                                     : "text"
                                             }
                                             sx={{
-                                                marginBottom: "1rem",
+                                                marginBottom: {xs: "0rem", md: "1rem"},
                                             }}
                                             onClick={() =>
                                                 setSelectedOption("queue")
@@ -149,7 +149,7 @@ export default function Dashboard() {
                                                     : "text"
                                             }
                                             sx={{
-                                                marginBottom: "1rem",
+                                                marginBottom: {xs: "0rem", md: "1rem"},
                                             }}
                                             onClick={() =>
                                                 setSelectedOption("active")
@@ -168,7 +168,7 @@ export default function Dashboard() {
                                                     : "text"
                                             }
                                             sx={{
-                                                marginBottom: "1rem",
+                                                marginBottom: {xs: "0rem", md: "1rem"},
                                             }}
                                             onClick={() =>
                                                 setSelectedOption("history")
@@ -183,7 +183,7 @@ export default function Dashboard() {
                                     </Paper>
                                 </Grid>
 
-                                <Grid item xs={10}>
+                                <Grid item md={10} xs={12}>
                                     <AnimatePresence>
                                         <Stack
                                             direction={"column"}

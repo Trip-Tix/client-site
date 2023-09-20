@@ -209,6 +209,7 @@ export default function CurrentStat() {
                     sx={{
                         width: "250rem",
                     }}
+                    display={{ xs: "none", md: "flex" }}
                 >
                     <Card
                         title={"Bus"}
@@ -236,6 +237,41 @@ export default function CurrentStat() {
                     />
                 </Stack>
             </motion.div>
+            <Stack
+                direction={"column"}
+                alignContent={"center"}
+                alignItems={"center"}
+                spacing={5}
+                sx={{
+                    width: "100%",
+                }}
+                display={{ xs: "flex", md: "none" }}
+            >
+                <Card
+                    title={"Bus"}
+                    total={busCount}
+                    image={totbus}
+                    setHoveringCard={setHoveringCard}
+                />
+                <Card
+                    title={"Train"}
+                    total={trainCount}
+                    image={tottrain}
+                    setHoveringCard={setHoveringCard}
+                />
+                <Card
+                    title={"Flight"}
+                    total={flightCount}
+                    image={totplane}
+                    setHoveringCard={setHoveringCard}
+                />
+                <Card
+                    title={"User"}
+                    total={userCount}
+                    image={totuse}
+                    setHoveringCard={setHoveringCard}
+                />
+            </Stack>
         </Stack>
     );
 }

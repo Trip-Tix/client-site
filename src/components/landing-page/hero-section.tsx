@@ -68,6 +68,7 @@ export default function HeroSection() {
                     justifyContent={"center"}
                     alignItems={"center"}
                     width={"50%"}
+                    display={{ xs: "none", md: "flex" }}
                 >
                     <Image src={image} alt="hero-section" />
                         

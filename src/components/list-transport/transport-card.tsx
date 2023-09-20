@@ -118,7 +118,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                         borderBottom: "2px solid #00000020",
                     }}
                 >
-                    <Grid item xs={3}>
+                    <Grid item md={3} xs={6}>
                         <Stack
                             direction={"row"}
                             spacing={1}
@@ -145,7 +145,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                                 alignContent={"flex-start"}
                                 alignItems={"flex-start"}
                             >
-                                <Typography variant="h4">
+                                <Typography variant="h5">
                                     {transport.company_name}
                                 </Typography>
                                 <Stack
@@ -179,7 +179,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                             </Stack>
                         </Stack>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item md={3} sx={{display: {xs: "none", md: "block"}}}>
                         <Stack
                             direction={"column"}
                             spacing={1}
@@ -229,12 +229,12 @@ export default function TransportCard({ transport }: TransportCardProps) {
                             </Stack>
                         </Stack>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item md={3} xs={6}>
                         <Stack
                             direction={"column"}
                             spacing={1}
                             justifyContent={"center"}
-                            alignItems={"flex-start"}
+                            alignItems={{ xs: "flex-end", md: "flex-start" }}
                             sx={{ height: "100%" }}
                         >
                             <Stack
@@ -246,7 +246,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                                 <Icon>
                                     <AccessTimeIcon />
                                 </Icon>
-                                <Typography variant="h5">
+                                <Typography variant="h6">
                                     {`${transport.time}`}
                                 </Typography>
                             </Stack>
@@ -259,7 +259,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                                     <PaymentsIcon />
                                 </Icon>
                                 <Typography
-                                    variant="h5"
+                                    variant="h6"
                                     sx={{ fontWeight: "light" }}
                                 >
                                     {`${transport.fare} Tk`}
@@ -268,7 +268,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                                     <EventSeatIcon />
                                 </Icon>
                                 <Typography
-                                    variant="h5"
+                                    variant="h6"
                                     sx={{ fontWeight: "light" }}
                                 >
                                     {`${transport.number_of_seats}`}
@@ -276,7 +276,7 @@ export default function TransportCard({ transport }: TransportCardProps) {
                             </Stack>
                         </Stack>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item md={3} xs={12}>
                         <Stack
                             direction={"column"}
                             spacing={1}

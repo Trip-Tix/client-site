@@ -91,7 +91,7 @@ export default function Location() {
             elevation={3}
             sx={{
                 padding: "2rem",
-                height: "12rem",
+                height: { xs: "15rem", md: "12rem" },
             }}
             
         >

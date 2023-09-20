@@ -33,7 +33,7 @@ export default function InfoBar() {
     return (
         <Paper elevation={3}>
             <Grid container spacing={0}>
-                <Grid xs={4.8} className={Styles.main}>
+                <Grid md={4.8} xs={12} className={Styles.main}>
                     <Stack
                         direction="row"
                         sx={{
@@ -119,7 +119,7 @@ export default function InfoBar() {
                         />
                     </Icon>
                 </Grid>
-                <Grid xs={4.8}>
+                <Grid md={4.8} xs={12}>
                     <Stack
                         direction="row"
                         alignItems="center"
@@ -244,7 +244,7 @@ export default function InfoBar() {
                         </Stack>
                     </Stack>
                 </Grid>
-                <Grid xs={2.4}>
+                <Grid md={2.4} xs={12}>
                     <Stack
                         direction="column"
                         alignItems="center"
