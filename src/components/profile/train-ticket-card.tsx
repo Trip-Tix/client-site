@@ -1,46 +1,3 @@
-/*
-export interface TrainInfo {
-    train_id: string;
-    train_name: string;
-    departure_time: string;
-    departure_station: string;
-    arrival_time: string;
-    arrival_station: string;
-}
-
-export interface TrainTicket {
-    ticket_id: string;
-    user_id: string;
-    total_fare: number;
-    train_schedule_id: string;
-    number_of_tickets: number;
-    passenger_info: string[];
-    transaction_id: string;
-    payment_medium: string | null;
-    payment_status: number;
-    date: string;
-    source: string | null;
-    destination: string | null;
-    trainInfo: TrainInfo;
-    isJourneyDatePassed: boolean;
-}
-
-export interface TrainQueueTicket {
-    queue_ticket_id: string;
-    user_id: string;
-    total_fare: number;
-    train_schedule_id: string;
-    number_of_tickets: number;
-    passenger_info: string[];
-    train_seat_id: string[]; // Train-specific field
-    date: string;
-    status: number;
-    source: string | null;
-    destination: string | null;
-    trainInfo: TrainInfo; // Replace TrainInfo with your actual TrainInfo interface
-}
-*/
-
 import { TrainInfo, TrainTicket } from "@public/context/profile";
 import { useContext, useEffect, useState } from "react";
 
@@ -60,12 +17,14 @@ import { useRouter } from "next/router";
 import { paymentInit } from "@public/api-call/profile";
 
 import CircularProgress from "@mui/material/CircularProgress";
+import axios from "axios";
 
 interface TrainTicketCardProps {
     ticket: TrainTicket;
     showPast: boolean;
 }
 
+const cancleApi = "https://triptix-backend.onrender.com/cancelTicketTrain";
 export default function TrainTicketCard({
     ticket,
     showPast,
@@ -76,6 +35,7 @@ export default function TrainTicketCard({
     const [showin24, setShowin24] = useState(true);
     const [formattedTime, setFormattedTime] = useState("");
     const router = useRouter();
+    const [cancelTicket, setCancelTicket] = useState(false);
 
     const { mode } = useContext(ColorContext);
 
@@ -152,6 +112,22 @@ export default function TrainTicketCard({
             });
     }, [processPayment]);
 
+    useEffect(() => {
+        if (cancelTicket) {
+            axios
+                .post(cancleApi, {
+                    ticketId: ticket.ticket_id,
+                })
+                .then((res) => {
+                    console.log(res);
+                    setCancelTicket(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, [cancelTicket]);
+
     return showPast !== ticket.isJourneyDatePassed ? null : (
         <Paper
             sx={{
@@ -168,19 +144,51 @@ export default function TrainTicketCard({
                     >{`${ticket.source}-${ticket.destination}`}</Typography>
                     <Stack direction={"row"} spacing={1} alignItems={"center"}>
                         {ticket.payment_status === 0 && (
-                            <Button
-                                variant={"contained"}
-                                sx={{
-                                    background:
-                                        mode === "dark" ? "#6cff3f" : "#47c72a",
-                                }}
-                                onClick={() => {
-                                    setProcessPayment(true);
-                                }}
-                                disabled={loading}
-                            >
-                                Proceed To Payment
-                            </Button>
+                            <>
+                                <Button
+                                    variant={"contained"}
+                                    sx={{
+                                        background:
+                                            mode === "dark"
+                                                ? "#6cff3f"
+                                                : "#47c72a",
+                                    }}
+                                    onClick={() => {
+                                        setProcessPayment(true);
+                                    }}
+                                    disabled={loading}
+                                    endIcon={
+                                        processPayment && (
+                                            <CircularProgress
+                                                sx={{
+                                                    height: "1rem",
+                                                    width: "1rem",
+                                                }}
+                                            />
+                                        )
+                                    }
+                                >
+                                    Proceed To Payment
+                                </Button>
+                                <Button
+                                    variant={"contained"}
+                                    sx={{
+                                        background:
+                                            mode === "dark"
+                                                ? "#b53535"
+                                                : "#8c1d1d",
+                                    }}
+                                    onClick={() => setCancelTicket(true)}
+                                    endIcon={cancelTicket && <CircularProgress
+                                        sx={{
+                                            height: "1rem",
+                                            width: "1rem",
+                                        }}
+                                    />}
+                                >
+                                    Cancel
+                                </Button>
+                            </>
                         )}
                         {loading && <CircularProgress />}
                         {!ticket.isJourneyDatePassed && (

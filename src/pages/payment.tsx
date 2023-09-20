@@ -24,6 +24,7 @@ import {
 import { redirect } from "next/navigation";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { profile_url } from "@public/pagelinks";
 
 import { useState, useEffect, useContext } from "react";
 export default function Payment() {
@@ -39,22 +40,20 @@ export default function Payment() {
     });
 
     useEffect(() => {
-        parseResponseDataFromStorage()
-            .then((res) => {
-                setResponseData(res);
-                setTotalTicket(
-                    res.ticketInfo.reduce((acc, cur) => {
-                        return acc + cur.numberOfTickets;
-                    }, 0)
-                );
-                setTotalReturnTicket(
-                    res.tempTicketInfo.reduce((acc, cur) => {
-                        return acc + cur.numberOfTickets;
-                    }, 0)
-                );
-                console.log(JSON.stringify(res, null, 2));
-            })
-            
+        parseResponseDataFromStorage().then((res) => {
+            setResponseData(res);
+            setTotalTicket(
+                res.ticketInfo.reduce((acc, cur) => {
+                    return acc + cur.numberOfTickets;
+                }, 0)
+            );
+            setTotalReturnTicket(
+                res.tempTicketInfo.reduce((acc, cur) => {
+                    return acc + cur.numberOfTickets;
+                }, 0)
+            );
+            console.log(JSON.stringify(res, null, 2));
+        });
     }, []);
 
     const { mode } = useContext(ColorContext);
@@ -313,8 +312,12 @@ export default function Payment() {
                             Continue to payment page
                         </Button>
                     ) : (
-                        <Button variant="contained" disabled>
-                            Continue to Home Page
+                        <Button
+                            variant="contained"
+                            disabled={loading}
+                            onClick={() => router.push(profile_url)}
+                        >
+                            Continue to Profile Page
                         </Button>
                     )}
                     {loading && <LinearProgress sx={{ width: "100%" }} />}

@@ -26,13 +26,17 @@ interface BusTicketCardProps {
 import axios from "axios";
 const cancleApi = "https://triptix-backend.onrender.com/cancelTicket";
 
-export default function BusTicketCard({ ticket, showPast }: BusTicketCardProps) {
+export default function BusTicketCard({
+    ticket,
+    showPast,
+}: BusTicketCardProps) {
     const [isJourneyDatePassed, setIsJourneyDatePassed] = useState(false);
     const [isReturnDatePassed, setIsReturnDatePassed] = useState(false);
     const [formattedDate, setFormattedDate] = useState("");
     const [showin24, setShowin24] = useState(true);
     const [formattedTime, setFormattedTime] = useState("");
-    
+    const [cancelTicket, setCancelTicket] = useState(false);
+
     const router = useRouter();
 
     const [processPayment, setProcessPayment] = useState(false);
@@ -41,7 +45,12 @@ export default function BusTicketCard({ ticket, showPast }: BusTicketCardProps) 
 
     useEffect(() => {
         if (!processPayment) return;
-        paymentInit(ticket.ticket_id, ticket.bus_schedule_id, ticket.total_fare, "bus")
+        paymentInit(
+            ticket.ticket_id,
+            ticket.bus_schedule_id,
+            ticket.total_fare,
+            "bus"
+        )
             .then((res) => {
                 router.push(res);
             })
@@ -112,9 +121,23 @@ export default function BusTicketCard({ ticket, showPast }: BusTicketCardProps) 
         }
     }, [showin24, ticket.busInfo.departure_time]);
 
-    
+    useEffect(() => {
+        if (cancelTicket) {
+            axios
+                .post(cancleApi, {
+                    ticketId: ticket.ticket_id,
+                })
+                .then((res) => {
+                    console.log(res);
+                    setCancelTicket(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, [cancelTicket]);
 
-    return showPast !== ticket.isJourneyDatePassed  ? null : (
+    return showPast !== ticket.isJourneyDatePassed ? null : (
         <Paper
             sx={{
                 width: "100%",
@@ -130,19 +153,55 @@ export default function BusTicketCard({ ticket, showPast }: BusTicketCardProps) 
                     >{`${ticket.source}-${ticket.destination}`}</Typography>
                     <Stack direction={"row"} spacing={1} alignItems={"center"}>
                         {ticket.payment_status === 0 && (
-                            <Button
-                                variant={"contained"}
-                                sx={{
-                                    background:
-                                        mode === "dark" ? "#6cff3f" : "#47c72a",
-                                }}
-                                onClick={() => {
-                                    setProcessPayment(true);
-                                }}
-                                disabled={loading}
-                            >
-                                Proceed To Payment
-                            </Button>
+                            <>
+                                <Button
+                                    variant={"contained"}
+                                    sx={{
+                                        background:
+                                            mode === "dark"
+                                                ? "#6cff3f"
+                                                : "#47c72a",
+                                    }}
+                                    onClick={() => {
+                                        setProcessPayment(true);
+                                    }}
+                                    disabled={loading}
+                                    endIcon={
+                                        processPayment && (
+                                            <CircularProgress
+                                                sx={{
+                                                    height: "1rem",
+                                                    width: "1rem",
+                                                }}
+                                            />
+                                        )
+                                    }
+                                >
+                                    Proceed To Payment
+                                </Button>
+                                <Button
+                                    variant={"contained"}
+                                    sx={{
+                                        background:
+                                            mode === "dark"
+                                                ? "#b53535"
+                                                : "#8c1d1d",
+                                    }}
+                                    onClick={() => setCancelTicket(true)}
+                                    endIcon={
+                                        cancelTicket && (
+                                            <CircularProgress
+                                                sx={{
+                                                    height: "1rem",
+                                                    width: "1rem",
+                                                }}
+                                            />
+                                        )
+                                    }
+                                >
+                                    Cancel
+                                </Button>
+                            </>
                         )}
                         {loading && <CircularProgress />}
                         {!ticket.isJourneyDatePassed && (
@@ -163,7 +222,6 @@ export default function BusTicketCard({ ticket, showPast }: BusTicketCardProps) 
                                         Download Ticket
                                     </Button>
                                 )}
-                                
                             </>
                         )}
                     </Stack>

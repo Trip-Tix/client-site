@@ -17,12 +17,14 @@ import { useRouter } from "next/router";
 import { paymentInit } from "@public/api-call/profile";
 
 import CircularProgress from "@mui/material/CircularProgress";
+import axios from "axios";
 
 interface AirTicketCardProps {
     ticket: AirTicket;
     showPast: boolean;
 }
 
+const cancleApi = "https://triptix-backend.onrender.com/cancelTicketAir";
 export default function AirTicketCard({
     ticket,
     showPast,
@@ -33,6 +35,7 @@ export default function AirTicketCard({
     const [showin24, setShowin24] = useState(true);
     const [formattedTime, setFormattedTime] = useState("");
     const router = useRouter();
+    const [cancelTicket, setCancelTicket] = useState(false);
 
     const { mode } = useContext(ColorContext);
 
@@ -68,11 +71,10 @@ export default function AirTicketCard({
 
         const today = new Date();
         const journeyDate = new Date(ticket.date);
-        
+
         if (today > journeyDate) {
             setIsJourneyDatePassed(true);
         }
-
     }, []);
 
     useEffect(() => {
@@ -109,7 +111,12 @@ export default function AirTicketCard({
 
     useEffect(() => {
         if (!processPayment) return;
-        paymentInit(ticket.ticket_id, ticket.air_schedule_id, ticket.total_fare, "air")
+        paymentInit(
+            ticket.ticket_id,
+            ticket.air_schedule_id,
+            ticket.total_fare,
+            "air"
+        )
             .then((res) => {
                 router.push(res);
             })
@@ -118,7 +125,23 @@ export default function AirTicketCard({
             });
     }, [processPayment]);
 
-    return  showPast !== ticket.isJourneyDatePassed  ? null : (
+    useEffect(() => {
+        if (cancelTicket) {
+            axios
+                .post(cancleApi, {
+                    ticketId: ticket.ticket_id,
+                })
+                .then((res) => {
+                    console.log(res);
+                    setCancelTicket(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, [cancelTicket]);
+
+    return showPast !== ticket.isJourneyDatePassed ? null : (
         <Paper
             sx={{
                 width: "100%",
@@ -134,19 +157,51 @@ export default function AirTicketCard({
                     >{`${ticket.source}-${ticket.destination}`}</Typography>
                     <Stack direction={"row"} spacing={1} alignItems={"center"}>
                         {ticket.payment_status === 0 && (
-                            <Button
-                                variant={"contained"}
-                                sx={{
-                                    background:
-                                        mode === "dark" ? "#6cff3f" : "#47c72a",
-                                }}
-                                onClick={() => {
-                                    setProcessPayment(true);
-                                }}
-                                disabled={loading}
-                            >
-                                Proceed To Payment
-                            </Button>
+                            <>
+                                <Button
+                                    variant={"contained"}
+                                    sx={{
+                                        background:
+                                            mode === "dark"
+                                                ? "#6cff3f"
+                                                : "#47c72a",
+                                    }}
+                                    onClick={() => {
+                                        setProcessPayment(true);
+                                    }}
+                                    disabled={loading}
+                                    endIcon={
+                                        processPayment && (
+                                            <CircularProgress
+                                                sx={{
+                                                    height: "1rem",
+                                                    width: "1rem",
+                                                }}
+                                            />
+                                        )
+                                    }
+                                >
+                                    Proceed To Payment
+                                </Button>
+                                <Button
+                                    variant={"contained"}
+                                    sx={{
+                                        background:
+                                            mode === "dark"
+                                                ? "#b53535"
+                                                : "#8c1d1d",
+                                    }}
+                                    onClick={() => setCancelTicket(true)}
+                                    endIcon={cancelTicket && <CircularProgress
+                                        sx={{
+                                            height: "1rem",
+                                            width: "1rem",
+                                        }}
+                                    />}
+                                >
+                                    Cancel
+                                </Button>
+                            </>
                         )}
                         {loading && <CircularProgress />}
                         {!ticket.isJourneyDatePassed && (
